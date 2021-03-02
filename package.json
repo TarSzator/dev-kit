@@ -1,0 +1,19 @@
+{
+  "name": "dev-kit",
+  "version": "0.0.0",
+  "description": "Tool to run local dev environments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/TarSzator/dev-kit.git"
+  },
+  "author": "René Simon <mail@rene-simon.eu>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/TarSzator/dev-kit/issues"
+  },
+  "homepage": "https://github.com/TarSzator/dev-kit#readme"
+}
