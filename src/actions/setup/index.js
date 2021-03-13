@@ -5,9 +5,9 @@ import { getDockerComposePath } from '../../utils/docker-compose.js';
 import { getEnvPath } from '../../utils/env.js';
 import { prepareDockerCompose } from './prepareDockerCompose.js';
 import { prepareEnv } from './prepareEnv.js';
+import { prepareGitIgnore } from './prepareGitIgnore.js';
 import { prepareCertFolder } from './prepareCertFolder.js';
 import { prepareConfigFolder } from './prepareConfigFolder.js';
-import { prepareGitIgnore } from './prepareGitIgnore.js';
 import { prepareRun } from './prepareRun.js';
 
 const log = getLog('setup');
@@ -28,6 +28,7 @@ export async function setup() {
     const composePath = getDockerComposePath({ path: pwd });
     await prepareDockerCompose({ filePath: composePath });
     await prepareGitIgnore({ pwd });
+    await prepareCertFolder({ pwd });
     log.info(`... setup done`);
     return 0;
   } catch (error) {

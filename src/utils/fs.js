@@ -1,5 +1,5 @@
 import { constants } from 'fs';
-import { access, stat, readFile as rf, writeFile as wf } from 'fs/promises';
+import { access, stat, mkdir, rm, readFile as rf, writeFile as wf } from 'fs/promises';
 
 export async function exists(path) {
   return hasAccess(path);
@@ -35,4 +35,12 @@ export async function readFile(path) {
 
 export async function writeFile(path, content) {
   return wf(path, content, { encoding: 'utf-8', mode: 0o644 });
+}
+
+export async function createFolder(path) {
+  return mkdir(path, { recursive: false, mode: 0o755 });
+}
+
+export async function removeFile(path) {
+  return rm(path);
 }
