@@ -30,6 +30,7 @@ export async function setup() {
     await prepareGitIgnore({ pwd });
     await prepareCertFolder({ pwd });
     await prepareConfigFolder({ pwd });
+    await prepareRun({ pwd });
     log.info(`... setup done`);
     return 0;
   } catch (error) {
