@@ -27,6 +27,7 @@ export async function setup() {
     await prepareEnv({ filePath: envPath });
     const composePath = getDockerComposePath({ path: pwd });
     await prepareDockerCompose({ filePath: composePath });
+    await prepareGitIgnore({ pwd });
     log.info(`... setup done`);
     return 0;
   } catch (error) {
