@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  dev-kit:
+    container_name: "$GAME_SERVER_NAME"
+    image: "node:lts"
+    working_dir: /app
+    volumes:
+      - '~/.npmrc:/root/.npmrc'
+      - '~/.nvm:/root/.nvm'
+    env_file:
+      - .env
+    environment:
+      NPM_TOKEN:
+    networks:
+      - net
+    labels:
+      eu.rene-simon.dev-kit.type.tool: "true"
+
+  proxy:
+    container_name: "$PROXY_NAME"
+    image: "caddy:$PROXY_VERSION"
+    env_file:
+      - .env
+    volumes:
+      - $PWD/config/Caddyfile:/etc/caddy/Caddyfile
+      - $SSL_CERT_PATH:/config
+    networks:
+      - net
+    healthcheck:
+      test: "wget -qO - https://$GB_HOST:$GAME_EXTERNAL_PORT/index.html --no-check-certificate"
+      interval: 15s
+      timeout: 2s
+      retries: 4
+      start_period: 30s
+
+networks:
+  net:
+    name: "$NETWORK_NAME"
+    driver: bridge

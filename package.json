@@ -1,10 +1,11 @@
 {
-  "name": "dev-kit",
+  "name": "@rene.simon/dev-kit",
   "version": "0.0.0",
   "description": "Tool to run local dev environments",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "type": "module",
+  "main": "./build/index.js",
+  "exports": {
+    "import": "./build/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,70 @@
   "bugs": {
     "url": "https://github.com/TarSzator/dev-kit/issues"
   },
-  "homepage": "https://github.com/TarSzator/dev-kit#readme"
+  "homepage": "https://github.com/TarSzator/dev-kit#readme",
+  "engines": {
+    "node": ">=14.15.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:eslint:fix",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
+  "pre-commit": "lint:staged",
+  "bin": {
+    "devKitSetup": "./build/bin/setup.js"
+  },
+  "scripts": {
+    "dev": "watch 'npm run build' ./src",
+    "lint:js:fix": "npm run lint:eslint:fix -- . ",
+    "lint": "npm run lint:js",
+    "lint:eslint": "eslint --ignore-path .gitignore",
+    "lint:eslint:fix": "eslint --ignore-path .gitignore --fix",
+    "lint:js": "npm run lint:eslint -- . ",
+    "lint:staged": "lint-staged",
+    "jscpd": "jscpd src -r consoleFull -l 1 --ignore \"**/*.test.js\"",
+    "jscpd:ci": "npm run jscpd",
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest -c jest.config.cjs --detectOpenHandles --runInBand",
+    "test:coverage": "npm run test -- --coverage --ci --passWithNoTests",
+    "test:ci": "npm run test:coverage && jest-coverage-badges",
+    "build": "rm -rf build; babel src -d build --ignore '**/*.test.js' && chmod +x build/bin/setup.js",
+    "hardUpdate": "rm -rf node_modules/ package-lock.json ; npm i",
+    "preversion": "npm run checkUntrackedFiles && npm run lint:js && npm run test && npm run build",
+    "version": "npm run versionChangeLog",
+    "postversion": "git push && git push origin v$npm_package_version",
+    "checkUntrackedFiles": "git status | grep -wq 'Untracked files' && echo 'Error: Untracked files in git' && exit 1 || exit 0",
+    "versionChangeLog": "version-changelog --remote=github CHANGELOG.md && changelog-verify CHANGELOG.md --remote=gitlab && git add CHANGELOG.md",
+    "prettify": "prettier --write '**/*.js'"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "7.13.9",
+    "babel-eslint": "10.1.0",
+    "changelog-verify": "^1.1.2",
+    "eslint": "7.21.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "3.3.1",
+    "jest": "^26.6.3",
+    "jest-coverage-badges": "^1.1.2",
+    "jscpd": "^3.3.24",
+    "lint-staged": "^10.5.4",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.2.1",
+    "version-changelog": "^3.1.1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "dotenv": "^8.2.0",
+    "minimist": "^1.2.5",
+    "watch": "^1.0.2",
+    "yaml": "^1.10.0"
+  }
 }

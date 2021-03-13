@@ -1,0 +1,11 @@
+src/
+.*
+babel.config.cjs
+jest.config.cjs
+*.test.js
+coverage/
+jscpd-report.html
+junit.xml
+rollup.config.js
+.github
+html
