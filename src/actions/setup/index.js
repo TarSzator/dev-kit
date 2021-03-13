@@ -29,6 +29,7 @@ export async function setup() {
     await prepareDockerCompose({ filePath: composePath });
     await prepareGitIgnore({ pwd });
     await prepareCertFolder({ pwd });
+    await prepareConfigFolder({ pwd });
     log.info(`... setup done`);
     return 0;
   } catch (error) {
