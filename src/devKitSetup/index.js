@@ -1,8 +1,8 @@
-import { getLog } from '../../utils/log.js';
-import { requestConfirmation } from '../../utils/io.js';
-import { SkippedError } from '../../utils/errors/index.js';
-import { getDockerComposePath } from '../../utils/docker-compose.js';
-import { getEnvPath } from '../../utils/env.js';
+import { getLog } from '../utils/log.js';
+import { requestConfirmation } from '../utils/io.js';
+import { SkippedError } from '../utils/errors/index.js';
+import { getDockerComposePath } from '../utils/docker-compose.js';
+import { getEnvPath } from '../utils/env.js';
 import { prepareDockerCompose } from './prepareDockerCompose.js';
 import { prepareEnv } from './prepareEnv.js';
 import { prepareGitIgnore } from './prepareGitIgnore.js';

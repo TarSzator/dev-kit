@@ -1,8 +1,8 @@
 import { resolve } from 'path';
-import { getProjectPath } from '../../utils/path.js';
-import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../../utils/fs.js';
-import { EnvironmentError } from '../../utils/errors/index.js';
-import { getLog } from '../../utils/log.js';
+import { getProjectPath } from '../utils/path.js';
+import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../utils/fs.js';
+import { EnvironmentError } from '../utils/errors/index.js';
+import { getLog } from '../utils/log.js';
 
 const log = getLog('prepareGitIgnore');
 

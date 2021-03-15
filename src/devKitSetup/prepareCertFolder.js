@@ -1,6 +1,6 @@
 import { resolve } from 'path';
-import { exists, writeFile } from '../../utils/fs.js';
-import { getLog } from '../../utils/log.js';
+import { exists, writeFile } from '../utils/fs.js';
+import { getLog } from '../utils/log.js';
 import { checkFolder } from './tools/folder-check.js';
 
 const log = getLog('prepareCertFolder');

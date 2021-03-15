@@ -1,6 +1,6 @@
-import { createFolder, exists, hasWriteAccess, isFolder, removeFile } from '../../../utils/fs.js';
-import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
-import { requestConfirmation } from '../../../utils/io.js';
+import { createFolder, exists, hasWriteAccess, isFolder, removeFile } from '../../utils/fs.js';
+import { EnvironmentError, SkippedError } from '../../utils/errors/index.js';
+import { requestConfirmation } from '../../utils/io.js';
 
 export async function checkFolder({ label, folderPath, log }) {
   if (!(await exists(folderPath))) {

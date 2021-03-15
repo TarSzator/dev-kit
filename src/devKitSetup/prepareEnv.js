@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
-import { getProjectPath } from '../../utils/path.js';
-import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../../utils/fs.js';
-import { getLog } from '../../utils/log.js';
-import { EnvironmentError } from '../../utils/errors/index.js';
+import { getProjectPath } from '../utils/path.js';
+import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../utils/fs.js';
+import { getLog } from '../utils/log.js';
+import { EnvironmentError } from '../utils/errors/index.js';
 
 const log = getLog('prepareEnv');
 

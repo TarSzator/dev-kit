@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { setup } from '../actions/setup/index.js';
+import { setup } from '../devKitSetup/index.js';
 import { InternalError } from '../utils/errors/index.js';
 
 /* eslint no-console:0 */

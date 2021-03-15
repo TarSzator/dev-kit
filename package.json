@@ -32,7 +32,7 @@
   },
   "pre-commit": "lint:staged",
   "bin": {
-    "devKitSetup": "./build/bin/setup.js"
+    "devKitSetup": "./build/bin/devKitSetup.js"
   },
   "scripts": {
     "dev": "watch 'npm run build' ./src",
@@ -47,7 +47,7 @@
     "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest -c jest.config.cjs --detectOpenHandles --runInBand",
     "test:coverage": "npm run test -- --coverage --ci --passWithNoTests",
     "test:ci": "npm run test:coverage && jest-coverage-badges",
-    "build": "rm -rf build; babel src -d build --ignore '**/*.test.js' && chmod +x build/bin/setup.js",
+    "build": "rm -rf build; babel src -d build --ignore '**/*.test.js' && chmod +x build/bin/devKitSetup.js",
     "hardUpdate": "rm -rf node_modules/ package-lock.json ; npm i",
     "preversion": "npm run checkUntrackedFiles && npm run lint:js && npm run test && npm run build",
     "version": "npm run versionChangeLog",

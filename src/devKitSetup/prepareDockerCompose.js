@@ -1,8 +1,8 @@
 import YAML from 'yaml';
-import { getProjectPath } from '../../utils/path.js';
-import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../../utils/fs.js';
-import { EnvironmentError, InternalError, InvalidConfigError } from '../../utils/errors/index.js';
-import { getLog } from '../../utils/log.js';
+import { getProjectPath } from '../utils/path.js';
+import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../utils/fs.js';
+import { EnvironmentError, InternalError, InvalidConfigError } from '../utils/errors/index.js';
+import { getLog } from '../utils/log.js';
 
 const log = getLog('prepareDockerCompose');
 
