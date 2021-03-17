@@ -118,14 +118,16 @@ async function getPreparedLabel({
     const query =
       `Set value for "${labelKey}" for service "${serviceName}"` +
       `${missingMandatory ? `\n[Is missing mandatory value]` : ''}` +
-      `\n[Current and default value: '${currentValue}' (just press enter)]` +
+      `${
+        currentValue ? `\n[Current and default value: '${currentValue}' (just press enter)]` : ''
+      }` +
       `${possibleValues ? `\n[Possible values: '${possibleValues.join(`', '`)}']` : ''}` +
       `${multiple ? `\n[You can use multiple by separating them by comma (,)]` : ''}` +
       `${mandatory && !missingMandatory ? '\n[Is mandatory]' : ''}` +
       `${
-        !mandatory
+        !mandatory && currentValue
           ? `\n[If you want to remove the exiting value without replacing it, type ${REMOVE_VALUE}]`
-          : ''
+          : '\n[Currently there is no value set. Just press enter if you do not want one set]'
       }` +
       `:\n`;
     const value = (await readLine({ query })) || currentValue;
