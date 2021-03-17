@@ -3,7 +3,10 @@ import { getProjectPath } from '../utils/path.js';
 import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../utils/fs.js';
 import { EnvironmentError, InternalError, InvalidConfigError } from '../utils/errors/index.js';
 import { getLog } from '../utils/log.js';
-import { INTERNAL_SERVICES } from '../consts';
+import { INTERNAL_SERVICES } from '../consts/index.js';
+import { waterfall } from '../utils/promise.js';
+import { updateServiceConfig } from './tools/update-service-config.js';
+import { isEmpty } from '../utils/validators.js';
 
 const log = getLog('prepareDockerCompose');
 
@@ -70,10 +73,30 @@ export async function prepareDockerCompose({ filePath }) {
     services[proxyKey] = proxyConfig;
     log.info(`... updated ${proxyKey} service config ...`);
   }
-  if (!networksChanged && !devKitChanged && !proxyChanged) {
+  const changedServices = await waterfall(
+    Object.keys(dc.services).map((serviceName) => async (s) => {
+      const { changed, config: preparedConfig } = await updateServiceConfig({
+        serviceName,
+        serviceConfigs: dc.services,
+      });
+      if (!changed) {
+        return s;
+      }
+      return {
+        ...s,
+        [serviceName]: preparedConfig,
+      };
+    }),
+    {}
+  );
+  if (!networksChanged && !devKitChanged && !proxyChanged && isEmpty(changedServices)) {
     log.info(`... no changes to docker compose files were needed.`);
     return;
   }
+  dc.services = {
+    ...dc.services,
+    ...changedServices,
+  };
   if (!(await hasWriteAccess(filePath))) {
     throw new EnvironmentError(1615589684, `No write access to existing docker compose file`);
   }

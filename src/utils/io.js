@@ -1,6 +1,8 @@
 import readline from 'readline';
 import chalk from 'chalk';
-import { Line } from 'clui';
+import clui from 'clui';
+
+const { Line } = clui;
 
 export async function requestConfirmation({ query, defaultResult = 'Y', positiveResult = 'Y' }) {
   const response = await readLine({ query });

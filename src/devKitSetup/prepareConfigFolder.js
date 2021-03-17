@@ -4,7 +4,7 @@ import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../u
 import { getLog } from '../utils/log.js';
 import { getProjectPath } from '../utils/path.js';
 import { EnvironmentError } from '../utils/errors/index.js';
-import { FOLDER_NAMES } from '../consts';
+import { FOLDER_NAMES } from '../consts/index.js';
 
 const log = getLog('prepareConfigFolder');
 

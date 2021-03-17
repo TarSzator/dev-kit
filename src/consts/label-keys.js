@@ -1,4 +1,6 @@
-export const LABEL_KEYS = {
-  TYPES: 'eu.rene-simon.dev-kit.types',
-  DEPENDENCIES: 'eu.rene-simon.dev-kit.dependencies',
+import { TYPES } from './types.js';
+
+export const LABELS = {
+  TYPES: { KEY: 'eu.rene-simon.dev-kit.types', MANDATORY: true, CSV: true, ENUM: TYPES },
+  DEPENDENCIES: { KEY: 'eu.rene-simon.dev-kit.dependencies', MANDATORY: false, CSV: true },
 };

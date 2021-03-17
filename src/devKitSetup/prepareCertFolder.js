@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { exists, writeFile } from '../utils/fs.js';
 import { getLog } from '../utils/log.js';
 import { checkFolder } from './tools/folder-check.js';
-import { FOLDER_NAMES } from '../consts';
+import { FOLDER_NAMES } from '../consts/index.js';
 
 const log = getLog('prepareCertFolder');
 

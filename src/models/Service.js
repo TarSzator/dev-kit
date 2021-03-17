@@ -1,11 +1,12 @@
 import { constantCase } from 'change-case';
-import { INTERNAL_SERVICES, LABEL_KEYS, TYPES } from '../consts';
+import { INTERNAL_SERVICES, LABELS, TYPES } from '../consts';
 import { isNonEmptyString } from '../utils/validators.js';
 import { InvalidConfigError } from '../utils/errors';
 import { parseCsv } from '../utils/csv.js';
 import { getInvalidValues } from '../utils/array.js';
 
 const internalServices = Object.values(INTERNAL_SERVICES);
+const LABEL_KEYS = Object.entries(LABELS).reduce((m, [k, { KEY }]) => ({ ...m, [k]: KEY }), {});
 
 export function createService(serviceName, dockerComposeServiceConfig, services) {
   const service = {

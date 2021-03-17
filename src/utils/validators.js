@@ -17,6 +17,9 @@ export function isString(val) {
 }
 
 export function isEmpty(val) {
+  if (isNumber(val)) {
+    return !val;
+  }
   return _.isEmpty(val);
 }
 
@@ -30,4 +33,8 @@ export function isPlainObject(val) {
 
 export function isFunction(val) {
   return _.isFunction(val);
+}
+
+export function hasProperty(obj, propertyName) {
+  return Object.hasOwnProperty.call(obj, propertyName);
 }
