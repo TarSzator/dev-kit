@@ -25,8 +25,12 @@ async function hasAccess(path, mode) {
 }
 
 export async function isFolder(path) {
-  const file = await stat(path);
-  return file.isDirectory();
+  try {
+    const file = await stat(path);
+    return file.isDirectory();
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function readFile(path) {
@@ -38,7 +42,7 @@ export async function writeFile(path, content) {
 }
 
 export async function createFolder(path) {
-  return mkdir(path, { recursive: false, mode: 0o755 });
+  return mkdir(path, { recursive: true, mode: 0o755 });
 }
 
 export async function removeFile(path) {

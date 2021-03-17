@@ -5,3 +5,4 @@ export { default as UnknownError } from './UnknownError.js';
 export { default as SkippedError } from './SkippedError.js';
 export { default as InvalidConfigError } from './InvalidConfigError.js';
 export { default as EnvironmentError } from './EnvironmentError.js';
+export { default as ShellError } from './ShellError.js';

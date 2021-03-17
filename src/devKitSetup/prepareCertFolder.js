@@ -2,12 +2,13 @@ import { resolve } from 'path';
 import { exists, writeFile } from '../utils/fs.js';
 import { getLog } from '../utils/log.js';
 import { checkFolder } from './tools/folder-check.js';
+import { FOLDER_NAMES } from '../consts';
 
 const log = getLog('prepareCertFolder');
 
 export async function prepareCertFolder({ pwd }) {
   log.info(`Checking cert folder ...`);
-  const certFolderPath = resolve(pwd, 'cert');
+  const certFolderPath = resolve(pwd, FOLDER_NAMES.CERT);
   await checkFolder({
     label: 'cert',
     folderPath: certFolderPath,

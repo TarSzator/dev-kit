@@ -3,3 +3,5 @@ export const ERROR_INTERNAL_ERROR = 'InternalError';
 export const ERROR_SKIPPED = 'Skipped';
 export const ERROR_INVALID_CONFIG = 'InvalidConfig';
 export const ERROR_ENVIRONMENT_ERROR = 'EnvironmentError';
+export const ERROR_SHELL_ERROR = 'ShellError';
+export const ERROR_INVALID_INPUT = 'InvalidInput';

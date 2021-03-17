@@ -7,6 +7,4 @@ PROXY_VERSION=latest
 
 NETWORK_NAME=net
 
-SSL_CERT_PATH=./cert
-SSL_CERT_NAME=local.crt
-SSL_KEY_NAME=local.key
+SSL_CERT_PREFIX=default

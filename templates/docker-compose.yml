@@ -14,8 +14,7 @@ services:
     networks:
       - net
     labels:
-      eu.rene-simon.dev-kit.type.tool: "true"
-
+      eu.rene-simon.dev-kit.types: "tool"
   proxy:
     container_name: "$PROXY_NAME"
     image: "caddy:$PROXY_VERSION"
@@ -23,9 +22,11 @@ services:
       - .env
     volumes:
       - $PWD/config/Caddyfile:/etc/caddy/Caddyfile
-      - $SSL_CERT_PATH:/config
+      - $PWD/cert:/config
     networks:
       - net
+    labels:
+      eu.rene-simon.dev-kit.types: "tool"
     healthcheck:
       test: "wget -qO - https://$GB_HOST:$GAME_EXTERNAL_PORT/index.html --no-check-certificate"
       interval: 15s

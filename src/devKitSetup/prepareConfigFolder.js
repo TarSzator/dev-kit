@@ -4,12 +4,13 @@ import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../u
 import { getLog } from '../utils/log.js';
 import { getProjectPath } from '../utils/path.js';
 import { EnvironmentError } from '../utils/errors/index.js';
+import { FOLDER_NAMES } from '../consts';
 
 const log = getLog('prepareConfigFolder');
 
 export async function prepareConfigFolder({ pwd }) {
   log.info(`Checking config folder ...`);
-  const configFolderPath = resolve(pwd, 'config');
+  const configFolderPath = resolve(pwd, FOLDER_NAMES.CONFIG);
   await checkFolder({
     label: 'config',
     folderPath: configFolderPath,

@@ -5,6 +5,7 @@ import { getLog } from '../utils/log.js';
 import { getProjectPath } from '../utils/path.js';
 import { EnvironmentError } from '../utils/errors/index.js';
 import { readLine } from '../utils/io.js';
+import { isNonEmptyString } from '../utils/validators.js';
 
 const log = getLog('prepareRun');
 
@@ -92,7 +93,7 @@ async function getBinName() {
   const binKey = await readLine({
     query: 'Please enter the bin name how to access the future dev-kit. (e.g.: myProjectCtrl):',
   });
-  if (!binKey || typeof binKey !== 'string' || !binKey.trim()) {
+  if (!isNonEmptyString(binKey)) {
     log.warn('Invalid bin name provided. Try again.');
     return getBinName();
   }

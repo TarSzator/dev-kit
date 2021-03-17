@@ -3,6 +3,7 @@ import { getProjectPath } from '../utils/path.js';
 import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../utils/fs.js';
 import { EnvironmentError, InternalError, InvalidConfigError } from '../utils/errors/index.js';
 import { getLog } from '../utils/log.js';
+import { INTERNAL_SERVICES } from '../consts';
 
 const log = getLog('prepareDockerCompose');
 
@@ -43,7 +44,7 @@ export async function prepareDockerCompose({ filePath }) {
   const [primaryNetworkKey] = Object.keys(dc.networks);
   log.info(`... determined primary network key as: ${primaryNetworkKey} ...`);
   const [devKitKey, proxyKey] = Object.keys(dcTemplate.services);
-  if (devKitKey !== 'dev-kit' || proxyKey !== 'proxy') {
+  if (devKitKey !== INTERNAL_SERVICES.DEV_KIT || proxyKey !== INTERNAL_SERVICES.PROXY) {
     throw InternalError(
       1615589109,
       `Misconfiguration in docker-compose.yml template. First service should be dev-kit. Second one proxy.`

@@ -1,0 +1,79 @@
+import { constantCase } from 'change-case';
+import { INTERNAL_SERVICES, LABEL_KEYS, TYPES } from '../consts';
+import { isNonEmptyString } from '../utils/validators.js';
+import { InvalidConfigError } from '../utils/errors';
+import { parseCsv } from '../utils/csv.js';
+import { getInvalidValues } from '../utils/array.js';
+
+const internalServices = Object.values(INTERNAL_SERVICES);
+
+export function createService(serviceName, dockerComposeServiceConfig, services) {
+  const service = {
+    name: serviceName,
+  };
+  if (internalServices.includes(serviceName)) {
+    return service;
+  }
+  const { REPO_KEY, LOCAL_PATH_KEY } = getEnvKeys(serviceName);
+  const { [REPO_KEY]: repo, [LOCAL_PATH_KEY]: localPath } = process.env;
+  const {
+    labels: { [LABEL_KEYS.TYPES]: typesConfig, [LABEL_KEYS.DEPENDENCIES]: dependenciesConfig },
+  } = dockerComposeServiceConfig;
+  if (!isNonEmptyString(typesConfig)) {
+    throw new InvalidConfigError(
+      1615908063,
+      `Missing config label "${LABEL_KEYS.TYPES}" for service "${serviceName}"`
+    );
+  }
+  const types = parseCsv(typesConfig);
+  const invalidTypes = getInvalidValues(types, Object.values(TYPES));
+  if (invalidTypes.length) {
+    throw new InvalidConfigError(
+      1615908670,
+      `Invalid config for label "${
+        LABEL_KEYS.TYPES
+      }" for service "${serviceName}". Unknown types: '${invalidTypes.join(`', '`)}'`
+    );
+  }
+  const dependencies = parseCsv(dependenciesConfig);
+  const invalidDependencies = getInvalidValues(dependencies, services);
+  if (invalidDependencies.length) {
+    throw new InvalidConfigError(
+      1615908806,
+      `Invalid config for label "${
+        LABEL_KEYS.DEPENDENCIES
+      }" for service "${serviceName}". Unknown services: '${invalidDependencies.join(`', '`)}'`
+    );
+  }
+  const isInternal = types.includes(TYPES.INTERNAL);
+  const isNode = types.includes(TYPES.NODE);
+  const isTool = types.includes(TYPES.TOOL);
+  const isServer = types.includes(TYPES.SERVER);
+  if (isInternal) {
+    if (!isNonEmptyString(repo)) {
+      throw new InvalidConfigError(`Missing environment config for key "${REPO_KEY}"`);
+    }
+    if (!isNonEmptyString(localPath)) {
+      throw new InvalidConfigError(`Missing environment config for key "${LOCAL_PATH_KEY}"`);
+    }
+  }
+  return {
+    ...service,
+    repo,
+    localPath,
+    types,
+    isInternal,
+    isNode,
+    isTool,
+    isServer,
+    dependencies,
+  };
+}
+
+function getEnvKeys(serviceName) {
+  const ENV_NAME = constantCase(serviceName);
+  return {
+    REPO_KEY: `${ENV_NAME}_REPO`,
+    LOCAL_PATH_KEY: `${ENV_NAME}_LOCAL_PATH`,
+  };
+}
