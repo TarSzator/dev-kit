@@ -1,4 +1,4 @@
-{HOST}:443 {
+{$HOST}:443 {
   tls /config/{$SSL_CERT_NAME} /config/{$SSL_KEY_NAME}
   respond /health-check 200
 }

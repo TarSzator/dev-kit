@@ -24,10 +24,19 @@ async function hasAccess(path, mode) {
   }
 }
 
+export async function getFileStats(path) {
+  const file = await stat(path);
+  return {
+    isDirectory: file.isDirectory(),
+    isFile: file.isFile(),
+    isSymLink: file.isSymbolicLink(),
+  };
+}
+
 export async function isFolder(path) {
   try {
-    const file = await stat(path);
-    return file.isDirectory();
+    const { isDirectory } = await getFileStats(path);
+    return isDirectory;
   } catch (error) {
     return false;
   }

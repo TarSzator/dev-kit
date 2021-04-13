@@ -20,7 +20,6 @@ $GREEN""Commands:$DEFAULT
   hardUpdate <service>       Run 'npm run hardUpdate' in container so binaries are compiled for the right environment.
   up|start <service>         Starts the specified service and it's requirements.
   down|stop <service>        Stops the specified service and it's requirements that are no longer needed.
-  downAll                    Stops all service.
   purge                      Purges everything docker related of Game Backend.
   buildLiveGame              Build the game to connect to the live game server.
   buildLocalGame             Build the game to connect to the local game server.
@@ -63,12 +62,6 @@ case "$1" in
     docker-compose pull redis rabbitmq db proxy gameServer
     exit_on_error $?
     echo "$SUCCESS Pulled  requirements."
-    exit 0
-  ;;
-  downAll)
-    docker-compose down
-    exit_on_error $?
-    echo "$SUCCESS All down."
     exit 0
   ;;
   purge)
