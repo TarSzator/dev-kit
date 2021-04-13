@@ -1,22 +1,9 @@
 #!/usr/bin/env bash
 
-MAIN_SERVICES="gameServer, adminServer, segmentServer, gameServer-prod, adminServer-prod, segmentServer-prod"
-LINK_SOURCES="dbClient, gisConnector, logger, messagingClient, insightsClient, insightsGraphqlClient, graphqlCustomTypes, gameClient, sisConnector, sisClient"
-LINK_TARGETS="gameServer, adminServer, segmentServer, messagingClient, insightsClient, insightsGraphqlClient, gisConnector, dbClient, game, sisConnector"
-NODE_SERVICES="$MAIN_SERVICES, dbClient, gameClient, game, gisConnector, logger, messagingClient, graphqlCustomTypes, insightsClient, insightsGraphqlClient, sisConnector, sisClient"
 
 HELP_TEXT="
-$GREEN
-Usage:$DEFAULT $(basename $0) COMMAND [ARGUMENTS]
-
-Control script for Game Backend
-
-$GREEN""Commands:$DEFAULT
-
-  uninstall                  Removes the local development environment for Game Backend.
   open <service>             Opens the specified service. Main start command. Supports services 'game' and 'adminServer'.
   pull                       Pull the newest version of the required containers.
-  install <service>          Run 'npm install' in container so binaries are compiled for the right environment.
   hardUpdate <service>       Run 'npm run hardUpdate' in container so binaries are compiled for the right environment.
   up|start <service>         Starts the specified service and it's requirements.
   down|stop <service>        Stops the specified service and it's requirements that are no longer needed.
@@ -28,14 +15,11 @@ $GREEN""Commands:$DEFAULT
   logs <service>             Show logs for a specific service.
   tail <service>             Tails logs for a specific service.
   login <service>            SSH login to service.
-  testProduction <service>   Tests if the latest image in GitLab of the service is working.
   ps                         Shows docker process list for this project.
   resetCert                  Resetting the certificate if there are any issues
   dbMigrate                  Runs db migration on db container.
   dbSeed                     Runs db seeding on db container.
   debugProxy                 Restarts the proxy container and tails the log.
-  link <source> <target>     Links a node module to a project. Replaces npm link for docker.
-  help                       Shows this usage instructions.
 $YELLOW""Commands for internal use. Use with caution:$DEFAULT
   upRequirements             Starts all containers requirement containers.
   healthcheck <service>      Checks if a specified service is running and healthy.
@@ -46,10 +30,6 @@ $YELLOW""Commands for internal use. Use with caution:$DEFAULT
 "
 
 case "$1" in
-  uninstall)
-    ./setup.sh undoInit
-    exit $?
-  ;;
   resetCert)
     ./setup.sh purgeCertificate
     exit_on_error $?
@@ -149,11 +129,6 @@ case "$1" in
     echo "$STEP ... building game with local GB Client ..."
     docker-compose run --rm game npm --prefix /app/game run build
     exit_on_error $?
-    exit 0
-  ;;
-  ''|help)
-    # Shows help instructions
-    echo "${HELP_TEXT}"
     exit 0
   ;;
 esac
@@ -286,25 +261,6 @@ case "$1" in
     esac
     exit 0
   ;;
-  link)
-    if [[ -z $3 ]]; then
-      echo "$ERROR No target service for link provided."
-      exit 1
-    fi
-    if [[ ! ${LINK_SOURCES} =~ (^|[[:space:]])$2($|\,) ]]; then
-      echo "$ERROR Provided service '$2' not a possible source for link: ${LINK_SOURCES}"
-      exit 1
-    fi
-    if [[ ! ${LINK_TARGETS} =~ (^|[[:space:]])$3($|\,) ]]; then
-      echo "$ERROR Provided service '$3' not a possible target for link: ${LINK_TARGETS}"
-      exit 1
-    fi
-    ./setup.sh link $2 $3
-    exit_on_error $?
-    echo "$ATTENTION If the link is not working as expected please check if the source is mounted correctly in docker compose of the target"
-    echo "$SUCCESS Linked $2 into $3"
-    exit 0
-  ;;
 esac
 
 if [[ ! ${MAIN_SERVICES} =~ (^|[[:space:]])$2($|\,) ]]; then
@@ -335,21 +291,5 @@ case "$1" in
     "$0" up $2
     exit_on_error $?
     "$0" tail $2
-  ;;
-  testProduction)
-    "$0" down $2
-    "$0" down "$2-prod"
-    "$0" upRequirements
-    docker-compose pull "$2-prod"
-    exit_on_error $?
-    docker-compose up -d "$2-prod"
-    exit_on_error $?
-    "$0" tail "$2-prod"
-  ;;
-  *)
-    # Cannot deal with that request
-    echo "${HELP_TEXT}"
-    echo "$ERROR Unknown command '$1'"
-    exit 1
   ;;
 esac

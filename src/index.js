@@ -15,6 +15,10 @@ export async function processAction() {
     const pwd = getPwd();
     const { action, params, options } = getCallInput();
     actions = await getActions({ pwd });
+    if (action === 'help') {
+      printHelp(actions);
+      return 0;
+    }
     const { exec } = actions[action] || {};
     if (!exec) {
       throw new InvalidInputError(`Unknown action "${action}"`);

@@ -8,7 +8,7 @@ const log = getLog('executeExternalPurge');
 
 export async function executeExternalPurge({ pwd, params, options }) {
   log.info(`... checking if an external purge script exists ...`);
-  const additionalActionsPath = resolve(pwd, './actions/purge.js');
+  const additionalActionsPath = resolve(pwd, './actions/terminate.js');
   if (!(await exists(additionalActionsPath))) {
     log.info(`... non found. Skipping step ...`);
     return;

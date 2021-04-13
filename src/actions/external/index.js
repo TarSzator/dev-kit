@@ -1,7 +1,7 @@
 import { setup } from './setup.js';
 import { install } from './install.js';
 import { downAll } from './downAll.js';
-import { purge } from './purge.js';
+import { terminate } from './terminate.js';
 import { link } from './link.js';
 
 export default {
@@ -9,8 +9,8 @@ export default {
     exec: setup,
     description: 'Setup local development environment with all connected projects',
   },
-  purge: {
-    exec: purge,
+  terminate: {
+    exec: terminate,
     description: `Purges everything in context of this project`,
   },
   install: {

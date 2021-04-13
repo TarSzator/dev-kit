@@ -7,9 +7,9 @@ import { purgeService } from '../internal/services/purgeService.js';
 import { execute } from '../../utils/execute.js';
 import { executeExternalPurge } from '../internal/setup-helpers/execute-external-purge.js';
 
-const log = getLog('purge');
+const log = getLog('terminate');
 
-export async function purge({ pwd, params, options }) {
+export async function terminate({ pwd, params, options }) {
   log.info(`Uninstalls local development environment ...`);
   await downAll({ pwd });
   log.info(`... environment shut down ...`);
