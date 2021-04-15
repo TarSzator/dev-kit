@@ -15,7 +15,7 @@ export async function terminate({ pwd, params, options }) {
   log.info(`... environment shut down ...`);
   await purgeCertificate({ pwd });
   log.info(`... certificate purged ...`);
-  const servicesToPurge = await getInternalServiceNames();
+  const servicesToPurge = await getInternalServiceNames({ pwd });
   await waterfall(
     servicesToPurge.map((serviceName) => async () => {
       await purgeService({ pwd, params: [serviceName] });

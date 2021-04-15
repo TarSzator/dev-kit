@@ -1,5 +1,5 @@
-import { basename, resolve } from 'path';
-import { getService } from '../../utils/services.js';
+import { basename } from 'path';
+import { getInternalNodeService } from '../../utils/services.js';
 import { getLog } from '../../utils/log.js';
 import { execute } from '../../utils/execute.js';
 import InvalidInputError from '../../utils/errors/InvalidInputError.js';
@@ -19,11 +19,14 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
   if (!isNonEmptyString(targetServiceName)) {
     throw new InvalidInputError(1618341103, 'No target service name provided');
   }
-  const { localPath: sourceLocalPath, projectPath: sourceProjectPath } = await getValidProjectPath(
-    sourceServiceName,
-    pwd
-  );
-  const { projectPath: targetProjectPath } = await getValidProjectPath(targetServiceName, pwd);
+  const { localPath: sourceLocalPath, projectPath: sourceProjectPath } = await getValidProjectPath({
+    serviceName: sourceServiceName,
+    pwd,
+  });
+  const { projectPath: targetProjectPath } = await getValidProjectPath({
+    serviceName: targetServiceName,
+    pwd,
+  });
   log.info(`Link ${sourceServiceName} into ${targetServiceName} ...`);
   const moduleName = `@sgorg/${basename(sourceProjectPath)}`;
   const nmFolder = `${targetProjectPath}/node_modules/${moduleName}`;
@@ -50,19 +53,7 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
   log.info(`... linked ${sourceServiceName} into ${targetServiceName}.`);
 }
 
-async function getValidProjectPath(serviceName, pwd) {
-  const { isInternal, isNode, localPath } = await getService(serviceName);
-  if (!isInternal) {
-    throw new InvalidInputError(
-      1618340799,
-      `Link is not a valid operation for non-internal service "${serviceName}"`
-    );
-  }
-  if (!isNode) {
-    throw new InvalidInputError(
-      1618340805,
-      `Link is not a valid operation for non-node service "${serviceName}"`
-    );
-  }
-  return { localPath, projectPath: resolve(pwd, localPath) };
+async function getValidProjectPath({ serviceName, pwd }) {
+  const { localPath, projectPath } = await getInternalNodeService({ serviceName, pwd });
+  return { localPath, projectPath };
 }

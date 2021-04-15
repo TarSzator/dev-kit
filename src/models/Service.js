@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { constantCase } from 'change-case';
 import { INTERNAL_SERVICES, LABELS, TYPES } from '../consts';
 import { isNonEmptyString } from '../utils/validators.js';
@@ -8,7 +9,7 @@ import { getInvalidValues } from '../utils/array.js';
 const internalServices = Object.values(INTERNAL_SERVICES);
 const LABEL_KEYS = Object.entries(LABELS).reduce((m, [k, { KEY }]) => ({ ...m, [k]: KEY }), {});
 
-export function createService(serviceName, dockerComposeServiceConfig, services) {
+export function createService(serviceName, pwd, dockerComposeServiceConfig, services) {
   const service = {
     name: serviceName,
   };
@@ -50,6 +51,7 @@ export function createService(serviceName, dockerComposeServiceConfig, services)
   const isNode = types.includes(TYPES.NODE);
   const isTool = types.includes(TYPES.TOOL);
   const isServer = types.includes(TYPES.SERVER);
+  let projectPath;
   if (isInternal) {
     if (!isNonEmptyString(repo)) {
       throw new InvalidConfigError(`Missing environment config for key "${REPO_KEY}"`);
@@ -57,11 +59,13 @@ export function createService(serviceName, dockerComposeServiceConfig, services)
     if (!isNonEmptyString(localPath)) {
       throw new InvalidConfigError(`Missing environment config for key "${LOCAL_PATH_KEY}"`);
     }
+    projectPath = resolve(pwd, localPath);
   }
   return {
     ...service,
     repo,
     localPath,
+    projectPath,
     types,
     isInternal,
     isNode,

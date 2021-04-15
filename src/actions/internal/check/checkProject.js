@@ -1,25 +1,17 @@
 import { resolve } from 'path';
 import { createFolder, exists } from '../../../utils/fs.js';
-import { getService } from '../../../utils/services.js';
+import { getInternalNodeService } from '../../../utils/services.js';
 import { getLog } from '../../../utils/log.js';
 import { requestConfirmation } from '../../../utils/io.js';
 import { EnvironmentError, SkippedError } from '../../../utils/errors';
 import { execute } from '../../../utils/execute.js';
 import { install } from '../../external/install.js';
 import { checkCertificate } from '../certificate/checkCertificate.js';
-import InvalidInputError from '../../../utils/errors/InvalidInputError.js';
 
 const log = getLog('checkProject');
 
 export async function checkProject({ pwd, params: [serviceName] = [] }) {
-  const { isInternal, repo, localPath } = await getService(serviceName);
-  if (!isInternal) {
-    throw new InvalidInputError(
-      1615909578,
-      `Internal check project is not a valid operation for non-internal service "${serviceName}"`
-    );
-  }
-  const projectPath = resolve(pwd, localPath);
+  const { repo, localPath, projectPath } = await getInternalNodeService({ serviceName, pwd });
   if (await exists(resolve(projectPath, 'package.json'))) {
     await checkCertificate({ pwd });
     return;

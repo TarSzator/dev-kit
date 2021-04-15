@@ -3,20 +3,11 @@
 
 HELP_TEXT="
   open <service>             Opens the specified service. Main start command. Supports services 'game' and 'adminServer'.
-  pull                       Pull the newest version of the required containers.
-  hardUpdate <service>       Run 'npm run hardUpdate' in container so binaries are compiled for the right environment.
   up|start <service>         Starts the specified service and it's requirements.
   down|stop <service>        Stops the specified service and it's requirements that are no longer needed.
-  purge                      Purges everything docker related of Game Backend.
   buildLiveGame              Build the game to connect to the live game server.
   buildLocalGame             Build the game to connect to the local game server.
   restart <service>          Restarts the service and tails the log.
-  build <service>            Executes the build script for the specified service.
-  logs <service>             Show logs for a specific service.
-  tail <service>             Tails logs for a specific service.
-  login <service>            SSH login to service.
-  ps                         Shows docker process list for this project.
-  resetCert                  Resetting the certificate if there are any issues
   dbMigrate                  Runs db migration on db container.
   dbSeed                     Runs db seeding on db container.
   debugProxy                 Restarts the proxy container and tails the log.
@@ -30,32 +21,6 @@ $YELLOW""Commands for internal use. Use with caution:$DEFAULT
 "
 
 case "$1" in
-  resetCert)
-    ./setup.sh purgeCertificate
-    exit_on_error $?
-    ./setup.sh prepareCertificate
-    exit_on_error $?
-    echo "$SUCCESS Cert reset."
-    exit 0
-  ;;
-  pull)
-    docker-compose pull redis rabbitmq db proxy gameServer
-    exit_on_error $?
-    echo "$SUCCESS Pulled  requirements."
-    exit 0
-  ;;
-  purge)
-    read -p "Do you really want to remove everything docker related to this project? [yN]" -n 1 -r
-    echo ""
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      docker-compose down -v --rmi all
-      exit_on_error $?
-      echo "$SUCCESS Everything purged."
-    else
-      echo "$YELLOW""Purge canceled"
-    fi
-    exit 0
-  ;;
   upRequirements)
     "$0" run db
     "$0" run redis
@@ -72,10 +37,6 @@ case "$1" in
     "$0" run proxy
     exit_on_error $?
     "$0" tail proxy
-    exit 0
-  ;;
-  ps)
-    docker-compose ps
     exit 0
   ;;
   dbMigrate)
@@ -187,18 +148,6 @@ case "$1" in
     fi
     exit 0
   ;;
-  login)
-    docker-compose exec "$2" /bin/sh
-    exit 0
-  ;;
-  logs)
-    docker-compose logs "$2"
-    exit 0
-  ;;
-  tail)
-    docker-compose logs -f "$2"
-    exit 0
-  ;;
 esac
 
 if [[ ! ${NODE_SERVICES} =~ (^|[[:space:]])$2($|\,) ]]; then
@@ -207,33 +156,6 @@ if [[ ! ${NODE_SERVICES} =~ (^|[[:space:]])$2($|\,) ]]; then
 fi
 
 case "$1" in
-  install)
-    ./setup.sh check $2
-    exit_on_error $?
-    echo "Installing node_modules for $2 ..."
-    docker-compose run --rm $2 npm --prefix /app/$2 install
-    exit_on_error $?
-    echo "$SUCCESS ... installing node_modules for $2 done."
-    exit 0
-  ;;
-  hardUpdate)
-    ./setup.sh check $2
-    exit_on_error $?
-    echo "Hard updating node_modules for $2 ..."
-    docker-compose run --rm $2 npm --prefix /app/$2 run hardUpdate
-    exit_on_error $?
-    echo "$SUCCESS ... hard update of node_modules for $2 done."
-    exit 0
-  ;;
-  build)
-    ./setup.sh check $2
-    exit_on_error $?
-    echo "Building $2 ..."
-    docker-compose run --rm $2 npm --prefix /app/$2 run build
-    exit_on_error $?
-    echo "$SUCCESS ... build of $2 done."
-    exit 0
-  ;;
   open)
     case "$2" in
       adminServer)
@@ -253,10 +175,6 @@ case "$1" in
         exit_on_error $?
         open "https://www.facebook.com/embed/instantgames/$GAME_FB_APP_ID/player?game_url=https://$GB_HOST:$GAME_EXTERNAL_PORT"
         "$0" tail gameServer
-      ;;
-      *)
-        echo "$ERROR Open not configured for $2"
-        exit 1
       ;;
     esac
     exit 0

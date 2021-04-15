@@ -12,7 +12,7 @@ export async function setup({ pwd, params, options }) {
   log.info(`Check and setup local development environment ...`);
   await prepareCertificate({ pwd });
   log.info(`... certificate done ...`);
-  const servicesToSetup = await getInternalServiceNames();
+  const servicesToSetup = await getInternalServiceNames({ pwd });
   await waterfall(
     servicesToSetup.map((serviceName) => async () => {
       log.info(`... checking service ${serviceName} ...`);

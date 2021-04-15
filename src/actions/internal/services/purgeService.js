@@ -1,5 +1,4 @@
-import { resolve } from 'path';
-import { getService } from '../../../utils/services.js';
+import { getInternalService } from '../../../utils/services.js';
 import InvalidInputError from '../../../utils/errors/InvalidInputError.js';
 import { exists, getFileStats, removeFile } from '../../../utils/fs.js';
 import { getLog } from '../../../utils/log.js';
@@ -10,14 +9,7 @@ import { requestConfirmation } from '../../../utils/io.js';
 const log = getLog('purgeService');
 
 export async function purgeService({ pwd, params: [serviceName] = [] }) {
-  const { isInternal, localPath } = await getService(serviceName);
-  if (!isInternal) {
-    throw new InvalidInputError(
-      1618335575,
-      `Internal purge is not a valid operation for non-internal service "${serviceName}"`
-    );
-  }
-  const projectPath = resolve(pwd, localPath);
+  const { localPath, projectPath } = await getInternalService({ serviceName, pwd });
   if (await exists(projectPath)) {
     log.info(
       `Service ${serviceName}'s path '${localPath}' does not exist and is considered purged`
