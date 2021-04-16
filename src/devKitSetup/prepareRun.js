@@ -25,7 +25,7 @@ export async function prepareRun({ pwd }) {
   const runTemplateContent = await readFile(runTemplatePath);
   if (!(await exists(runFilePath))) {
     log.info(`... run file in bin folder does not exist. Creating ...`);
-    await writeFile(runFilePath, runTemplateContent);
+    await writeFile(runFilePath, runTemplateContent, { mode: 0o744 });
     log.info(`... created run file in bin folder ...`);
   }
   if (!(await hasReadAccess(runFilePath))) {
@@ -39,7 +39,7 @@ export async function prepareRun({ pwd }) {
     if (!(await hasWriteAccess(runFilePath))) {
       throw new EnvironmentError(1615669554, `No write access to existing run file in bin folder`);
     }
-    await writeFile(runFilePath, runTemplateContent);
+    await writeFile(runFilePath, runTemplateContent, { mode: 0o744 });
     log.info(`... run file in bin folder has updated ...`);
   }
   log.info(`... checking package.json ...`);

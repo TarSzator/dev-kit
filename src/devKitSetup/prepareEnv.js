@@ -13,6 +13,10 @@ export async function prepareEnv({ filePath }) {
   if (!(await exists(filePath))) {
     log.info(`... env file does not exist. Creating ...`);
     await writeFile(filePath, envTemplateContent);
+    const envExamplePath = `${filePath}.example`;
+    if (!(await exists(envExamplePath))) {
+      await writeFile(envExamplePath, envTemplateContent);
+    }
     log.info(`... created env file.`);
     return;
   }

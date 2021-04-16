@@ -46,8 +46,8 @@ export async function readFile(path) {
   return rf(path, 'utf-8');
 }
 
-export async function writeFile(path, content) {
-  return wf(path, content, { encoding: 'utf-8', mode: 0o644 });
+export async function writeFile(path, content, { mode } = {}) {
+  return wf(path, content, { encoding: 'utf-8', mode: mode || 0o644 });
 }
 
 export async function createFolder(path) {

@@ -22,10 +22,12 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
   const { localPath: sourceLocalPath, projectPath: sourceProjectPath } = await getValidProjectPath({
     serviceName: sourceServiceName,
     pwd,
+    isKey: 'isLinkSource',
   });
   const { projectPath: targetProjectPath } = await getValidProjectPath({
     serviceName: targetServiceName,
     pwd,
+    isKey: 'isLinkTarget',
   });
   log.info(`Link ${sourceServiceName} into ${targetServiceName} ...`);
   const moduleName = `@sgorg/${basename(sourceProjectPath)}`;
@@ -53,7 +55,16 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
   log.info(`... linked ${sourceServiceName} into ${targetServiceName}.`);
 }
 
-async function getValidProjectPath({ serviceName, pwd }) {
-  const { localPath, projectPath } = await getInternalNodeService({ serviceName, pwd });
+async function getValidProjectPath({ serviceName, pwd, isKey }) {
+  const { localPath, projectPath, [isKey]: isValue } = await getInternalNodeService({
+    serviceName,
+    pwd,
+  });
+  if (!isValue) {
+    throw new InvalidInputError(
+      1618597540,
+      `Invalid service "${serviceName}" used. It must be "${isKey}."`
+    );
+  }
   return { localPath, projectPath };
 }

@@ -58,6 +58,8 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
   const isNode = types.includes(TYPES.NODE);
   const isTool = types.includes(TYPES.TOOL);
   const isServer = types.includes(TYPES.SERVER);
+  const isLinkSource = types.includes(TYPES.LINK_SOURCE);
+  const isLinkTarget = types.includes(TYPES.LINK_TARGET);
   let projectPath;
   if (isInternal) {
     if (!isNonEmptyString(repo)) {
@@ -79,6 +81,8 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
     isNode,
     isTool,
     isServer,
+    isLinkSource,
+    isLinkTarget,
     hasHealthcheck,
     dependencies,
     openUrl: replaceEnvVariables(openUrl),

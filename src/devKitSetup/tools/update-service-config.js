@@ -24,7 +24,7 @@ export async function updateServiceConfig({ serviceName, serviceConfigs }) {
   }
   const serviceNames = Object.keys(serviceConfigs);
   log.info(`... checking service "${serviceName}" ...`);
-  const { labels } = serviceConfig || {};
+  const { labels = {} } = serviceConfig || {};
   const missingLabels = getMissingMandatoryLabels({ labels });
   if (isEmpty(missingLabels)) {
     log.info(
@@ -97,6 +97,8 @@ function getPossibleValues({ label, serviceNames }) {
       return Object.values(LABELS.TYPES.ENUM);
     case LABELS.DEPENDENCIES:
       return serviceNames;
+    case LABELS.OPEN_URL:
+      return null;
     default:
       throw new InternalError(
         1616006417,

@@ -1,8 +1,8 @@
 version: "3.7"
 services:
   dev-kit:
-    container_name: "$GAME_SERVER_NAME"
-    image: "node:lts"
+    container_name: $DEV_KIT_NAME
+    image: "node:$NODE_VERSION"
     working_dir: /app
     volumes:
       - '~/.npmrc:/root/.npmrc'
@@ -28,7 +28,7 @@ services:
     labels:
       eu.rene-simon.dev-kit.types: "tool"
     healthcheck:
-      test: "wget -qO - https://$GB_HOST:$GAME_EXTERNAL_PORT/index.html --no-check-certificate"
+      test: "wget -qO - https://$HOST:443//health-check --no-check-certificate"
       interval: 15s
       timeout: 2s
       retries: 4
