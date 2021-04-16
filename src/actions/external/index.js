@@ -12,6 +12,8 @@ import { logs } from './logs.js';
 import { tail } from './tail.js';
 import { build } from './build.js';
 import { hardUpdate } from './hardUpdate.js';
+import { up } from './up.js';
+import { down } from './down.js';
 
 export default {
   setup: {
@@ -75,6 +77,16 @@ export default {
   hardUpdate: {
     exec: hardUpdate,
     description: `Executes the hardUpdate script for the specified service`,
+    paramsDesc: '<service>',
+  },
+  up: {
+    exec: up,
+    description: `Starts the specified service and its requirements`,
+    paramsDesc: '<service>',
+  },
+  down: {
+    exec: down,
+    description: `Stops the specified service and it's requirements that are no longer needed`,
     paramsDesc: '<service>',
   },
 };

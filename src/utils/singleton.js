@@ -1,7 +1,7 @@
 export function createSingleton(creator) {
   let singleton = null;
   const create = async () => creator();
-  return async () => {
+  const exec = async () => {
     if (!singleton) {
       singleton = create();
       singleton.catch(() => {
@@ -11,4 +11,8 @@ export function createSingleton(creator) {
     }
     return singleton;
   };
+  exec.reset = () => {
+    singleton = null;
+  };
+  return exec;
 }

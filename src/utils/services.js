@@ -5,7 +5,7 @@ import { isNonEmptyString } from './validators.js';
 
 const services = new Map();
 
-async function getAllServices({ pwd }) {
+export async function getAllServices({ pwd }) {
   const servicesConfigured = await getDockerServices();
   return Promise.all(
     Object.keys(servicesConfigured).map((serviceName) => getService({ serviceName, pwd }))

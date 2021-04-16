@@ -20,6 +20,8 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
   const { [REPO_KEY]: repo, [LOCAL_PATH_KEY]: localPath } = process.env;
   const {
     labels: { [LABEL_KEYS.TYPES]: typesConfig, [LABEL_KEYS.DEPENDENCIES]: dependenciesConfig },
+    container_name: containerNameConfig,
+    healthcheck,
   } = dockerComposeServiceConfig;
   if (!isNonEmptyString(typesConfig)) {
     throw new InvalidConfigError(
@@ -47,6 +49,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
       }" for service "${serviceName}". Unknown services: '${invalidDependencies.join(`', '`)}'`
     );
   }
+  const hasHealthcheck = !!healthcheck;
   const isInternal = types.includes(TYPES.INTERNAL);
   const isNode = types.includes(TYPES.NODE);
   const isTool = types.includes(TYPES.TOOL);
@@ -63,6 +66,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
   }
   return {
     ...service,
+    containerName: getContainerName(serviceName, containerNameConfig),
     repo,
     localPath,
     projectPath,
@@ -71,6 +75,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
     isNode,
     isTool,
     isServer,
+    hasHealthcheck,
     dependencies,
   };
 }
@@ -81,4 +86,15 @@ function getEnvKeys(serviceName) {
     REPO_KEY: `${ENV_NAME}_REPO`,
     LOCAL_PATH_KEY: `${ENV_NAME}_LOCAL_PATH`,
   };
+}
+
+function getContainerName(serviceName, containerNameConfig) {
+  if (!containerNameConfig) {
+    return serviceName;
+  }
+  if (containerNameConfig[0] !== '$') {
+    return containerNameConfig;
+  }
+  const key = containerNameConfig.substr(1);
+  return process.env[key] || serviceName;
 }

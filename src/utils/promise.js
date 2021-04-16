@@ -9,3 +9,11 @@ export function waterfall(generators, startValue) {
     return p.then((v) => generate(v));
   }, Promise.resolve(startValue));
 }
+
+export async function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}

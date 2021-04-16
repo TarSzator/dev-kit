@@ -1,11 +1,9 @@
 import { getLog } from '../../utils/log.js';
-import { execute } from '../../utils/execute.js';
+import { dockerPs } from '../internal/services/dockerPs.js';
 
 const log = getLog('ps');
 
 export async function ps({ pwd }) {
-  const command = `docker-compose ps`;
-  log.info(command);
-  const out = await execute({ pwd, command });
+  const out = await dockerPs({ pwd });
   log.info(out);
 }
