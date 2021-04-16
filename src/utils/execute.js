@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { ShellError, UnknownError } from './errors';
+import { ShellError, UnknownError } from './errors/index.js';
 
 export async function execute({ command, pwd }) {
   return new Promise((resolve, reject) => {

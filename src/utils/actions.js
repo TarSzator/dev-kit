@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import actions from '../actions/index.js';
 import { exists } from './fs.js';
 import { isEmpty, isFunction, isNonEmptyString, isPlainObject } from './validators.js';
-import { EnvironmentError } from './errors';
+import { EnvironmentError } from './errors/index.js';
 
 export async function getActions({ pwd }) {
   const externalActions = await getExternalActions({ pwd, actionKeys: Object.keys(actions) });

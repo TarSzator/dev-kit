@@ -1,5 +1,5 @@
 import { getService } from '../../../utils/services.js';
-import { InvalidConfigError } from '../../../utils/errors';
+import { InvalidConfigError } from '../../../utils/errors/index.js';
 
 export async function getAllServiceDependencies({ pwd, params: [serviceName] = [] }) {
   const dependencies = await getServiceDependencies({ serviceName, pwd });

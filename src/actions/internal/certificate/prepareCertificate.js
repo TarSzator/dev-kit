@@ -1,6 +1,6 @@
 import { getLog } from '../../../utils/log.js';
 import { getCertificateState, CERT_STATE } from './getCertificateState.js';
-import { EnvironmentError, SkippedError } from '../../../utils/errors';
+import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
 import { requestConfirmation } from '../../../utils/io.js';
 import { generateCertificate } from './generateCertificate.js';
 import { registerCertificate } from './registerCertificate.js';

@@ -1,5 +1,4 @@
-import { stopService } from '../internal/services/stopService.js';
-import { runService } from '../internal/services/runService.js';
+import { stopService, runService } from '../internal/index.js';
 import { tail } from './tail.js';
 
 export async function restart({ pwd, params: [serviceName] }) {

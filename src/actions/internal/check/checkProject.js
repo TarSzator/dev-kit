@@ -3,7 +3,7 @@ import { createFolder, exists } from '../../../utils/fs.js';
 import { getInternalNodeService } from '../../../utils/services.js';
 import { getLog } from '../../../utils/log.js';
 import { requestConfirmation } from '../../../utils/io.js';
-import { EnvironmentError, SkippedError } from '../../../utils/errors';
+import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
 import { execute } from '../../../utils/execute.js';
 import { install } from '../../external/install.js';
 import { checkCertificate } from '../certificate/checkCertificate.js';

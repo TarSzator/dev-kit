@@ -1,5 +1,5 @@
 import { getLog } from '../../utils/log.js';
-import { dockerPs } from '../internal/services/dockerPs.js';
+import { dockerPs } from '../internal/index.js';
 
 const log = getLog('ps');
 

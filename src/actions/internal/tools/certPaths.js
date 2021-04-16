@@ -1,5 +1,5 @@
-import { InvalidConfigError } from '../../../utils/errors';
-import { FOLDER_NAMES } from '../../../consts';
+import { InvalidConfigError } from '../../../utils/errors/index.js';
+import { FOLDER_NAMES } from '../../../consts/index.js';
 
 export function getCertPath() {
   const { SSL_CERT_PREFIX } = process.env;

@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { getLog } from '../../../utils/log.js';
 import { exists } from '../../../utils/fs.js';
 import { isFunction } from '../../../utils/validators.js';
-import { EnvironmentError } from '../../../utils/errors';
+import { EnvironmentError } from '../../../utils/errors/index.js';
 
 const log = getLog('executeExternalPurge');
 

@@ -1,5 +1,5 @@
 import { getLog } from '../../utils/log.js';
-import { prepareCertificate, purgeCertificate } from '../internal';
+import { prepareCertificate, purgeCertificate } from '../internal/index.js';
 
 const log = getLog('resetCert');
 

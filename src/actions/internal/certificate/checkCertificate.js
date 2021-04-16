@@ -1,5 +1,5 @@
 import { getCertificateState, CERT_STATE } from './getCertificateState.js';
-import { EnvironmentError } from '../../../utils/errors';
+import { EnvironmentError } from '../../../utils/errors/index.js';
 
 export async function checkCertificate({ pwd }) {
   const state = await getCertificateState({ pwd });

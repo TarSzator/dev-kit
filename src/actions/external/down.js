@@ -1,6 +1,5 @@
 import { getInternalNodeService } from '../../utils/services.js';
-import { checkProject } from '../internal/check/checkProject.js';
-import { stopServiceWithDependencies } from '../internal/services/stopServiceWithDependencies.js';
+import { checkProject, stopServiceWithDependencies } from '../internal/index.js';
 
 export async function down({ pwd, params: [serviceName] = [] }) {
   const { name } = await getInternalNodeService({ serviceName, pwd });

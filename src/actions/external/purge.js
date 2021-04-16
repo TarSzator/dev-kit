@@ -1,7 +1,7 @@
 import { getLog } from '../../utils/log.js';
 import { execute } from '../../utils/execute.js';
 import { requestConfirmation } from '../../utils/io.js';
-import { SkippedError } from '../../utils/errors';
+import { SkippedError } from '../../utils/errors/index.js';
 
 const log = getLog('purge');
 

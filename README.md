@@ -109,4 +109,8 @@ Tool to run local dev environments
       e.g.: `NETWORK_NAME=net` --> `NETWORK_NAME=tool-net`
    1. Sadly I did not yet solve the issue with cross-project linking.  
       The current workaround required to set the `${SERVICE_NAME}_LOCAL_PATH` like the following example  
-      `TOOL_API_LOCAL_PATH=../../tool/tool-api` 
+      `TOOL_API_LOCAL_PATH=../../tool/tool-api`
+1. Run setup of your project
+   ```sh
+   ./bin/run.js setup
+   ```

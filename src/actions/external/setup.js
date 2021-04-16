@@ -1,10 +1,12 @@
 import { getLog } from '../../utils/log.js';
-import { prepareCertificate } from '../internal/index.js';
+import {
+  prepareCertificate,
+  checkInstall,
+  linkHomeBin,
+  executeExternalSetup,
+} from '../internal/index.js';
 import { getInternalServiceNames } from '../../utils/services.js';
 import { waterfall } from '../../utils/promise.js';
-import { checkInstall } from '../internal/check/checkInstall.js';
-import { linkHomeBin } from '../internal/link/linkHomeBin.js';
-import { executeExternalSetup } from '../internal/setup-helpers/execute-external-setup.js';
 
 const log = getLog('setup');
 

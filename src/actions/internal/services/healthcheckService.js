@@ -1,7 +1,7 @@
 import { getLog } from '../../../utils/log.js';
 import { getServiceState } from './dockerState.js';
 import { wait } from '../../../utils/promise.js';
-import { EnvironmentError } from '../../../utils/errors';
+import { EnvironmentError } from '../../../utils/errors/index.js';
 
 const log = getLog('healthcheckService');
 

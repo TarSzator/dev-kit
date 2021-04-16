@@ -1,11 +1,9 @@
 import { getLog } from '../../utils/log.js';
-import { purgeCertificate } from '../internal/index.js';
+import { purgeCertificate, purgeService, executeExternalPurge } from '../internal/index.js';
 import { getInternalServiceNames } from '../../utils/services.js';
 import { waterfall } from '../../utils/promise.js';
 import { downAll } from './downAll.js';
-import { purgeService } from '../internal/services/purgeService.js';
 import { execute } from '../../utils/execute.js';
-import { executeExternalPurge } from '../internal/setup-helpers/execute-external-purge.js';
 
 const log = getLog('terminate');
 

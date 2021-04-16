@@ -5,7 +5,7 @@ import { execute } from '../../utils/execute.js';
 import InvalidInputError from '../../utils/errors/InvalidInputError.js';
 import { isNonEmptyString } from '../../utils/validators.js';
 import { exists, getFileStats, removeFile } from '../../utils/fs.js';
-import { EnvironmentError } from '../../utils/errors';
+import { EnvironmentError } from '../../utils/errors/index.js';
 
 const log = getLog('link');
 

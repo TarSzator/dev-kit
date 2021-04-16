@@ -1,7 +1,7 @@
 import { getInternalNodeService } from '../../utils/services.js';
 import { getLog } from '../../utils/log.js';
 import { execute } from '../../utils/execute.js';
-import { checkProject } from '../internal/check/checkProject.js';
+import { checkProject } from '../internal/index.js';
 
 const log = getLog('hardUpdate');
 

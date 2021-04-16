@@ -1,8 +1,8 @@
 import { resolve } from 'path';
 import { constantCase } from 'change-case';
-import { INTERNAL_SERVICES, LABELS, TYPES } from '../consts';
+import { INTERNAL_SERVICES, LABELS, TYPES } from '../consts/index.js';
 import { isNonEmptyString } from '../utils/validators.js';
-import { InvalidConfigError } from '../utils/errors';
+import { InvalidConfigError } from '../utils/errors/index.js';
 import { parseCsv } from '../utils/csv.js';
 import { getInvalidValues } from '../utils/array.js';
 
@@ -109,6 +109,9 @@ function getContainerName(serviceName, containerNameConfig) {
 }
 
 function replaceEnvVariables(str) {
+  if (!str) {
+    return undefined;
+  }
   return str.replace(/\$([A-Z0-9_]+)/g, (match, key) => {
     const value = process.env[key];
     return value === undefined ? match : value;
