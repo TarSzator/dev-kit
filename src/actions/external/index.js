@@ -14,6 +14,8 @@ import { build } from './build.js';
 import { hardUpdate } from './hardUpdate.js';
 import { up } from './up.js';
 import { down } from './down.js';
+import { debugProxy } from './debugProxy.js';
+import { restart } from './restart.js';
 
 export default {
   setup: {
@@ -88,5 +90,14 @@ export default {
     exec: down,
     description: `Stops the specified service and it's requirements that are no longer needed`,
     paramsDesc: '<service>',
+  },
+  restart: {
+    exec: restart,
+    description: `Restarts the service and tails the log`,
+    paramsDesc: '<service>',
+  },
+  debugProxy: {
+    exec: debugProxy,
+    description: `Restarts the proxy container and tails the log`,
   },
 };

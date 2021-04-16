@@ -7,7 +7,7 @@ import { healthcheckService } from './healthcheckService.js';
 
 const log = getLog('runService');
 
-export async function runService({ pwd, params: [serviceName] = [] }) {
+export async function runService({ pwd, params: [serviceName, skipHealthcheck = false] = [] }) {
   const { name, hasHealthcheck } = await getService({ serviceName, pwd });
   const { isCreated, isUp, isHealthy } = await getServiceState({ serviceName });
   if (isHealthy) {
@@ -26,7 +26,7 @@ export async function runService({ pwd, params: [serviceName] = [] }) {
   log.info(command);
   const out = execute({ command, pwd });
   log.info(out);
-  if (hasHealthcheck) {
+  if (hasHealthcheck && !skipHealthcheck) {
     await healthcheckService({ pwd, params: [name] });
   }
 }
