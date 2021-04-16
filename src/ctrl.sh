@@ -2,7 +2,6 @@
 
 
 HELP_TEXT="
-  open <service>             Opens the specified service. Main start command. Supports services 'game' and 'adminServer'.
   buildLiveGame              Build the game to connect to the live game server.
   buildLocalGame             Build the game to connect to the local game server.
   dbMigrate                  Runs db migration on db container.
@@ -62,29 +61,6 @@ case "$1" in
     echo "$STEP ... building game with local GB Client ..."
     docker-compose run --rm game npm --prefix /app/game run build
     exit_on_error $?
-    exit 0
-  ;;
-  open)
-    case "$2" in
-      adminServer)
-        "$0" up $2
-        exit_on_error $?
-        "$0" healthcheck $2
-        exit_on_error $?
-        open "https://$GB_HOST:$ADMIN_SERVER_EXTERNAL_PORT/graphqlAdmin"
-        "$0" tail "$2"
-      ;;
-      game)
-        "$0" up gameServer
-        exit_on_error $?
-        "$0" healthcheck proxy
-        exit_on_error $?
-        "$0" healthcheck gameServer
-        exit_on_error $?
-        open "https://www.facebook.com/embed/instantgames/$GAME_FB_APP_ID/player?game_url=https://$GB_HOST:$GAME_EXTERNAL_PORT"
-        "$0" tail gameServer
-      ;;
-    esac
     exit 0
   ;;
 esac

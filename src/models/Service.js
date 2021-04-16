@@ -19,7 +19,11 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
   const { REPO_KEY, LOCAL_PATH_KEY } = getEnvKeys(serviceName);
   const { [REPO_KEY]: repo, [LOCAL_PATH_KEY]: localPath } = process.env;
   const {
-    labels: { [LABEL_KEYS.TYPES]: typesConfig, [LABEL_KEYS.DEPENDENCIES]: dependenciesConfig },
+    labels: {
+      [LABEL_KEYS.TYPES]: typesConfig,
+      [LABEL_KEYS.DEPENDENCIES]: dependenciesConfig,
+      [LABEL_KEYS.OPEN_URL]: openUrl,
+    },
     container_name: containerNameConfig,
     healthcheck,
   } = dockerComposeServiceConfig;
@@ -77,6 +81,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
     isServer,
     hasHealthcheck,
     dependencies,
+    openUrl: replaceEnvVariables(openUrl),
   };
 }
 
@@ -97,4 +102,11 @@ function getContainerName(serviceName, containerNameConfig) {
   }
   const key = containerNameConfig.substr(1);
   return process.env[key] || serviceName;
+}
+
+function replaceEnvVariables(str) {
+  return str.replace(/\$([A-Z0-9_]+)/g, (match, key) => {
+    const value = process.env[key];
+    return value === undefined ? match : value;
+  });
 }

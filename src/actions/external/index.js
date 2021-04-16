@@ -16,6 +16,7 @@ import { up } from './up.js';
 import { down } from './down.js';
 import { debugProxy } from './debugProxy.js';
 import { restart } from './restart.js';
+import { open } from './open.js';
 
 export default {
   setup: {
@@ -94,6 +95,11 @@ export default {
   restart: {
     exec: restart,
     description: `Restarts the service and tails the log`,
+    paramsDesc: '<service>',
+  },
+  open: {
+    exec: open,
+    description: `Starts the service and opens the configured openUrl when healthy`,
     paramsDesc: '<service>',
   },
   debugProxy: {
