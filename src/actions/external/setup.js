@@ -17,9 +17,9 @@ export async function setup({ pwd, params, options }) {
   const servicesToSetup = await getInternalServiceNames({ pwd });
   await waterfall(
     servicesToSetup.map((serviceName) => async () => {
-      log.info(`... checking service ${serviceName} ...`);
+      log.info(`... checking service "${serviceName}" ...`);
       await checkInstall({ pwd, params: [serviceName] });
-      log.info(`... ${serviceName} service ...`);
+      log.info(`... ${serviceName} service checked ...`);
     })
   );
   await linkHomeBin({ pwd });
