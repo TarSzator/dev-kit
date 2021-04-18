@@ -1,21 +1,17 @@
 import { resolve } from 'path';
 import { constantCase } from 'change-case';
-import { INTERNAL_SERVICES, LABELS, TYPES } from '../consts/index.js';
+import { LABELS, TYPES } from '../consts/index.js';
 import { isNonEmptyString } from '../utils/validators.js';
 import { InvalidConfigError } from '../utils/errors/index.js';
 import { parseCsv } from '../utils/csv.js';
 import { getInvalidValues } from '../utils/array.js';
 
-const internalServices = Object.values(INTERNAL_SERVICES);
 const LABEL_KEYS = Object.entries(LABELS).reduce((m, [k, { KEY }]) => ({ ...m, [k]: KEY }), {});
 
 export function createService(serviceName, pwd, dockerComposeServiceConfig, services) {
   const service = {
     name: serviceName,
   };
-  if (internalServices.includes(serviceName)) {
-    return service;
-  }
   const { REPO_KEY, LOCAL_PATH_KEY } = getEnvKeys(serviceName);
   const { [REPO_KEY]: repo, [LOCAL_PATH_KEY]: localPath } = process.env;
   const {
@@ -23,7 +19,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
       [LABEL_KEYS.TYPES]: typesConfig,
       [LABEL_KEYS.DEPENDENCIES]: dependenciesConfig,
       [LABEL_KEYS.OPEN_URL]: openUrl,
-    },
+    } = {},
     container_name: containerNameConfig,
     healthcheck,
   } = dockerComposeServiceConfig;

@@ -1,4 +1,4 @@
 {$HOST}:443 {
-  tls /config/{$SSL_CERT_NAME} /config/{$SSL_KEY_NAME}
+  tls /config/{$SSL_CERT_PREFIX}-local.crt /config/{$SSL_CERT_PREFIX}-local.key
   respond /health-check 200
 }

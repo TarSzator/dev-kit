@@ -58,7 +58,7 @@ export async function executeSpawn({ command, pwd, log }) {
       const childProcess = spawn(com, args, {
         cwd: pwd,
         env: process.env,
-        stdio: ['pipe', 'inherit', 'inherit'],
+        stdio: 'inherit',
       });
       childProcess.on('error', (error) => {
         callback(error);
