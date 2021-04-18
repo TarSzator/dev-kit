@@ -20,7 +20,7 @@ async function retrieveDockerState() {
   const pwd = process.cwd();
   const psResult = await dockerPs({ pwd });
   const lines = psResult
-    .split('/n')
+    .split('\n')
     .map((s) => s.trim())
     .filter((s) => !!s);
   const serviceLines = lines.slice(2);
@@ -29,22 +29,23 @@ async function retrieveDockerState() {
   }
   const services = await getAllServices({ pwd });
   const stateByContainerName = serviceLines.reduce((m, line) => {
-    const [containerName, , state] = line.split(/\W+/);
+    const [containerName, , state] = line.split(/\s{2,}/);
     m.set(containerName, state);
     return m;
   }, new Map());
   return services.reduce((m, service) => {
     const { name, hasHealthcheck, containerName } = service;
-    const state = stateByContainerName.get(containerName);
-    const isCreated = !!state;
-    const isUp = !!state && state.indexOf('Up') !== -1;
-    const isHealthy = getHealthState({ isUp, hasHealthcheck, state });
-    m.set(name, {
+    const stateValue = stateByContainerName.get(containerName);
+    const isCreated = !!stateValue;
+    const isUp = !!stateValue && stateValue.indexOf('Up') !== -1;
+    const isHealthy = getHealthState({ isUp, hasHealthcheck, state: stateValue });
+    const state = {
       service,
       isCreated,
       isHealthy,
       isUp,
-    });
+    };
+    m.set(name, state);
     return m;
   }, new Map());
 }
