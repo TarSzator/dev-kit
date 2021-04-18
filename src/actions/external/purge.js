@@ -17,7 +17,6 @@ export async function purge({ pwd }) {
   }
   log.info(`Purging docker for this project ...`);
   const command = 'docker-compose down -v --rmi all';
-  log.info(command);
-  await executeSpawn({ pwd, command });
+  await executeSpawn({ pwd, command, log });
   log.info(`... purge done.`);
 }

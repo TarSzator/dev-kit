@@ -10,10 +10,10 @@ export async function build({ pwd, params: [serviceName] = [] }) {
   const { name, projectPath } = await getInternalNodeService({ serviceName, pwd });
   log.info(`Building ${name} ...`);
   const command = `docker-compose run --rm dev-kit -v ${projectPath}:/app/${serviceName} npm --prefix /app/${serviceName} run build`;
-  log.info(command);
   await executeSpawn({
     pwd,
     command,
+    log,
   });
   log.info(`... build of ${name} done.`);
 }

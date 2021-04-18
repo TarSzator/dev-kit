@@ -5,5 +5,5 @@ const log = getLog('ps');
 
 export async function ps({ pwd }) {
   const out = await dockerPs({ pwd });
-  log.info(out);
+  log.info('\n', out);
 }

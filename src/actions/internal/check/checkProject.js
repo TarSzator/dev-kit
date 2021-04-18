@@ -25,7 +25,7 @@ export async function checkProject({ pwd, params: [serviceName] = [] }) {
   }
   log.info(`Setting up repository ${repo} to ${localPath} for service ${serviceName} ...`);
   await createFolder(projectPath);
-  await executeSpawn({ command: `git clone ${repo} ${localPath}`, pwd });
+  await executeSpawn({ command: `git clone ${repo} ${localPath}`, pwd, log });
   log.info(`Cloned repository ${repo} to ${localPath} for service ${serviceName}`);
   await install({ pwd, params: [serviceName] });
   if (!(await exists(resolve(projectPath, 'package.json')))) {

@@ -37,23 +37,43 @@ export async function execute({ command, pwd }) {
   });
 }
 
-export async function executeSpawn({ command, pwd }) {
+export async function executeSpawn({ command, pwd, log }) {
+  log.info(command);
   return new Promise((resolve, reject) => {
+    let callbackExecuted = false;
+    const callback = (error) => {
+      if (callbackExecuted) {
+        return;
+      }
+      callbackExecuted = true;
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+      }
+    };
     try {
-      const childProcess = spawn(command, {
+      const args = command.split(' ');
+      const [com] = args.splice(0, 1);
+      const childProcess = spawn(com, args, {
         cwd: pwd,
         env: process.env,
-        stdio: 'pipe',
+        stdio: ['pipe', 'inherit', 'inherit'],
+      });
+      childProcess.on('error', (error) => {
+        callback(error);
       });
       childProcess.on('close', (code) => {
         if (code) {
-          reject(new ShellError(1618762188, `Command "${command}" fail with error code "${code}"`));
+          callback(
+            new ShellError(1618762188, `Command "${command}" fail with error code "${code}"`)
+          );
         } else {
-          resolve();
+          callback();
         }
       });
     } catch (error) {
-      reject(new UnknownError(1618762250, `Child process spawned execution failed`, null, error));
+      callback(new UnknownError(1618762250, `Child process spawned execution failed`, null, error));
     }
   });
 }

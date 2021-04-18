@@ -10,10 +10,10 @@ export async function hardUpdate({ pwd, params: [serviceName] = [] }) {
   const { name, projectPath } = await getInternalNodeService({ serviceName, pwd });
   log.info(`Hard updating node_modules for ${name} ...`);
   const command = `docker-compose run --rm dev-kit -v ${projectPath}:/app/${serviceName} npm --prefix /app/${serviceName} run hardUpdate`;
-  log.info(command);
   await executeSpawn({
     pwd,
     command,
+    log,
   });
   log.info(`... hard update of node_modules for ${name} done.`);
 }

@@ -13,11 +13,9 @@ export async function stopService({ pwd, params: [serviceName] = [] }) {
     return;
   }
   const stopCommand = `docker-compose stop -t 30 ${name}`;
-  log.info(stopCommand);
-  await executeSpawn({ command: stopCommand, pwd });
+  await executeSpawn({ command: stopCommand, pwd, log });
   log.info(`${name} stopped`);
   const removeCommand = `docker-compose rm -sf ${name}`;
-  log.info(removeCommand);
-  await executeSpawn({ command: removeCommand, pwd });
+  await executeSpawn({ command: removeCommand, pwd, log });
   log.info(`${name} removed`);
 }

@@ -1,6 +1,9 @@
 import { getCertPath } from '../tools/certPaths.js';
 import { getMandatoryEnvValue } from '../../../utils/env.js';
 import { executeSpawn } from '../../../utils/execute.js';
+import { getLog } from '../../../utils/log.js';
+
+const log = getLog('generateCertificate');
 
 export async function generateCertificate({ pwd }) {
   const { certPath, certKeyPath } = getCertPath({ pwd });
@@ -11,5 +14,5 @@ export async function generateCertificate({ pwd }) {
       -subj "/CN=${host}" -extensions EXT -config <( \\
        printf "[dn]\\nCN=${host}\\n[req]\\ndistinguished_name = dn\\n[EXT]\\nsubjectAltName=DNS:${host}\\nkeyUsage=digitalSignature\\nextendedKeyUsage=serverAuth")
   `;
-  await executeSpawn({ command, pwd });
+  await executeSpawn({ command, pwd, log });
 }

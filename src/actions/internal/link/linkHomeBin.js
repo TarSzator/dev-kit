@@ -7,6 +7,7 @@ export async function linkHomeBin({ pwd }) {
   await executeSpawn({
     pwd,
     command: `npm link`,
+    log,
   });
   log.notice(`When a new version of node is installed you might need to relink the bin.`);
 }

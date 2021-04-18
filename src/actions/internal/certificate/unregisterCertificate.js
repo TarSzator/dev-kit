@@ -8,7 +8,7 @@ export async function unregisterCertificate({ pwd }) {
   const { certPath } = getCertPath({ pwd });
   const command = `sudo security remove-trusted-cert -d ${certPath}`;
   try {
-    await executeSpawn({ command, pwd });
+    await executeSpawn({ command, pwd, log });
     return true;
   } catch (error) {
     log.notice(`Failed to unregister cert:`, error);

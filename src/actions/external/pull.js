@@ -8,7 +8,6 @@ export async function pull({ pwd }) {
   log.info(`Pull current versions of not internal containers ...`);
   const serviceNames = await getNotInternalServiceNames({ pwd });
   const command = `docker-compose pull ${serviceNames.join(' ')}`;
-  log.info(command);
-  await executeSpawn({ pwd, command });
+  await executeSpawn({ pwd, command, log });
   log.info(`... pull done.`);
 }

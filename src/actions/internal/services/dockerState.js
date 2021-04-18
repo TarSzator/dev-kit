@@ -25,7 +25,7 @@ async function retrieveDockerState() {
     .filter((s) => !!s);
   const serviceLines = lines.slice(2);
   if (!serviceLines.length) {
-    return [];
+    return new Map();
   }
   const services = await getAllServices({ pwd });
   const stateByContainerName = serviceLines.reduce((m, line) => {
