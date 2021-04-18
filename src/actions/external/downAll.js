@@ -1,14 +1,13 @@
 import { getLog } from '../../utils/log.js';
-import { execute } from '../../utils/execute.js';
+import { executeSpawn } from '../../utils/execute.js';
 
 const log = getLog('downAll');
 
 export async function downAll({ pwd }) {
   log.info(`Down all ...`);
-  const out = await execute({
+  await executeSpawn({
     pwd,
     command: `docker-compose down`,
   });
-  log.info(out);
   log.info(`... all down.`);
 }

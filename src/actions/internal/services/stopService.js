@@ -1,7 +1,7 @@
 import { getService } from '../../../utils/services.js';
 import { getLog } from '../../../utils/log.js';
 import { getServiceState } from './dockerState.js';
-import { execute } from '../../../utils/execute.js';
+import { executeSpawn } from '../../../utils/execute.js';
 
 const log = getLog('stopService');
 
@@ -14,12 +14,10 @@ export async function stopService({ pwd, params: [serviceName] = [] }) {
   }
   const stopCommand = `docker-compose stop -t 30 ${name}`;
   log.info(stopCommand);
-  const stopOut = await execute({ command: stopCommand, pwd });
-  log.info(stopOut);
+  await executeSpawn({ command: stopCommand, pwd });
   log.info(`${name} stopped`);
   const removeCommand = `docker-compose rm -sf ${name}`;
   log.info(removeCommand);
-  const removeOut = await execute({ command: removeCommand, pwd });
-  log.info(removeOut);
+  await executeSpawn({ command: removeCommand, pwd });
   log.info(`${name} removed`);
 }

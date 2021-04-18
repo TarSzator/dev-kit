@@ -1,6 +1,6 @@
 import { getLog } from '../../utils/log.js';
 import { getNotInternalServiceNames } from '../../utils/services.js';
-import { execute } from '../../utils/execute.js';
+import { executeSpawn } from '../../utils/execute.js';
 
 const log = getLog('pull');
 
@@ -9,7 +9,6 @@ export async function pull({ pwd }) {
   const serviceNames = await getNotInternalServiceNames({ pwd });
   const command = `docker-compose pull ${serviceNames.join(' ')}`;
   log.info(command);
-  const out = await execute({ pwd, command });
-  log.info(out);
+  await executeSpawn({ pwd, command });
   log.info(`... pull done.`);
 }

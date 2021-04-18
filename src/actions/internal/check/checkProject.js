@@ -4,7 +4,7 @@ import { getInternalNodeService } from '../../../utils/services.js';
 import { getLog } from '../../../utils/log.js';
 import { requestConfirmation } from '../../../utils/io.js';
 import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
-import { execute } from '../../../utils/execute.js';
+import { executeSpawn } from '../../../utils/execute.js';
 import { install } from '../../external/install.js';
 import { checkCertificate } from '../certificate/checkCertificate.js';
 
@@ -25,8 +25,7 @@ export async function checkProject({ pwd, params: [serviceName] = [] }) {
   }
   log.info(`Setting up repository ${repo} to ${localPath} for service ${serviceName} ...`);
   await createFolder(projectPath);
-  const cloneOut = await execute({ command: `git clone ${repo} ${localPath}`, pwd });
-  log.info(cloneOut);
+  await executeSpawn({ command: `git clone ${repo} ${localPath}`, pwd });
   log.info(`Cloned repository ${repo} to ${localPath} for service ${serviceName}`);
   await install({ pwd, params: [serviceName] });
   if (!(await exists(resolve(projectPath, 'package.json')))) {

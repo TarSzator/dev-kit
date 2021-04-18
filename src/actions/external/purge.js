@@ -1,5 +1,5 @@
 import { getLog } from '../../utils/log.js';
-import { execute } from '../../utils/execute.js';
+import { executeSpawn } from '../../utils/execute.js';
 import { requestConfirmation } from '../../utils/io.js';
 import { SkippedError } from '../../utils/errors/index.js';
 
@@ -18,7 +18,6 @@ export async function purge({ pwd }) {
   log.info(`Purging docker for this project ...`);
   const command = 'docker-compose down -v --rmi all';
   log.info(command);
-  const out = await execute({ pwd, command });
-  log.info(out);
+  await executeSpawn({ pwd, command });
   log.info(`... purge done.`);
 }
