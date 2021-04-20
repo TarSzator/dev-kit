@@ -12,13 +12,13 @@
     "url": "git+ssh://git@github.com/TarSzator/dev-kit.git"
   },
   "author": "René Simon <mail@rene-simon.eu>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/TarSzator/dev-kit/issues"
   },
   "homepage": "https://github.com/TarSzator/dev-kit#readme",
   "engines": {
-    "node": ">=14.15.0"
+    "node": ">=14.16.0"
   },
   "lint-staged": {
     "*.js": [
