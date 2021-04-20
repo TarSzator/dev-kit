@@ -6,7 +6,6 @@ services:
     working_dir: /app
     volumes:
       - '~/.npmrc:/root/.npmrc'
-      - '~/.nvm:/root/.nvm'
     env_file:
       - .env
     environment:

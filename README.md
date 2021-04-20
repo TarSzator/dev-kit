@@ -42,8 +42,6 @@ Tool to run local dev environments
       container_name: $TOOL_API_NAME
       build:
          context: $TOOL_API_LOCAL_PATH
-         args:
-            NPM_TOKEN:
       command: "npm run dev"
       working_dir: /app/tool-api
       volumes:
@@ -53,7 +51,6 @@ Tool to run local dev environments
          - .env
       environment:
          PORT: $TOOL_API_PORT
-         NPM_TOKEN:
       networks:
          - net
       labels:
