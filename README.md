@@ -110,7 +110,30 @@ Tool to run local dev environments
    1. Sadly I did not yet solve the issue with cross-project linking.  
       The current workaround required to set the `${SERVICE_NAME}_LOCAL_PATH` like the following example  
       `TOOL_API_LOCAL_PATH=../../tool/tool-api`
+   1. For each service that that provides an API you should also configure `${SERVICE_NAME}_PORT` and `${SERVICE_NAME}_EXTERNAL_PORT`
+      Where `${SERVICE_NAME}_PORT` defines the port your services will listen too and
+      `${SERVICE_NAME}_EXTERNAL_PORT` the port how you want to access the service from your host
 1. Run setup of your project
    ```sh
    ./bin/run.js setup
+   ```
+1. Configure the proxy to do HTTPS deconstruction for you services  
+   Add to config/Caddyfile for each HTTP service a config.
+   Example:
+   ```
+   {$HOST}:{$TOOL_API_EXTERNAL_PORT} {
+     tls /config/{$SSL_CERT_PREFIX}-local.crt /config/{$SSL_CERT_PREFIX}-local.key
+     reverse_proxy {
+       to http://tool-api:{$TOOL_API_PORT}
+     }
+   }
+   ```
+1. Configure the proxy service to allow your host to access these external ports by extending the ports section of the docker-compose.yml proxy service
+   ```yml
+   services:
+     proxy:
+       [...]
+       ports:
+       - $TOOL_API_EXTERNAL_PORT:$TOOL_API_EXTERNAL_PORT
+       [...]
    ```

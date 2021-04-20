@@ -1,9 +1,15 @@
 import { getLog } from '../../utils/log.js';
-import { purgeCertificate, purgeService, executeExternalPurge } from '../internal/index.js';
+import {
+  purgeCertificate,
+  purgeService,
+  executeExternalPurge,
+  unlinkHomeBin,
+} from '../internal/index.js';
 import { getInternalServiceNames } from '../../utils/services.js';
 import { waterfall } from '../../utils/promise.js';
 import { downAll } from './downAll.js';
-import { execute } from '../../utils/execute.js';
+import { executeSpawn } from '../../utils/execute.js';
+import { SkippedError } from '../../utils/errors/index.js';
 
 const log = getLog('terminate');
 
@@ -13,19 +19,25 @@ export async function terminate({ pwd, params, options }) {
   log.info(`... environment shut down ...`);
   await purgeCertificate({ pwd });
   log.info(`... certificate purged ...`);
+  await executeSpawn({
+    command: 'docker-compose down --rmi all -v',
+    pwd,
+    log,
+  });
+  log.info('... removed docker images and volumes ...');
   const servicesToPurge = await getInternalServiceNames({ pwd });
   await waterfall(
     servicesToPurge.map((serviceName) => async () => {
-      await purgeService({ pwd, params: [serviceName] });
+      await purgeService({ pwd, params: [serviceName] }).catch((error) => {
+        if (error instanceof SkippedError) {
+          return;
+        }
+        throw error;
+      });
       log.info(`... ${serviceName} service purged ...`);
     })
   );
-  const downOut = execute({
-    command: 'docker-compose down --rmi all -v',
-    pwd,
-  });
-  log.info(downOut);
-  log.info('... removed docker images and volumes ...');
   await executeExternalPurge({ pwd, params, options });
+  await unlinkHomeBin({ pwd });
   log.info(`... initial setup reverted.`);
 }

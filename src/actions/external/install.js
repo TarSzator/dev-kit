@@ -9,7 +9,7 @@ export async function install({ pwd, params: [serviceName] = [] }) {
   log.info(`Installing node_modules for ${serviceName} ...`);
   await executeSpawn({
     pwd,
-    command: `docker-compose run --rm dev-kit -v ${projectPath}:/app/${serviceName} npm --prefix /app/${serviceName} install`,
+    command: `docker-compose run --rm -v ${projectPath}:/app/${serviceName} dev-kit npm --prefix /app/${serviceName} install`,
     log,
   });
   log.info(`... installing node_modules for ${serviceName} done.`);

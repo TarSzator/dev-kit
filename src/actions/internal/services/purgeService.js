@@ -10,7 +10,7 @@ const log = getLog('purgeService');
 
 export async function purgeService({ pwd, params: [serviceName] = [] }) {
   const { localPath, projectPath } = await getInternalService({ serviceName, pwd });
-  if (await exists(projectPath)) {
+  if (!(await exists(projectPath))) {
     log.info(
       `Service ${serviceName}'s path '${localPath}' does not exist and is considered purged`
     );
@@ -43,10 +43,11 @@ export async function purgeService({ pwd, params: [serviceName] = [] }) {
     );
   }
   const pushStatus = await execute({ command: 'git status', pwd: projectPath });
-  if (pushStatus) {
+  if (pushStatus.indexOf('Your branch is ahead') !== -1) {
     throw new EnvironmentError(
       1618336450,
-      `There are not pushed commits in service '${serviceName}' path '${localPath}'`
+      `There are not pushed commits in service '${serviceName}' path '${localPath}'`,
+      { pushStatus }
     );
   }
   if (

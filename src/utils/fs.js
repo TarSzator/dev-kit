@@ -55,5 +55,5 @@ export async function createFolder(path) {
 }
 
 export async function removeFile(path) {
-  return rm(path);
+  return rm(path, { recursive: true });
 }

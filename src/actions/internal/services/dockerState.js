@@ -12,7 +12,7 @@ export async function getServiceState({ serviceName, reset = false }) {
 
 export const getDockerState = createSingleton(retrieveDockerState);
 
-function resetState() {
+export function resetState() {
   getDockerState.reset();
 }
 

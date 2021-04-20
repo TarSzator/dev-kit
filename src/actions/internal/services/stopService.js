@@ -1,6 +1,6 @@
 import { getService } from '../../../utils/services.js';
 import { getLog } from '../../../utils/log.js';
-import { getServiceState } from './dockerState.js';
+import { getServiceState, resetState } from './dockerState.js';
 import { executeSpawn } from '../../../utils/execute.js';
 
 const log = getLog('stopService');
@@ -18,4 +18,5 @@ export async function stopService({ pwd, params: [serviceName] = [] }) {
   const removeCommand = `docker-compose rm -sf ${name}`;
   await executeSpawn({ command: removeCommand, pwd, log });
   log.info(`${name} removed`);
+  resetState();
 }
