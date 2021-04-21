@@ -8,8 +8,8 @@ export function getEnvPath({ path }) {
   return resolve(path, '.env');
 }
 
-export async function initEnv() {
-  const path = getEnvPath({ path: process.cwd() });
+export async function initEnv({ pwd }) {
+  const path = getEnvPath({ path: pwd });
   if (!(await exists(path))) {
     throw new InvalidConfigError(1614926805, `.env file does not exist at "${path}"`);
   }

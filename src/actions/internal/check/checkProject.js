@@ -17,7 +17,13 @@ export async function checkProject({ pwd, params: [serviceName] = [] }) {
     return;
   }
   log.notice(`Project for service '${serviceName}' was not found in path '${projectPath}'`);
-  if (!(await requestConfirmation({ query: 'Do you want to clone it to this path? [yN]' }))) {
+  if (
+    !(await requestConfirmation({
+      query: 'Do you want to clone it to this path? [yN]',
+      positiveResult: 'Y',
+      defaultResult: 'N',
+    }))
+  ) {
     throw new SkippedError(
       1615902053,
       `Service "${serviceName}" clone to "${projectPath}" canceled by user`

@@ -20,8 +20,8 @@ services:
     env_file:
       - .env
     volumes:
-      - $PWD/config/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/cert:/config
+      - ./config/Caddyfile:/etc/caddy/Caddyfile
+      - ./cert:/config
     networks:
       - net
     labels:

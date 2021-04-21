@@ -1,6 +1,7 @@
 import { dockerPs } from './dockerPs.js';
 import { getAllServices } from '../../../utils/services.js';
 import { createSingleton } from '../../../utils/singleton.js';
+import { getPwd } from '../../../utils/pwd.js';
 
 export async function getServiceState({ serviceName, reset = false }) {
   if (reset) {
@@ -17,7 +18,7 @@ export function resetState() {
 }
 
 async function retrieveDockerState() {
-  const pwd = process.cwd();
+  const pwd = await getPwd();
   const psResult = await dockerPs({ pwd });
   const lines = psResult
     .split('\n')

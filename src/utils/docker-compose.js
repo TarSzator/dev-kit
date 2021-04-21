@@ -4,6 +4,7 @@ import { exists, hasReadAccess, readFile } from './fs.js';
 import { EnvironmentError, InvalidConfigError } from './errors/index.js';
 import { createSingleton } from './singleton.js';
 import { isEmpty } from './validators.js';
+import { getPwd } from './pwd.js';
 
 export function getDockerComposePath({ path }) {
   return resolve(path, 'docker-compose.yml');
@@ -12,7 +13,8 @@ export function getDockerComposePath({ path }) {
 export const getDockerServices = createSingleton(retrieveDockerServices);
 
 async function retrieveDockerServices() {
-  const path = getDockerComposePath({ path: process.cwd() });
+  const pwd = await getPwd();
+  const path = getDockerComposePath({ path: pwd });
   if (!(await exists(path))) {
     throw new EnvironmentError(1614926669, `docker-compose.yml file does not exist at "${path}"`);
   }

@@ -1,3 +1,4 @@
+import { basename } from 'path';
 import { getLog } from './utils/log.js';
 import { initEnv } from './utils/env.js';
 import { getCallInput } from './utils/options.js';
@@ -11,9 +12,11 @@ const log = getLog('main');
 export async function processAction() {
   let actions = {};
   try {
-    await initEnv();
-    const pwd = getPwd();
+    const pwd = await getPwd();
+    const projectName = basename(pwd);
+    await initEnv({ pwd });
     const { action, params, options } = getCallInput();
+    log.info(`Execution action "${action}" of project "${projectName}"`);
     actions = await getActions({ pwd });
     if (action === 'help') {
       printHelp(actions);
