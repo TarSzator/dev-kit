@@ -43,10 +43,14 @@ async function searchForProjectPath(path) {
     });
   }
   if (!(await isValidFolder(targetPath))) {
-    throw new EnvironmentError(1619019265, `Could not determine project folder`, {
-      path,
-      targetPath,
-    });
+    throw new EnvironmentError(
+      1619019265,
+      `Could not determine project folder due to missing ${NEEDED_FILES.join(' or ')}`,
+      {
+        path,
+        targetPath,
+      }
+    );
   }
   return targetPath;
 }
