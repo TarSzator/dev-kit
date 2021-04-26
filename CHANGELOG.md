@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes CI pipeline publish stage
+
 ## [0.0.1][] - 2021-04-26
 
 1. Start development
