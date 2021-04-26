@@ -1,6 +1,6 @@
 {
   "name": "@rene.simon/dev-kit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Tool to run local dev environments",
   "type": "module",
   "main": "./build/index.js",
@@ -32,7 +32,7 @@
   },
   "pre-commit": "lint:staged",
   "bin": {
-    "devKitSetup": "./build/bin/devKitSetup.js"
+    "devKitSetup": "build/bin/devKitSetup.js"
   },
   "scripts": {
     "dev": "watch 'npm run build' ./src",
