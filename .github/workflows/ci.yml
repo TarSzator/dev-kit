@@ -10,6 +10,8 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,12 +28,12 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Set .npmrc
         if: steps.cache.outputs.cache-hit != 'true'
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
           echo "registry=https://registry.npmjs.org/" >> .npmrc
           echo "always-auth=true" >> .npmrc
+          echo "Config:"
+          cat .npmrc
       - name: Install node modules
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
@@ -121,4 +123,9 @@ jobs:
             ./.*
             ./*
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
-      - run: npm publish --access public
+      - name: Publish to npm
+        run: |
+          echo "Token: $NPM_TOKEN"
+          echo "Config:"
+          cat .npmrc
+          npm publish --access public
