@@ -29,8 +29,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "registry=https://registry.npmjs.org/" > .npmrc
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+          echo "always-auth=true" >> .npmrc
       - name: Install node modules
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
@@ -108,7 +109,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ build ]
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Load cached build result
         id: build-cache
