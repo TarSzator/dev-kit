@@ -32,8 +32,6 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
           echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
           echo "always-auth=true" >> ~/.npmrc
-          echo "Config:"
-          cat ~/.npmrc
       - name: Install node modules
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
@@ -127,7 +125,4 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
       - name: Publish to npm
         run: |
-          echo "Token: $NPM_TOKEN"
-          echo "Config:"
-          cat ~/.npmrc
           npm publish --access public

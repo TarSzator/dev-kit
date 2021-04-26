@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Cleanup after fixes for CI pipeline publish stage
+
 ## [0.0.4][] - 2021-04-26
 
 1. Tries to fix CI pipeline publish stage #2
