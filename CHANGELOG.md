@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.1.0][] - 2021-04-26
+
 1. Adds exports of validators and errors for external module development
 1. Adds support of the external action "requirements-check" to check requirements for your dev kit to run
 
@@ -24,7 +26,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.0.5...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/TarSzator/dev-kit/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/TarSzator/dev-kit/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/TarSzator/dev-kit/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/TarSzator/dev-kit/compare/v0.0.2...v0.0.3
