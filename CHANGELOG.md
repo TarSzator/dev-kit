@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.0.5][] - 2021-04-26
+
 1. Cleanup after fixes for CI pipeline publish stage
 
 ## [0.0.4][] - 2021-04-26
@@ -19,7 +21,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.0.4...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.0.5...HEAD
+[0.0.5]: https://github.com/TarSzator/dev-kit/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/TarSzator/dev-kit/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/TarSzator/dev-kit/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/TarSzator/dev-kit/compare/v0.0.1...v0.0.2
