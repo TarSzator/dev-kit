@@ -120,4 +120,4 @@ jobs:
             ./.*
             ./*
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
-      - run: npm publish --public
+      - run: npm publish --access public
