@@ -10,10 +10,10 @@ export async function executeExternalPurge({ pwd, params, options }) {
   log.info(`... checking if an external purge script exists ...`);
   const additionalActionsPath = resolve(pwd, './actions/terminate.js');
   if (!(await exists(additionalActionsPath))) {
-    log.info(`... non found. Skipping step ...`);
+    log.info(`... non purge script found. Skipping step ...`);
     return;
   }
-  log.info(`... found script. Executing ...`);
+  log.info(`... found purge script. Executing ...`);
   const { execute } = await import(additionalActionsPath);
   if (!isFunction(execute)) {
     throw new EnvironmentError(

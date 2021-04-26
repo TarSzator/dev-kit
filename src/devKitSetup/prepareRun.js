@@ -1,10 +1,10 @@
 import { resolve } from 'path';
-import { checkFolder } from './tools/folder-check.js';
 import { exists, hasReadAccess, hasWriteAccess, readFile, writeFile } from '../utils/fs.js';
-import { getLog } from '../utils/log.js';
+import { checkFolder } from './tools/folder-check.js';
 import { getProjectPath } from '../utils/path.js';
-import { EnvironmentError } from '../utils/errors/index.js';
+import { getLog } from '../utils/log.js';
 import { readLine } from '../utils/io.js';
+import { EnvironmentError } from '../utils/errors/index.js';
 import { isNonEmptyString } from '../utils/validators.js';
 
 const log = getLog('prepareRun');

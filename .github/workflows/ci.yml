@@ -22,7 +22,15 @@ jobs:
           path: |
             ./node_modules
             ~/.npm
+            ~/.npmrc
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Set .npmrc
+        if: steps.cache.outputs.cache-hit != 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          echo "registry=https://registry.npmjs.org/" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
       - name: Install node modules
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
@@ -41,6 +49,7 @@ jobs:
           path: |
             ./node_modules
             ~/.npm
+            ~/.npmrc
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Run unit tests
         run: npm run test:ci
@@ -60,6 +69,7 @@ jobs:
           path: |
             ./node_modules
             ~/.npm
+            ~/.npmrc
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Detect duplicate code
         run: npm run jscpd:ci
@@ -78,6 +88,7 @@ jobs:
           path: |
             ./node_modules
             ~/.npm
+            ~/.npmrc
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Build
         run: npm run build
@@ -109,7 +120,4 @@ jobs:
             ./.*
             ./*
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
-      - run: |
-          echo -e "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          echo -e "always-auth=true" >> .npmrc
-      - run: npm publish
+      - run: npm publish --public

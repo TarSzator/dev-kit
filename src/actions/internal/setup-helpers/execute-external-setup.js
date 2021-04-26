@@ -10,10 +10,10 @@ export async function executeExternalSetup({ pwd, params, options }) {
   log.info(`... checking if an external setup script exists ...`);
   const additionalActionsPath = resolve(pwd, './actions/setup.js');
   if (!(await exists(additionalActionsPath))) {
-    log.info(`... non found. Skipping step ...`);
+    log.info(`... non setup script found. Skipping step ...`);
     return;
   }
-  log.info(`... found script. Executing ...`);
+  log.info(`... found setup script. Executing ...`);
   const { execute } = await import(additionalActionsPath);
   if (!isFunction(execute)) {
     throw new EnvironmentError(

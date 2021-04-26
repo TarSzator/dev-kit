@@ -59,10 +59,13 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
   let projectPath;
   if (isInternal) {
     if (!isNonEmptyString(repo)) {
-      throw new InvalidConfigError(`Missing environment config for key "${REPO_KEY}"`);
+      throw new InvalidConfigError(1619201114, `Missing environment config for key "${REPO_KEY}"`);
     }
     if (!isNonEmptyString(localPath)) {
-      throw new InvalidConfigError(`Missing environment config for key "${LOCAL_PATH_KEY}"`);
+      throw new InvalidConfigError(
+        1619201125,
+        `Missing environment config for key "${LOCAL_PATH_KEY}"`
+      );
     }
     projectPath = resolve(pwd, localPath);
   }

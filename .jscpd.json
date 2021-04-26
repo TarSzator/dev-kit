@@ -1,0 +1,6 @@
+{
+  "min-lines": 1,
+  "reporters": ["consoleFull"],
+  "ignore": ["**/*.test.js"],
+  "absolute": false
+}
