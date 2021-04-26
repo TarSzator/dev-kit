@@ -25,15 +25,15 @@ jobs:
             ./node_modules
             ~/.npm
             ~/.npmrc
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Set .npmrc
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-          echo "registry=https://registry.npmjs.org/" >> .npmrc
-          echo "always-auth=true" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
           echo "Config:"
-          cat .npmrc
+          cat ~/.npmrc
       - name: Install node modules
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
@@ -53,7 +53,7 @@ jobs:
             ./node_modules
             ~/.npm
             ~/.npmrc
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Run unit tests
         run: npm run test:ci
 
@@ -73,7 +73,7 @@ jobs:
             ./node_modules
             ~/.npm
             ~/.npmrc
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Detect duplicate code
         run: npm run jscpd:ci
   build:
@@ -92,7 +92,7 @@ jobs:
             ./node_modules
             ~/.npm
             ~/.npmrc
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-modules-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: Build
         run: npm run build
       - name: Cache build result
@@ -105,6 +105,7 @@ jobs:
           path: |
             ./.*
             ./*
+            ~/.npmrc
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
   publish:
     if: startsWith( github.ref, 'refs/tags/')
@@ -122,10 +123,11 @@ jobs:
           path: |
             ./.*
             ./*
+            ~/.npmrc
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.sha }}
       - name: Publish to npm
         run: |
           echo "Token: $NPM_TOKEN"
           echo "Config:"
-          cat .npmrc
+          cat ~/.npmrc
           npm publish --access public

@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Tries to fix CI pipeline publish stage #2
+
 ## [0.0.3][] - 2021-04-26
 
 1. Tries to fix CI pipeline publish stage
