@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Adds exports of validators and errors for external module development
+1. Adds support of the external action "requirements-check" to check requirements for your dev kit to run
+
 ## [0.0.5][] - 2021-04-26
 
 1. Cleanup after fixes for CI pipeline publish stage
