@@ -5,7 +5,7 @@ import { getInvalidValues } from '../../utils/array.js';
 import { getLog } from '../../utils/log.js';
 import { waterfall } from '../../utils/promise.js';
 import { InternalError } from '../../utils/errors/index.js';
-import { readLine } from '../../utils/io.js';
+import { highlight, readLine, requestConfirmation } from '../../utils/io.js';
 import InvalidInputError from '../../utils/errors/InvalidInputError.js';
 
 const MANDATORY_LABELS = Object.values(LABELS).filter(({ MANDATORY }) => MANDATORY);
@@ -25,11 +25,7 @@ export async function updateServiceConfig({ serviceName, serviceConfigs }) {
   const serviceNames = Object.keys(serviceConfigs);
   log.info(`... checking service "${serviceName}" ...`);
   const { labels = {} } = serviceConfig || {};
-  const missingLabels = getMissingMandatoryLabels({ labels });
-  if (isEmpty(missingLabels)) {
-    log.info(
-      `... mandatory config for service "${serviceName}" is valid. No further config needed ...`
-    );
+  if (!(await determineReconfiguration({ serviceName, labels }))) {
     // [RS] I am doing this so the behaviour of "copy" is the same for all return values
     return { changed: false, config: { ...serviceConfig, labels: { ...labels } } };
   }
@@ -37,14 +33,12 @@ export async function updateServiceConfig({ serviceName, serviceConfigs }) {
   const newLabels = await waterfall(
     Object.values(LABELS).map((label) => async (changed) => {
       const { KEY: labelKey, CSV: multiple, MANDATORY: mandatory } = label;
-      const missingMandatory = missingLabels.includes(label);
       const currentValue = labels[labelKey];
       const possibleValues = getPossibleValues({ label, serviceNames });
       const labelValue = await getPreparedLabel({
         serviceName,
         labelKey,
         multiple,
-        missingMandatory,
         possibleValues,
         currentValue,
         mandatory,
@@ -68,6 +62,22 @@ export async function updateServiceConfig({ serviceName, serviceConfigs }) {
       },
     },
   };
+}
+
+async function determineReconfiguration({ serviceName, labels }) {
+  const missingLabels = getMissingMandatoryLabels({ labels });
+  if (!isEmpty(missingLabels)) {
+    log.notice(`... some mandatory config for service "${serviceName}" is missing ...`);
+    return true;
+  }
+  log.info(
+    `... mandatory config for service "${serviceName}" is valid. No further config needed ...`
+  );
+  return requestConfirmation({
+    query: 'Do you want to reconfigure anyway? [yN]:',
+    defaultResult: 'N',
+    positiveResult: 'Y',
+  });
 }
 
 function getMissingMandatoryLabels({ labels }) {
@@ -111,28 +121,34 @@ async function getPreparedLabel({
   serviceName,
   labelKey,
   multiple,
-  missingMandatory,
   possibleValues,
   currentValue,
   mandatory,
 }) {
   try {
-    const query =
-      `Set value for "${labelKey}" for service "${serviceName}"` +
-      `${missingMandatory ? `\n[Is missing mandatory value]` : ''}` +
-      `${
-        currentValue ? `\n[Current and default value: '${currentValue}' (just press enter)]` : ''
-      }` +
-      `${possibleValues ? `\n[Possible values: '${possibleValues.join(`', '`)}']` : ''}` +
-      `${multiple ? `\n[You can use multiple by separating them by comma (,)]` : ''}` +
-      `${mandatory && !missingMandatory ? '\n[Is mandatory]' : ''}` +
-      `${
-        !mandatory && currentValue
-          ? `\n[If you want to remove the exiting value without replacing it, type ${REMOVE_VALUE}]`
-          : '\n[Currently there is no value set. Just press enter if you do not want one set]'
-      }` +
-      `:\n`;
-    const value = (await readLine({ query })) || currentValue;
+    const query = [
+      `Set value for "${highlight(labelKey)}" for service "${highlight(serviceName)}"`,
+    ];
+    if (possibleValues) {
+      query.push(`[Possible values: '${possibleValues.join(`', '`)}']`);
+    }
+    if (multiple) {
+      query.push('[You can use multiple by separating them by comma (,)]');
+    }
+    if (mandatory) {
+      query.push('[Is mandatory]');
+    }
+    if (currentValue) {
+      query.push(`[Current and default value: '${currentValue}' (just press enter)]`);
+      if (!mandatory) {
+        query.push(
+          `[If you want to remove the exiting value without replacing it, type ${REMOVE_VALUE}]`
+        );
+      }
+    } else if (!mandatory) {
+      query.push('[Currently there is no value set. Just press enter if you do not want one set]');
+    }
+    const value = (await readLine({ query: `${query.join('\n')}\n` })) || currentValue;
     if (value === REMOVE_VALUE) {
       if (mandatory) {
         throw new InvalidInputError(
@@ -162,7 +178,6 @@ async function getPreparedLabel({
         serviceName,
         labelKey,
         multiple,
-        missingMandatory,
         possibleValues,
         currentValue,
         mandatory,

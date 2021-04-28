@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+1. Improves `devKitSetup`
+1. Reworks link system
+1. Improves `README`
+
 ## [0.1.0][] - 2021-04-26
 
 1. Adds exports of validators and errors for external module development

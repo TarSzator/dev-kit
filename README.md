@@ -35,7 +35,8 @@ Tool to run local dev environments
    ```sh
    devKitSetup
    ```
-   Answer all question how you want it
+   Answer all question how you want it  
+   - in this example we name the shell script `tCtrl`
 1. Add your services to the services section of the docker-compose.yml
    ```yml
    tool-api:
@@ -80,7 +81,8 @@ Tool to run local dev environments
        For link to work the node code as to run in a folder named like the real folder in app  
        /tool/tool-api --> /app/tool-api
      - All services need to use the same network
-1. Run setup again to trigger label creation
+1. Run setup again to trigger label creation  
+   (you can run this anytime you want to check if your environment is still up to specs)
    ```sh
    devKitSetup
    ```
@@ -133,4 +135,8 @@ Tool to run local dev environments
        ports:
        - $TOOL_API_EXTERNAL_PORT:$TOOL_API_EXTERNAL_PORT
        [...]
+   ```
+1. Now you can run `help` to see all your actions
+   ```sh
+   tCtrl help
    ```

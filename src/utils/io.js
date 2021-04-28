@@ -73,3 +73,7 @@ function getCollWidth(table) {
     return lengths;
   }, []);
 }
+
+export function highlight(str) {
+  return chalk.cyan(str);
+}
