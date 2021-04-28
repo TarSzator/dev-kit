@@ -16,7 +16,7 @@ export async function purge({ pwd }) {
     throw new SkippedError(1618473561, `User skipped purge process`);
   }
   log.info(`Purging docker for this project ...`);
-  const command = 'docker-compose down -v --rmi all';
+  const command = 'docker compose down -v --rmi all';
   await executeSpawn({ pwd, command, log });
   log.info(`... purge done.`);
 }

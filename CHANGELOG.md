@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Updates docker commands to new `docker compose` syntax
+
 ## [0.1.1][] - 2021-04-28
 
 1. Improves `devKitSetup`
