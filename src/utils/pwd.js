@@ -64,10 +64,9 @@ async function getFinalAbsolutePath(path) {
 }
 
 async function getSaveAbsoluteLinkPath(path) {
-  try {
-    const relLinkPath = await readLink(path);
-    return join(dirname(path), relLinkPath);
-  } catch (error) {
+  const relLinkPath = await readLink(path);
+  if (!relLinkPath) {
     return null;
   }
+  return join(dirname(path), relLinkPath);
 }

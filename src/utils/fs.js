@@ -1,8 +1,24 @@
 import { constants } from 'fs';
-import { access, stat, mkdir, rm, readFile as rf, writeFile as wf, readlink } from 'fs/promises';
+import {
+  access,
+  stat,
+  mkdir,
+  rm,
+  readFile as rf,
+  writeFile as wf,
+  readlink as rl,
+} from 'fs/promises';
 
 export async function exists(path) {
-  return hasAccess(path);
+  try {
+    if (await hasAccess(path)) {
+      return true;
+    }
+    const { isSymLink } = await getFileStats(path);
+    return isSymLink;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function hasWriteAccess(path) {
@@ -24,13 +40,38 @@ async function hasAccess(path, mode) {
   }
 }
 
+export async function readLink(path) {
+  try {
+    return await rl(path, { encoding: 'utf-8' });
+  } catch (error) {
+    return null;
+  }
+}
+
 export async function getFileStats(path) {
-  const file = await stat(path);
-  return {
-    isDirectory: file.isDirectory(),
-    isFile: file.isFile(),
-    isSymLink: file.isSymbolicLink(),
-  };
+  try {
+    const file = await stat(path);
+    let isSymLink = file.isSymbolicLink();
+    if (!isSymLink) {
+      isSymLink = !!(await readLink(path));
+    }
+    return {
+      exists: true,
+      isDirectory: file.isDirectory(),
+      isFile: file.isFile(),
+      isSymLink,
+    };
+  } catch (error) {
+    const isSymLink = !!(await readLink(path));
+    return isSymLink
+      ? { exists: true, isDirectory: false, isFile: false, isSymLink }
+      : {
+          exists: false,
+          isDirectory: false,
+          isFile: false,
+          isSymLink,
+        };
+  }
 }
 
 export async function isFolder(path) {
@@ -56,8 +97,4 @@ export async function createFolder(path) {
 
 export async function removeFile(path) {
   return rm(path, { recursive: true });
-}
-
-export async function readLink(path) {
-  return readlink(path, { encoding: 'utf-8' });
 }

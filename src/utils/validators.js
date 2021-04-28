@@ -38,3 +38,7 @@ export function isFunction(val) {
 export function hasProperty(obj, propertyName) {
   return Object.hasOwnProperty.call(obj, propertyName);
 }
+
+export function endWith(str, needle) {
+  return _.endsWith(str, needle);
+}
