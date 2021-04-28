@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.1.1][] - 2021-04-28
+
 1. Improves `devKitSetup`
 1. Reworks link system
 1. Improves `README`
@@ -31,7 +33,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/TarSzator/dev-kit/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/TarSzator/dev-kit/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/TarSzator/dev-kit/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/TarSzator/dev-kit/compare/v0.0.3...v0.0.4
