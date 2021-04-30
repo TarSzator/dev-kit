@@ -6,6 +6,6 @@ const log = getLog('logs');
 
 export async function logs({ pwd, params: [serviceName] = [] }) {
   const { name } = await getService({ serviceName, pwd });
-  const command = `docker compose logs ${name}`;
+  const command = `docker-compose logs ${name}`;
   await executeSpawn({ pwd, command, log });
 }

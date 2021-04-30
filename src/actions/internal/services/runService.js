@@ -22,7 +22,7 @@ export async function runService({ pwd, params: [serviceName, skipHealthcheck = 
     log.notice(`${name} is in an invalid state stopping it ...`);
     await stopService({ pwd, params: [name] });
   }
-  const command = `docker compose up -d ${name}`;
+  const command = `docker-compose up -d ${name}`;
   await executeSpawn({ command, pwd, log });
   if (hasHealthcheck && !skipHealthcheck) {
     await healthcheckService({ pwd, params: [name] });

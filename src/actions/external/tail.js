@@ -6,6 +6,6 @@ const log = getLog('tail');
 
 export async function tail({ pwd, params: [serviceName] = [] }) {
   const { name } = await getService({ serviceName, pwd });
-  const command = `docker compose logs -f ${name}`;
+  const command = `docker-compose logs -f ${name}`;
   await executeSpawn({ pwd, command, log });
 }
