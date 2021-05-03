@@ -17,6 +17,8 @@ import { down } from './down.js';
 import { debugProxy } from './debugProxy.js';
 import { restart } from './restart.js';
 import { open } from './open.js';
+import { unitTest } from './unitTest.js';
+import { integrationTest } from './integrationTest.js';
 
 export default {
   setup: {
@@ -105,5 +107,15 @@ export default {
   debugProxy: {
     exec: debugProxy,
     description: `Restarts the proxy container and tails the log`,
+  },
+  unitTest: {
+    exec: unitTest,
+    description: `Runs "test" script for service`,
+    paramsDesc: '<service>',
+  },
+  integrationTest: {
+    exec: integrationTest,
+    description: `Runs "test:integration" script for service`,
+    paramsDesc: '<service>',
   },
 };
