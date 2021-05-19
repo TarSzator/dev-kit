@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Updates dependency packages
+
 ## [0.2.1][] - 2021-05-19
 
 1. Fixes issue with dependency circles
