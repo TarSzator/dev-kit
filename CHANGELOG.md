@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Cleanup dependencies
+
 ## [0.2.2][] - 2021-05-19
 
 1. Updates dependency packages

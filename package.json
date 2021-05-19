@@ -73,7 +73,8 @@
     "lint-staged": "^11.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^2.3.0",
-    "version-changelog": "^3.1.1"
+    "version-changelog": "^3.1.1",
+    "watch": "^1.0.2"
   },
   "dependencies": {
     "chalk": "^4.1.1",
@@ -82,7 +83,6 @@
     "dotenv": "^9.0.2",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "watch": "^1.0.2",
     "yaml": "^1.10.2"
   }
 }
