@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.2.3][] - 2021-05-19
+
 1. Cleanup dependencies
 
 ## [0.2.2][] - 2021-05-19
@@ -47,7 +49,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/TarSzator/dev-kit/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/TarSzator/dev-kit/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/TarSzator/dev-kit/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/TarSzator/dev-kit/compare/v0.1.1...v0.2.0
