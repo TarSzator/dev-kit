@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes issue with dependency circles
+
 ## [0.2.0][] - 2021-05-03
 
 1. Adds integrationTest and unitTest actions
