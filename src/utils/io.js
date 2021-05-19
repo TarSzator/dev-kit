@@ -39,13 +39,12 @@ export function printHelp(actions) {
       `${chalk.green('Actions:')}`
   );
   printTable(
-    [
-      ...Object.entries(actions),
-      ['help', { description: 'Shows this usage instructions.' }],
-    ].map(([action, { description, paramsDesc }]) => [
-      `${action}${paramsDesc ? ` ${paramsDesc}` : ''}`,
-      description,
-    ])
+    [...Object.entries(actions), ['help', { description: 'Shows this usage instructions.' }]].map(
+      ([action, { description, paramsDesc }]) => [
+        `${action}${paramsDesc ? ` ${paramsDesc}` : ''}`,
+        description,
+      ]
+    )
   );
 }
 

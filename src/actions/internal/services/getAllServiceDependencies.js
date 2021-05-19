@@ -19,12 +19,13 @@ async function getServiceDependencies({ pwd, serviceName, store }) {
   const { name, dependencies } = await getService({ serviceName, pwd });
   store.set(name, dependencies);
   return waterfall(
-    dependencies.map((dependentServiceName) => async (currentStore) =>
-      getServiceDependencies({
-        pwd,
-        serviceName: dependentServiceName,
-        store: currentStore,
-      })
+    dependencies.map(
+      (dependentServiceName) => async (currentStore) =>
+        getServiceDependencies({
+          pwd,
+          serviceName: dependentServiceName,
+          store: currentStore,
+        })
     ),
     store
   );
