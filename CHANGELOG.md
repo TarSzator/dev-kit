@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.2.5][] - 2021-05-20
+
 1. Exports most functions to be used by private actions
 1. Fixes issue with linked paths
 
@@ -56,7 +58,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.2.5...HEAD
+[0.2.5]: https://github.com/TarSzator/dev-kit/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/TarSzator/dev-kit/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/TarSzator/dev-kit/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/TarSzator/dev-kit/compare/v0.2.1...v0.2.2
