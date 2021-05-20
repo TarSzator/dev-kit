@@ -12,17 +12,16 @@ export default class BaseError extends Error {
     if (typeof id === 'string') {
       id = id.replace(INVALID_CHARS, '');
     }
-    if (!message) {
-      message = `No error message provided to construct BaseError`;
-    }
     if (message instanceof Error) {
       parentError = message;
       message = parentError.message || `Parent error without message provided`;
     }
-    super(message);
+    super(message || `No error message provided to construct BaseError`);
     this.id = id;
     this.code = code || ERROR_UNKNOWN_ERROR;
-    this.additionalInformation = additionalInformation;
+    this.additionalInformation = message
+      ? additionalInformation
+      : { ...additionalInformation, stack: this.stack };
     this.parentError = parentError;
     Error.captureStackTrace(this, BaseError);
   }

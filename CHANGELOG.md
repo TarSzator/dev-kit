@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes issue with certain errors
+
 ## [0.2.3][] - 2021-05-19
 
 1. Cleanup dependencies

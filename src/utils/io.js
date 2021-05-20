@@ -1,3 +1,4 @@
+import { basename } from 'path';
 import readline from 'readline';
 import chalk from 'chalk';
 import clui from 'clui';
@@ -34,7 +35,7 @@ export async function readLine({ query }) {
 export function printHelp(actions) {
   // eslint-disable-next-line no-console
   console.log(
-    `${chalk.green('Usage:')} ${process.argv0} ACTION [ARGUMENTS]\n\n` +
+    `${chalk.green('Usage:')} ${basename(process.argv[1])} ACTION [ARGUMENTS]\n\n` +
       `Control script\n\n` +
       `${chalk.green('Actions:')}`
   );

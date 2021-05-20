@@ -21,7 +21,7 @@ export async function setup() {
         query: `Setting up dev kit in folder: "${pwd}"? [Yn]`,
       }))
     ) {
-      throw new SkippedError(`Wrong folder`);
+      throw new SkippedError(1621500305, `Wrong folder`);
     }
     const envPath = getEnvPath({ path: pwd });
     await prepareEnv({ filePath: envPath });

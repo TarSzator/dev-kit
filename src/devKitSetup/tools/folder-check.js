@@ -17,7 +17,7 @@ export async function checkFolder({ label, folderPath, log }) {
         query: `Existing path "${folderPath}" is not a folder. Will remove existing file and create the ${label} folder instead. [Yn]`,
       }))
     ) {
-      throw new SkippedError(`Skip overwriting ${label} file to create folder`);
+      throw new SkippedError(1621500428, `Skip overwriting ${label} file to create folder`);
     }
     log.info(`... removing ${label} file ...`);
     await removeFile(folderPath);

@@ -25,14 +25,15 @@ export async function processAction() {
     }
     const { exec } = actions[action] || {};
     if (!exec) {
-      throw new InvalidInputError(`Unknown action "${action}"`);
+      throw new InvalidInputError(1621500260, `Unknown action "${action}"`);
     }
     await executeExternalRequirementsCheck({ pwd, params, options });
     await exec({ pwd, params, options });
     return 0;
   } catch (error) {
     if (error instanceof InvalidInputError) {
-      log.error(`Invalid input: ${error.message}`);
+      const { message, id } = error;
+      log.error(`Invalid input: ${message} [${id}]`);
       printHelp(actions);
     } else {
       log.error('Action execution failed!', error);
