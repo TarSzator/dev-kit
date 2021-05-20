@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Exports most functions to be used by private actions
+1. Fixes issue with linked paths
+
 ## [0.2.4][] - 2021-05-20
 
 1. Fixes issue with certain errors

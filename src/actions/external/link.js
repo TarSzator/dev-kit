@@ -1,9 +1,9 @@
-import { basename, relative, resolve, dirname } from 'path';
+import { relative, resolve, dirname } from 'path';
 import { getInternalNodeService } from '../../utils/services.js';
 import { getLog } from '../../utils/log.js';
 import { execute } from '../../utils/execute.js';
 import InvalidInputError from '../../utils/errors/InvalidInputError.js';
-import { endWith, isNonEmptyString } from '../../utils/validators.js';
+import { isNonEmptyString } from '../../utils/validators.js';
 import { exists, getFileStats, readFile, removeFile } from '../../utils/fs.js';
 import { EnvironmentError } from '../../utils/errors/index.js';
 import { updateService } from '../internal/tools/dockerCompose.js';
@@ -20,24 +20,26 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
   if (!isNonEmptyString(targetServiceName)) {
     throw new InvalidInputError(1618341103, 'No target service name provided');
   }
-  const sourceProjectPath = await getValidProjectPath({
-    serviceName: sourceServiceName,
-    pwd,
-    isKey: 'isLinkSource',
-  });
-  const targetProjectPath = await getValidProjectPath({
-    serviceName: targetServiceName,
-    pwd,
-    isKey: 'isLinkTarget',
-  });
+  const { projectPath: sourceProjectPath, localPathKey: sourceLocalPathKey } =
+    await getValidProjectPath({
+      serviceName: sourceServiceName,
+      pwd,
+      isKey: 'isLinkSource',
+    });
+  const { projectPath: targetProjectPath, localPathKey: targetLocalPathKey } =
+    await getValidProjectPath({
+      serviceName: targetServiceName,
+      pwd,
+      isKey: 'isLinkTarget',
+    });
   log.info(`Link ${sourceServiceName} into ${targetServiceName} ...`);
   await updateService({
     pwd,
     serviceName: targetServiceName,
     processor: getServiceConfigProcessor({
       targetServiceName,
-      targetProjectPath,
-      sourceProjectPath,
+      targetLocalPathKey,
+      sourceLocalPathKey,
     }),
   });
   const moduleName = await determineModuleName({ sourceProjectPath });
@@ -70,7 +72,11 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
 }
 
 async function getValidProjectPath({ serviceName, pwd, isKey }) {
-  const { projectPath, [isKey]: isValue } = await getInternalNodeService({
+  const {
+    projectPath,
+    localPathKey,
+    [isKey]: isValue,
+  } = await getInternalNodeService({
     serviceName,
     pwd,
   });
@@ -80,23 +86,25 @@ async function getValidProjectPath({ serviceName, pwd, isKey }) {
       `Invalid service "${serviceName}" used. It must be "${isKey}."`
     );
   }
-  return projectPath;
+  return { projectPath, localPathKey };
 }
 
-function getServiceConfigProcessor({ targetServiceName, targetProjectPath, sourceProjectPath }) {
+function getServiceConfigProcessor({ targetServiceName, targetLocalPathKey, sourceLocalPathKey }) {
   return async ({ serviceConfig: sc }) => {
     let changed = false;
+    const sourceLocalPathVar = `$${sourceLocalPathKey}`;
+    const targetLocalPathVar = `$${targetLocalPathKey}`;
     const { working_dir: workingDir, volumes = [] } = sc;
     const serviceConfig = { ...sc };
-    if (workingDir !== targetProjectPath) {
-      serviceConfig.working_dir = targetProjectPath;
+    if (workingDir !== targetLocalPathVar) {
+      serviceConfig.working_dir = targetLocalPathVar;
       changed = true;
     }
     serviceConfig.volumes = [...volumes];
-    if (injectVolume(targetServiceName, targetProjectPath, serviceConfig.volumes)) {
+    if (injectVolume(targetServiceName, targetLocalPathVar, serviceConfig.volumes)) {
       changed = true;
     }
-    if (injectVolume(targetServiceName, sourceProjectPath, serviceConfig.volumes)) {
+    if (injectVolume(targetServiceName, sourceLocalPathVar, serviceConfig.volumes)) {
       changed = true;
     }
     return { changed, serviceConfig };
@@ -104,10 +112,9 @@ function getServiceConfigProcessor({ targetServiceName, targetProjectPath, sourc
 }
 
 // [RS] Caution this function is mutating the volumes array
-function injectVolume(serviceName, projectPath, volumes) {
-  const folderName = basename(projectPath);
-  const volumeConfig = `${projectPath}:${projectPath}`;
-  const projectVolumes = volumes.filter((path) => endWith(path, folderName));
+function injectVolume(serviceName, projectPathVar, volumes) {
+  const volumeConfig = `${projectPathVar}:${projectPathVar}`;
+  const projectVolumes = volumes.filter((path) => path === volumeConfig);
   if (!projectVolumes.length) {
     volumes.push(volumeConfig);
     return true;
@@ -115,16 +122,10 @@ function injectVolume(serviceName, projectPath, volumes) {
   if (projectVolumes.length > 1) {
     throw new EnvironmentError(
       1619592018,
-      `Volume for "${folderName}" is not unique in docker compose service config of service "${serviceName}"`
+      `Volume for "${projectPathVar}" is not unique in docker compose service config of service "${serviceName}"`
     );
   }
-  const [path] = projectVolumes;
-  if (path === volumeConfig) {
-    return false;
-  }
-  const index = volumes.indexOf(path);
-  volumes.splice(index, 1, volumeConfig);
-  return true;
+  return false;
 }
 
 async function determineModuleName({ sourceProjectPath }) {

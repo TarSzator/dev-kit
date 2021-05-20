@@ -1,24 +1,26 @@
-import { setup } from './setup.js';
-import { install } from './install.js';
-import { downAll } from './downAll.js';
-import { terminate } from './terminate.js';
-import { link } from './link.js';
-import { pull } from './pull.js';
-import { resetCert } from './resetCert.js';
-import { purge } from './purge.js';
-import { ps } from './ps.js';
-import { login } from './login.js';
-import { logs } from './logs.js';
-import { tail } from './tail.js';
-import { build } from './build.js';
-import { hardUpdate } from './hardUpdate.js';
-import { up } from './up.js';
-import { down } from './down.js';
-import { debugProxy } from './debugProxy.js';
-import { restart } from './restart.js';
-import { open } from './open.js';
-import { unitTest } from './unitTest.js';
-import { integrationTest } from './integrationTest.js';
+import {
+  setup,
+  install,
+  downAll,
+  terminate,
+  link,
+  pull,
+  resetCert,
+  purge,
+  ps,
+  login,
+  logs,
+  tail,
+  build,
+  hardUpdate,
+  up,
+  down,
+  debugProxy,
+  restart,
+  open,
+  unitTest,
+  integrationTest,
+} from './export.js';
 
 export default {
   setup: {

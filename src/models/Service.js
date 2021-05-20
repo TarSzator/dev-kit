@@ -85,6 +85,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
     hasHealthcheck,
     dependencies,
     openUrl: replaceEnvVariables(openUrl),
+    localPathKey: LOCAL_PATH_KEY,
   };
 }
 
