@@ -42,6 +42,11 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
       sourceLocalPathKey,
     }),
   });
+  await updateService({
+    pwd,
+    serviceName: 'dev-kit',
+    processor: getDevKitServiceConfigProcessor({ sourceLocalPathKey }),
+  });
   const moduleName = await determineModuleName({ sourceProjectPath });
   const nmFolder = `${targetProjectPath}/node_modules/${moduleName}`;
   if (!(await exists(nmFolder))) {
@@ -94,13 +99,12 @@ function getServiceConfigProcessor({ targetServiceName, targetLocalPathKey, sour
     let changed = false;
     const sourceLocalPathVar = `$${sourceLocalPathKey}`;
     const targetLocalPathVar = `$${targetLocalPathKey}`;
-    const { working_dir: workingDir, volumes = [] } = sc;
-    const serviceConfig = { ...sc };
+    const { working_dir: workingDir } = sc;
+    const serviceConfig = copyConfig(sc);
     if (workingDir !== targetLocalPathVar) {
       serviceConfig.working_dir = targetLocalPathVar;
       changed = true;
     }
-    serviceConfig.volumes = [...volumes];
     if (injectVolume(targetServiceName, targetLocalPathVar, serviceConfig.volumes)) {
       changed = true;
     }
@@ -131,4 +135,23 @@ function injectVolume(serviceName, projectPathVar, volumes) {
 async function determineModuleName({ sourceProjectPath }) {
   const packageJson = await readFile(resolve(sourceProjectPath, './package.json'));
   return JSON.parse(packageJson).name;
+}
+
+function getDevKitServiceConfigProcessor({ sourceLocalPathKey }) {
+  return async ({ serviceConfig: sc }) => {
+    let changed = false;
+    const sourceLocalPathVar = `$${sourceLocalPathKey}`;
+    const serviceConfig = copyConfig(sc);
+    if (injectVolume('dev-kit', sourceLocalPathVar, serviceConfig.volumes)) {
+      changed = true;
+    }
+    return { changed, serviceConfig };
+  };
+}
+
+function copyConfig(serviceConfig) {
+  const { volumes = [] } = serviceConfig;
+  const sc = { ...serviceConfig };
+  sc.volumes = [...volumes];
+  return sc;
 }
