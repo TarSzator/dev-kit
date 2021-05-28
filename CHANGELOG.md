@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Improve certificate creation
+
 ## [0.2.5][] - 2021-05-20
 
 1. Exports most functions to be used by private actions
