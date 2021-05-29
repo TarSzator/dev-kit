@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.3.0][] - 2021-05-29
+
 1. Adds action "buildImage" to build docker images
 
 ## [0.2.6][] - 2021-05-28
@@ -64,7 +66,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.2.6...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/TarSzator/dev-kit/compare/v0.2.6...v0.3.0
 [0.2.6]: https://github.com/TarSzator/dev-kit/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/TarSzator/dev-kit/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/TarSzator/dev-kit/compare/v0.2.3...v0.2.4
