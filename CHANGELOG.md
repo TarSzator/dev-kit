@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Adds action "buildImage" to build docker images
+
 ## [0.2.6][] - 2021-05-28
 
 1. Improve certificate creation

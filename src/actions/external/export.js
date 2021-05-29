@@ -19,3 +19,4 @@ export * from './restart.js';
 export * from './open.js';
 export * from './unitTest.js';
 export * from './integrationTest.js';
+export * from './buildImage.js';

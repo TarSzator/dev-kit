@@ -20,6 +20,7 @@ import {
   open,
   unitTest,
   integrationTest,
+  buildImage,
 } from './export.js';
 
 export default {
@@ -118,6 +119,11 @@ export default {
   integrationTest: {
     exec: integrationTest,
     description: `Runs "test:integration" script for service`,
+    paramsDesc: '<service>',
+  },
+  buildImage: {
+    exec: buildImage,
+    description: `Builds the docker image of the given service`,
     paramsDesc: '<service>',
   },
 };
