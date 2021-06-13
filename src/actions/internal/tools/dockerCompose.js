@@ -1,9 +1,8 @@
 import YAML from 'yaml';
 import { resolve } from 'path';
 import { exists, hasWriteAccess, readFile, writeFile } from '../../../utils/fs.js';
-import { EnvironmentError } from '../../../utils/errors/index.js';
+import { InvalidInputError, EnvironmentError } from '../../../utils/errors/index.js';
 import { getLog } from '../../../utils/log.js';
-import InvalidInputError from '../../../utils/errors/InvalidInputError.js';
 
 const log = getLog('dockerCompose');
 

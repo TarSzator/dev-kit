@@ -1,6 +1,6 @@
 import { createService } from '../models/Service.js';
 import { getDockerServices } from './docker-compose.js';
-import InvalidInputError from './errors/InvalidInputError.js';
+import { InvalidInputError } from './errors/index.js';
 import { isNonEmptyString } from './validators.js';
 
 const services = new Map();

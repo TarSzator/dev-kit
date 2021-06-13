@@ -2,10 +2,9 @@ import { relative, resolve, dirname } from 'path';
 import { getInternalNodeService } from '../../utils/services.js';
 import { getLog } from '../../utils/log.js';
 import { execute } from '../../utils/execute.js';
-import InvalidInputError from '../../utils/errors/InvalidInputError.js';
+import { InvalidInputError, EnvironmentError } from '../../utils/errors/index.js';
 import { isNonEmptyString } from '../../utils/validators.js';
 import { exists, getFileStats, readFile, removeFile } from '../../utils/fs.js';
-import { EnvironmentError } from '../../utils/errors/index.js';
 import { updateService } from '../internal/tools/dockerCompose.js';
 
 const log = getLog('link');

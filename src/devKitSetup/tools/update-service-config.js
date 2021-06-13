@@ -4,9 +4,8 @@ import { parseCsv } from '../../utils/csv.js';
 import { getInvalidValues } from '../../utils/array.js';
 import { getLog } from '../../utils/log.js';
 import { waterfall } from '../../utils/promise.js';
-import { InternalError } from '../../utils/errors/index.js';
+import { InvalidInputError, InternalError } from '../../utils/errors/index.js';
 import { highlight, readLine, requestConfirmation } from '../../utils/io.js';
-import InvalidInputError from '../../utils/errors/InvalidInputError.js';
 
 const MANDATORY_LABELS = Object.values(LABELS).filter(({ MANDATORY }) => MANDATORY);
 

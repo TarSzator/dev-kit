@@ -1,9 +1,8 @@
 import { getInternalService } from '../../../utils/services.js';
-import InvalidInputError from '../../../utils/errors/InvalidInputError.js';
 import { exists, getFileStats, removeFile } from '../../../utils/fs.js';
 import { getLog } from '../../../utils/log.js';
 import { execute } from '../../../utils/execute.js';
-import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
+import { InvalidInputError, EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
 import { requestConfirmation } from '../../../utils/io.js';
 
 const log = getLog('purgeService');

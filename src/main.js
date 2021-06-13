@@ -2,7 +2,7 @@ import { basename } from 'path';
 import { getLog } from './utils/log.js';
 import { initEnv } from './utils/env.js';
 import { getCallInput } from './utils/options.js';
-import InvalidInputError from './utils/errors/InvalidInputError.js';
+import { InvalidInputError } from './utils/errors/index.js';
 import { printHelp } from './utils/io.js';
 import { getActions } from './utils/actions.js';
 import { getPwd } from './utils/pwd.js';

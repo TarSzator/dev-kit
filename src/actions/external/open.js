@@ -2,7 +2,7 @@ import { tail } from './tail.js';
 import { up } from './up.js';
 import { getInternalNodeService } from '../../utils/services.js';
 import { execute } from '../../utils/execute.js';
-import InvalidInputError from '../../utils/errors/InvalidInputError.js';
+import { InvalidInputError } from '../../utils/errors/index.js';
 
 export async function open({ pwd, params: [serviceName] }) {
   const { name, openUrl } = await getInternalNodeService({ serviceName, pwd });

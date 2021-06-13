@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes missing InvalidInputError export
+
 ## [0.3.0][] - 2021-05-29
 
 1. Adds action "buildImage" to build docker images
