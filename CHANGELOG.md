@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Exports io function to be used by private actions
+1. Adds some validators
+
 ## [0.3.1][] - 2021-06-13
 
 1. Fixes missing InvalidInputError export

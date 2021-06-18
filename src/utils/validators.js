@@ -1,7 +1,11 @@
 import _ from 'lodash';
 
+export function isNaN(val) {
+  return _.isNaN(val);
+}
+
 export function isNumber(val) {
-  return _.isNumber(val) && !_.isNaN(val);
+  return _.isNumber(val) && !isNaN(val);
 }
 
 export function isInteger(val) {
@@ -41,4 +45,10 @@ export function hasProperty(obj, propertyName) {
 
 export function endWith(str, needle) {
   return _.endsWith(str, needle);
+}
+
+export function isNumberLike(val) {
+  if (isNumber(val)) return true;
+  if (!isString(val)) return false;
+  return !isNaN(Number(val.trim() || undefined));
 }
