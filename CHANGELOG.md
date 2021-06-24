@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes README typo
+
 ## [0.4.0][] - 2021-06-18
 
 1. Exports io function to be used by private actions

@@ -29,7 +29,7 @@ Tool to run local dev environments
    Answer all question how you want it
 1. Install the dev-kit
    ```sh
-   npm i @rene-simon/dev-kit
+   npm i @rene.simon/dev-kit
    ```
 1. Execute setup
    ```sh
