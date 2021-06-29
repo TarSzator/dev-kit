@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Adds ability to extend environment when executing a shell command
+
 ## [0.4.1][] - 2021-06-24
 
 1. Fixes README typo

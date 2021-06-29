@@ -1,14 +1,21 @@
 import { exec, spawn } from 'child_process';
-import { ShellError, UnknownError } from './errors/index.js';
+import { InvalidInputError, ShellError, UnknownError } from './errors/index.js';
+import { isPlainObject } from './validators.js';
 
-export async function execute({ command, pwd }) {
+export async function execute({ command, pwd, environmentExtension = {} }) {
+  if (!isPlainObject(environmentExtension)) {
+    throw new InvalidInputError(
+      1624951090,
+      `environmentExtension must be a plain object when provided`
+    );
+  }
   return new Promise((resolve, reject) => {
     try {
       exec(
         command,
         {
           cwd: pwd,
-          env: process.env,
+          env: { ...process.env, ...environmentExtension },
           encoding: 'utf8',
           shell: '/bin/zsh',
         },
@@ -37,7 +44,13 @@ export async function execute({ command, pwd }) {
   });
 }
 
-export async function executeSpawn({ command, pwd, log }) {
+export async function executeSpawn({ command, pwd, log, environmentExtension = {} }) {
+  if (!isPlainObject(environmentExtension)) {
+    throw new InvalidInputError(
+      1624951090,
+      `environmentExtension must be a plain object when provided`
+    );
+  }
   log.info(command);
   return new Promise((resolve, reject) => {
     let callbackExecuted = false;
@@ -57,7 +70,7 @@ export async function executeSpawn({ command, pwd, log }) {
       const [com] = args.splice(0, 1);
       const childProcess = spawn(com, args, {
         cwd: pwd,
-        env: process.env,
+        env: { ...process.env, ...environmentExtension },
         stdio: 'inherit',
       });
       childProcess.on('error', (error) => {
