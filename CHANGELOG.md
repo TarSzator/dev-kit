@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.5.0][] - 2021-06-29
+
 1. Adds ability to extend environment when executing a shell command
 
 ## [0.4.1][] - 2021-06-24
@@ -81,7 +83,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/TarSzator/dev-kit/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/TarSzator/dev-kit/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/TarSzator/dev-kit/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/TarSzator/dev-kit/compare/v0.3.0...v0.3.1
