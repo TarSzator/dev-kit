@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.5.1][] - 2021-07-02
+
 1. Fix issues with non node internal projects
 
 ## [0.5.0][] - 2021-06-29
@@ -85,7 +87,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/TarSzator/dev-kit/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/TarSzator/dev-kit/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/TarSzator/dev-kit/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/TarSzator/dev-kit/compare/v0.3.1...v0.4.0
