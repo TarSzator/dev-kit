@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fix issues with non node internal projects
+
 ## [0.5.0][] - 2021-06-29
 
 1. Adds ability to extend environment when executing a shell command

@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import { createFolder, exists } from '../../../utils/fs.js';
-import { getInternalNodeService } from '../../../utils/services.js';
+import { getInternalService } from '../../../utils/services.js';
 import { getLog } from '../../../utils/log.js';
 import { requestConfirmation } from '../../../utils/io.js';
 import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
@@ -11,8 +11,9 @@ import { checkCertificate } from '../certificate/checkCertificate.js';
 const log = getLog('checkProject');
 
 export async function checkProject({ pwd, params: [serviceName] = [] }) {
-  const { repo, localPath, projectPath } = await getInternalNodeService({ serviceName, pwd });
-  if (await exists(resolve(projectPath, 'package.json'))) {
+  const { repo, localPath, projectPath, isNode } = await getInternalService({ serviceName, pwd });
+  const path = isNode ? resolve(projectPath, 'package.json') : projectPath;
+  if (await exists(path)) {
     await checkCertificate({ pwd });
     return;
   }
@@ -33,8 +34,10 @@ export async function checkProject({ pwd, params: [serviceName] = [] }) {
   await createFolder(projectPath);
   await executeSpawn({ command: `git clone ${repo} ${localPath}`, pwd, log });
   log.info(`Cloned repository ${repo} to ${localPath} for service ${serviceName}`);
-  await install({ pwd, params: [serviceName] });
-  if (!(await exists(resolve(projectPath, 'package.json')))) {
+  if (isNode) {
+    await install({ pwd, params: [serviceName] });
+  }
+  if (!(await exists(path))) {
     throw new EnvironmentError(
       1615903482,
       `After checkout and install of service "${serviceName}" the project still does not have a package.json file`
