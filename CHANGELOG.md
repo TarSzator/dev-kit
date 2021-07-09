@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Adds option to "login" to select shell
+1. Adds "exec" command
+
 ## [0.5.1][] - 2021-07-02
 
 1. Fix issues with non node internal projects

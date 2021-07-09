@@ -22,6 +22,7 @@ import {
   integrationTest,
   buildImage,
 } from './export.js';
+import { exec } from './exec.js';
 
 export default {
   setup: {
@@ -62,10 +63,15 @@ export default {
     exec: ps,
     description: `Shows docker process list for this project`,
   },
+  exec: {
+    exec,
+    description: `Execute command on service`,
+    paramsDesc: '<service> [<command>]',
+  },
   login: {
     exec: login,
     description: `SSH login to service`,
-    paramsDesc: '<service>',
+    paramsDesc: '<service> [<shell>]',
   },
   logs: {
     exec: logs,
