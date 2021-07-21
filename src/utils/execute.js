@@ -2,6 +2,8 @@ import { exec, spawn } from 'child_process';
 import { InvalidInputError, ShellError, UnknownError } from './errors/index.js';
 import { isPlainObject } from './validators.js';
 
+const NON_ERROR_CODES = [130];
+
 export async function execute({ command, pwd, environmentExtension = {} }) {
   if (!isPlainObject(environmentExtension)) {
     throw new InvalidInputError(
@@ -77,7 +79,7 @@ export async function executeSpawn({ command, pwd, log, environmentExtension = {
         callback(error);
       });
       childProcess.on('close', (code) => {
-        if (code) {
+        if (code && !NON_ERROR_CODES.includes(code)) {
           callback(
             new ShellError(1618762188, `Command "${command}" fail with error code "${code}"`)
           );

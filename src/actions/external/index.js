@@ -21,8 +21,9 @@ import {
   unitTest,
   integrationTest,
   buildImage,
+  exec,
+  openIaC,
 } from './export.js';
-import { exec } from './exec.js';
 
 export default {
   setup: {
@@ -131,5 +132,10 @@ export default {
     exec: buildImage,
     description: `Builds the docker image of the given service`,
     paramsDesc: '<service>',
+  },
+  openIaC: {
+    exec: openIaC,
+    description: 'Starts and login to the IaC container',
+    paramsDesc: '[<service>] [<accountAlias>]',
   },
 };

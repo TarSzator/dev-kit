@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Handles Ctrl+C exits without error
+1. Adds openIaC action
+
 ## [0.6.1][] - 2021-07-21
 
 1. Fixes to support new "docker-compose ps" response to evaluate service health

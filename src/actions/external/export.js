@@ -20,3 +20,5 @@ export * from './open.js';
 export * from './unitTest.js';
 export * from './integrationTest.js';
 export * from './buildImage.js';
+export * from './exec.js';
+export * from './openIaC.js';
