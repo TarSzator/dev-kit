@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Fixes to support new "docker-compose ps" response to evaluate service health
+1. Handle absolute link path to determine dev kit root path 
+
 ## [0.6.0][] - 2021-07-09
 
 1. Adds option to "login" to select shell

@@ -68,5 +68,8 @@ async function getSaveAbsoluteLinkPath(path) {
   if (!relLinkPath) {
     return null;
   }
+  if (relLinkPath.startsWith('/')) {
+    return relLinkPath;
+  }
   return join(dirname(path), relLinkPath);
 }

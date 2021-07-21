@@ -2,6 +2,9 @@ import { dockerPs } from './dockerPs.js';
 import { getAllServices } from '../../../utils/services.js';
 import { createSingleton } from '../../../utils/singleton.js';
 import { getPwd } from '../../../utils/pwd.js';
+import { EnvironmentError } from '../../../utils/errors/index.js';
+
+const UP = /(Up|Running)/i;
 
 export async function getServiceState({ serviceName, reset = false }) {
   if (reset) {
@@ -24,13 +27,16 @@ async function retrieveDockerState() {
     .split('\n')
     .map((s) => s.trim())
     .filter((s) => !!s);
-  const serviceLines = lines.slice(2);
+
+  const { containerNameIndex, statusIndex, serviceLines } = processPsLines(lines);
   if (!serviceLines.length) {
     return new Map();
   }
   const services = await getAllServices({ pwd });
   const stateByContainerName = serviceLines.reduce((m, line) => {
-    const [containerName, , state] = line.split(/\s{2,}/);
+    const elements = splitPsLine(line);
+    const containerName = elements[containerNameIndex];
+    const state = elements[statusIndex];
     m.set(containerName, state);
     return m;
   }, new Map());
@@ -38,7 +44,7 @@ async function retrieveDockerState() {
     const { name, hasHealthcheck, containerName } = service;
     const stateValue = stateByContainerName.get(containerName);
     const isCreated = !!stateValue;
-    const isUp = !!stateValue && stateValue.indexOf('Up') !== -1;
+    const isUp = determineUpState(stateValue);
     const isHealthy = getHealthState({ isUp, hasHealthcheck, state: stateValue });
     const state = {
       service,
@@ -62,4 +68,49 @@ function getHealthState({ isUp, hasHealthcheck, state }) {
     return true;
   }
   return state.indexOf('healthy') !== -1;
+}
+
+function processPsLines(psLines) {
+  if (!psLines.length) {
+    return [];
+  }
+  const [val] = psLines;
+  if (!val) {
+    return processPsLines(psLines.slice(1));
+  }
+  const [header] = psLines;
+  const headerParts = splitPsLine(header);
+  const containerNameIndex = headerParts.indexOf('NAME');
+  if (containerNameIndex === -1) {
+    throw new EnvironmentError(
+      1626858423,
+      `Could not determine container name column in "docker-compose ps" response. Please create an issue to inform the developer.`,
+      { header }
+    );
+  }
+  const statusIndex = headerParts.indexOf('STATUS');
+  if (statusIndex === -1) {
+    throw new EnvironmentError(
+      1626858514,
+      `Could not determine status column in "docker-compose ps" response. Please create an issue to inform the developer.`,
+      { header }
+    );
+  }
+  const serviceLines = psLines.slice(1);
+  return {
+    containerNameIndex,
+    statusIndex,
+    serviceLines,
+  };
+}
+
+function splitPsLine(line) {
+  return line.split(/\s{2,}/);
+}
+
+function determineUpState(state) {
+  if (!state) {
+    return false;
+  }
+  return UP.test(state);
 }
