@@ -13,11 +13,12 @@ export async function execute({ command, pwd, environmentExtension = {} }) {
   }
   return new Promise((resolve, reject) => {
     try {
+      const env = { ...process.env, ...environmentExtension };
       exec(
         command,
         {
           cwd: pwd,
-          env: { ...process.env, ...environmentExtension },
+          env,
           encoding: 'utf8',
           shell: '/bin/zsh',
         },
@@ -31,6 +32,7 @@ export async function execute({ command, pwd, environmentExtension = {} }) {
                   code: err.code,
                   stderr,
                   stdout,
+                  ...(err.code === 15 ? { env } : {}),
                 },
                 err
               )

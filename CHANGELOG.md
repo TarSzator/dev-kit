@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Adds environment information to error to docker errors with environment context
+
 ## [0.7.0][] - 2021-07-21
 
 1. Handles Ctrl+C exits without error
