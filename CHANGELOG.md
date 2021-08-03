@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes issue with different names of status column in docker ps response
+
 ## [0.7.2][] - 2021-08-03
 
 1. Improves docker ps header recognition

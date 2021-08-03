@@ -88,7 +88,9 @@ function processPsLines(psLines) {
       { header }
     );
   }
-  const statusIndex = headerParts.indexOf('STATUS');
+  const statusColumnIndex = headerParts.indexOf('STATUS');
+  const stateColumnIndex = headerParts.indexOf('STATE');
+  const statusIndex = statusColumnIndex === -1 ? stateColumnIndex : statusColumnIndex;
   if (statusIndex === -1) {
     throw new EnvironmentError(
       1626858514,
