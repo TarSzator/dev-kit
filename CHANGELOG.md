@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.2][] - 2021-08-03
+
 1. Improves docker ps header recognition
 
 ## [0.7.1][] - 2021-07-23
@@ -108,7 +110,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.1...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.2...HEAD
+[0.7.2]: https://github.com/TarSzator/dev-kit/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/TarSzator/dev-kit/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/TarSzator/dev-kit/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/TarSzator/dev-kit/compare/v0.6.0...v0.6.1
