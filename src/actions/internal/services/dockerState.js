@@ -79,7 +79,7 @@ function processPsLines(psLines) {
     return processPsLines(psLines.slice(1));
   }
   const [header] = psLines;
-  const headerParts = splitPsLine(header);
+  const headerParts = splitPsLine(header).map((s) => s.toUpperCase());
   const containerNameIndex = headerParts.indexOf('NAME');
   if (containerNameIndex === -1) {
     throw new EnvironmentError(

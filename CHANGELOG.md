@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Improves docker ps header recognition
+
 ## [0.7.1][] - 2021-07-23
 
 1. Adds environment information to error to docker errors with environment context
