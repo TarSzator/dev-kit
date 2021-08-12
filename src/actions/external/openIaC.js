@@ -3,7 +3,7 @@ import { isNonEmptyString, isNumberLike } from '../../utils/validators.js';
 import { InvalidInputError } from '../../utils/errors/index.js';
 import { getService } from '../../utils/services.js';
 import { readLine } from '../../utils/io.js';
-import { execute, executeSpawn } from '../../utils/execute.js';
+import { executeSpawn, executeSpawnSync } from '../../utils/execute.js';
 import { getMandatoryEnvValue } from '../../utils/env.js';
 import { parseCsv } from '../../utils/csv.js';
 import { runService } from '../internal/index.js';
@@ -106,14 +106,16 @@ async function getLoginCredentials({ pwd, serviceName, id, secret, mfa }) {
     `-e AWS_ACCESS_KEY_ID=${id} ` +
     `-e AWS_SECRET_ACCESS_KEY=${secret} ` +
     `${serviceName} ` +
-    `aws sts get-session-token --serial-number "${mfa}" --token-code "${oneTimePassword}"`;
-  const credentials = await execute({
+    `aws sts get-session-token --serial-number ${mfa} --token-code ${oneTimePassword}`;
+  const credentials = executeSpawnSync({
     pwd,
     command,
+    log,
     environmentExtension: {
       AWS_ACCESS_KEY_ID: id,
       AWS_SECRET_ACCESS_KEY: secret,
     },
+    fetchOutput: true,
   });
   const {
     Credentials: { AccessKeyId: keyId, SecretAccessKey: otSecret, SessionToken: sessionToken },

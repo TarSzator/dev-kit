@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes TTY issues for MFA credentials generation
+
 ## [0.7.3][] - 2021-08-03
 
 1. Fixes issue with different names of status column in docker ps response
