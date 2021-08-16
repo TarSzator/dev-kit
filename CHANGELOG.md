@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.5][] - 2021-08-16
+
 1. Fixes issue with new 'docker ps' response for no running instance
 
 ## [0.7.4][] - 2021-08-12
@@ -120,7 +122,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.4...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.5...HEAD
+[0.7.5]: https://github.com/TarSzator/dev-kit/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/TarSzator/dev-kit/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/TarSzator/dev-kit/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/TarSzator/dev-kit/compare/v0.7.1...v0.7.2
