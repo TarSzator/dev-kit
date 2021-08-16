@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes issue with new 'docker ps' response for no running instance
+
 ## [0.7.4][] - 2021-08-12
 
 1. Fixes TTY issues for MFA credentials generation

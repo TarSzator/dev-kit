@@ -22,12 +22,10 @@ export function resetState() {
 
 async function retrieveDockerState() {
   const pwd = await getPwd();
-  const psResult = await dockerPs({ pwd });
-  const lines = psResult
-    .split('\n')
-    .map((s) => s.trim())
-    .filter((s) => !!s);
-
+  const lines = await getPsLines({ pwd });
+  if (!lines.length) {
+    return new Map();
+  }
   const { containerNameIndex, statusIndex, serviceLines } = processPsLines(lines);
   if (!serviceLines.length) {
     return new Map();
@@ -55,6 +53,25 @@ async function retrieveDockerState() {
     m.set(name, state);
     return m;
   }, new Map());
+}
+
+async function getPsLines({ pwd }) {
+  try {
+    const psResult = await dockerPs({ pwd });
+    return psResult
+      .split('\n')
+      .map((s) => s.trim())
+      .filter((s) => !!s);
+  } catch (error) {
+    const { code, stderr } = error.additionalInformation || {};
+    if (code !== 1) {
+      throw error;
+    }
+    if (stderr.includes('not found')) {
+      return [];
+    }
+    throw error;
+  }
 }
 
 function getHealthState({ isUp, hasHealthcheck, state }) {
