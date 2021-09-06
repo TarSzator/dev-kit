@@ -1,4 +1,4 @@
-import { getInternalNodeService } from '../../utils/services.js';
+import { getInternalService } from '../../utils/services.js';
 import { getLog } from '../../utils/log.js';
 import { executeSpawn } from '../../utils/execute.js';
 import { checkProject } from '../internal/index.js';
@@ -8,7 +8,7 @@ const log = getLog('buildImage');
 
 export async function buildImage({ pwd, params: [serviceName] = [], options }) {
   await checkProject({ pwd, params: [serviceName] });
-  const { name } = await getInternalNodeService({ serviceName, pwd });
+  const { name } = await getInternalService({ serviceName, pwd });
   const { cache } = options || {};
   log.info(`Building docker image ${name} ...`);
   if (!isEmpty(options)) {

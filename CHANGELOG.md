@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Removed some unnecessary node dependencies
+
 ## [0.7.5][] - 2021-08-16
 
 1. Fixes issue with new 'docker ps' response for no running instance
