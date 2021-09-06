@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.6][] - 2021-09-06
+
 1. Removed some unnecessary node dependencies
 
 ## [0.7.5][] - 2021-08-16
@@ -124,7 +126,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.5...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.6...HEAD
+[0.7.6]: https://github.com/TarSzator/dev-kit/compare/v0.7.5...v0.7.6
 [0.7.5]: https://github.com/TarSzator/dev-kit/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/TarSzator/dev-kit/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/TarSzator/dev-kit/compare/v0.7.2...v0.7.3
