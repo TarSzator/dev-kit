@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.7][] - 2021-10-18
+
 1. Extend certificate by docker host url
 
 ## [0.7.6][] - 2021-09-06
@@ -128,7 +130,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.6...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.7...HEAD
+[0.7.7]: https://github.com/TarSzator/dev-kit/compare/v0.7.6...v0.7.7
 [0.7.6]: https://github.com/TarSzator/dev-kit/compare/v0.7.5...v0.7.6
 [0.7.5]: https://github.com/TarSzator/dev-kit/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/TarSzator/dev-kit/compare/v0.7.3...v0.7.4
