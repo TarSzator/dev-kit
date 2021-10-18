@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Extend certificate by docker host url
+
 ## [0.7.6][] - 2021-09-06
 
 1. Removed some unnecessary node dependencies

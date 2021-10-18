@@ -14,7 +14,7 @@ export async function generateCertificate({ pwd }) {
       -newkey rsa:2048 -nodes -sha256 \\
       -days 365 \\
       -subj "/CN=${host}" -extensions EXT -config <( \\
-       printf "[dn]\\nCN=${host}\\n[req]\\ndistinguished_name = dn\\n[EXT]\\nsubjectAltName=DNS:${host},DNS:proxy,DNS:${proxyName}\\nkeyUsage=digitalSignature\\nextendedKeyUsage=serverAuth")
+       printf "[dn]\\nCN=${host}\\n[req]\\ndistinguished_name = dn\\n[EXT]\\nsubjectAltName=DNS:${host},DNS:proxy,DNS:${proxyName},DNS:host.docker.internal\\nkeyUsage=digitalSignature\\nextendedKeyUsage=serverAuth")
   `;
   log.info(command);
   const out = await execute({ command, pwd, log });
