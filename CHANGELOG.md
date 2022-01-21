@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes issue with TTY on openIaC
+
 ## [0.7.7][] - 2021-10-18
 
 1. Extend certificate by docker host url
