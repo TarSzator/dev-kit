@@ -102,7 +102,7 @@ async function getLoginCredentials({ pwd, serviceName, id, secret, mfa }) {
     );
   }
   const command =
-    `docker-compose exec ` +
+    `docker-compose exec -T ` +
     `-e AWS_ACCESS_KEY_ID=${id} ` +
     `-e AWS_SECRET_ACCESS_KEY=${secret} ` +
     `${serviceName} ` +

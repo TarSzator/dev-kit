@@ -107,16 +107,16 @@ export function executeSpawnSync({ command, pwd, log, environmentExtension = {} 
   const [com] = args.splice(0, 1);
   try {
     const {
-      stdout,
-      stderr,
+      stdout: out,
+      stderr: err,
       status: code,
       error,
     } = spawnSync(com, args, {
       cwd: pwd,
       env: { ...process.env, ...environmentExtension },
       stdio: ['inherit', 'pipe', 'pipe'],
+      encoding: 'utf8',
     });
-    const { err, out } = { err: stderr.toString('utf8'), out: stdout.toString('utf8') };
     if (error) {
       throw new UnknownError(1628760288, `Child process spawned execution failed`, null, error);
     }
