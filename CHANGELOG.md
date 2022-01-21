@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.8][] - 2022-01-21
+
 1. Fixes issue with TTY on openIaC
 
 ## [0.7.7][] - 2021-10-18
@@ -132,7 +134,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.7...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.8...HEAD
+[0.7.8]: https://github.com/TarSzator/dev-kit/compare/v0.7.7...v0.7.8
 [0.7.7]: https://github.com/TarSzator/dev-kit/compare/v0.7.6...v0.7.7
 [0.7.6]: https://github.com/TarSzator/dev-kit/compare/v0.7.5...v0.7.6
 [0.7.5]: https://github.com/TarSzator/dev-kit/compare/v0.7.4...v0.7.5
