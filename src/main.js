@@ -17,7 +17,7 @@ export async function processAction() {
     const projectName = basename(pwd);
     await initEnv({ pwd });
     const { action, params, options } = getCallInput();
-    log.info(`Execution action "${action}" of project "${projectName}"`);
+    log.info(`Execution action "${action}" of project "${projectName}"`, options);
     actions = await getActions({ pwd });
     if (action === 'help') {
       printHelp(actions);

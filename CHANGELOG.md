@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Allow options for hardUpdate
+
 ## [0.7.8][] - 2022-01-21
 
 1. Fixes issue with TTY on openIaC
