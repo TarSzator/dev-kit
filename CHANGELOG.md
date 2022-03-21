@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.9][] - 2022-03-21
+
 1. Allow options for hardUpdate
 
 ## [0.7.8][] - 2022-01-21
@@ -136,7 +138,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.8...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.9...HEAD
+[0.7.9]: https://github.com/TarSzator/dev-kit/compare/v0.7.8...v0.7.9
 [0.7.8]: https://github.com/TarSzator/dev-kit/compare/v0.7.7...v0.7.8
 [0.7.7]: https://github.com/TarSzator/dev-kit/compare/v0.7.6...v0.7.7
 [0.7.6]: https://github.com/TarSzator/dev-kit/compare/v0.7.5...v0.7.6
