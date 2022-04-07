@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Allow integration and unit test of specific file
+2. Allow installation of new module
+
 ## [0.7.9][] - 2022-03-21
 
 1. Allow options for hardUpdate
