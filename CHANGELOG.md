@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.8.0][] - 2022-04-07
+
 1. Allow integration and unit test of specific file
 2. Allow installation of new module
 
@@ -141,7 +143,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.7.9...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/TarSzator/dev-kit/compare/v0.7.9...v0.8.0
 [0.7.9]: https://github.com/TarSzator/dev-kit/compare/v0.7.8...v0.7.9
 [0.7.8]: https://github.com/TarSzator/dev-kit/compare/v0.7.7...v0.7.8
 [0.7.7]: https://github.com/TarSzator/dev-kit/compare/v0.7.6...v0.7.7
