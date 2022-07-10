@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes install as sub-action call. Like in the setup action.
+
 ## [0.8.0][] - 2022-04-07
 
 1. Allow integration and unit test of specific file

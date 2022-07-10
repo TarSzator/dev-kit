@@ -4,11 +4,15 @@ import { executeSpawn } from '../../utils/execute.js';
 
 const log = getLog('install');
 
-export async function install({ pwd, params: [serviceName] = [] }) {
+export async function install({ pwd, params: [serviceName] = [], main = false }) {
   const { projectPath } = await getInternalNodeService({ serviceName, pwd });
-  const options = process.argv.slice(process.argv.indexOf(serviceName) + 1);
-  log.info(`Installing node_modules for ${serviceName} ...`);
+  const options = !main ? [] : process.argv.slice(process.argv.indexOf(serviceName) + 1);
   const packagesList = options.length ? ` ${options.join(' ')}` : '';
+  log.info(
+    `Installing ${
+      packagesList ? `packages ${packagesList}` : 'node_modules'
+    } for ${serviceName} ...`
+  );
   await executeSpawn({
     pwd,
     command: `docker-compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} install${packagesList}`,

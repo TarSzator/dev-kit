@@ -28,7 +28,7 @@ export async function processAction() {
       throw new InvalidInputError(1621500260, `Unknown action "${action}"`);
     }
     await executeExternalRequirementsCheck({ pwd, params, options });
-    await exec({ pwd, params, options });
+    await exec({ pwd, params, options, main: true });
     return 0;
   } catch (error) {
     if (error instanceof InvalidInputError) {
