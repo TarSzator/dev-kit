@@ -52,3 +52,14 @@ export function isNumberLike(val) {
   if (!isString(val)) return false;
   return !isNaN(Number(val.trim() || undefined));
 }
+
+export function isArray(val) {
+  return _.isArray(val);
+}
+
+export function isArrayOf(val, validator) {
+  if (!isArray(val)) {
+    return false;
+  }
+  return val.findIndex((item) => !validator(item)) === -1;
+}

@@ -24,6 +24,7 @@ import {
   exec,
   openIaC,
 } from './export.js';
+import { run } from './run.js';
 
 export default {
   setup: {
@@ -137,5 +138,10 @@ export default {
     exec: openIaC,
     description: 'Starts and login to the IaC container',
     paramsDesc: '[<service>] [<accountAlias>]',
+  },
+  run: {
+    exec: run,
+    description: 'Runs a service with a specific command',
+    paramsDesc: '<service> <runCommand>',
   },
 };

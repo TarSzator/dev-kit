@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Adds "run" action
+
 ## [0.8.1][] - 2022-07-10
 
 1. Fixes install as sub-action call. Like in the setup action.
