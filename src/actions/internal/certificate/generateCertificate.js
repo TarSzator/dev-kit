@@ -21,4 +21,5 @@ export async function generateCertificate({ pwd }) {
   if (out) {
     log.info('\n', out);
   }
+  return certPath;
 }

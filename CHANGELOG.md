@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Fix issue with folders on setup
+2. Fix issue with cert registry and un-registry for systems other than MacOS
+
 ## [0.9.0][] - 2022-07-30
 
 1. Adds "run" action

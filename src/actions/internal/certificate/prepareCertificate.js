@@ -30,8 +30,13 @@ export async function prepareCertificate({ pwd }) {
   ) {
     throw new SkippedError(1615877187, `No acknowledgment of root-password need`);
   }
-  await generateCertificate({ pwd });
+  const certPath = await generateCertificate({ pwd });
   log.info(`... certificate generated. Registering it with the system ...`);
-  await registerCertificate({ pwd });
-  log.info(`... certificate generated and registered.`);
+  if (await registerCertificate({ pwd })) {
+    log.info(`... certificate generated and registered.`);
+  } else {
+    log.info(
+      `... certificate generated but not registered with the system. Please do this yourself "${certPath}"`
+    );
+  }
 }

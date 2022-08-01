@@ -4,6 +4,7 @@ import {
   checkInstall,
   linkHomeBin,
   executeExternalSetup,
+  checkProject,
 } from '../internal/index.js';
 import { getInternalServiceNames } from '../../utils/services.js';
 import { waterfall } from '../../utils/promise.js';
@@ -15,6 +16,13 @@ export async function setup({ pwd, params, options }) {
   await prepareCertificate({ pwd });
   log.info(`... certificate done ...`);
   const servicesToSetup = await getInternalServiceNames({ pwd });
+  await waterfall(
+    servicesToSetup.map((serviceName) => async () => {
+      log.info(`... checking service cloning "${serviceName}" ...`);
+      await checkProject({ pwd, params: [serviceName], options: { skipInstall: true } });
+      log.info(`... ${serviceName} service cloned ...`);
+    })
+  );
   await waterfall(
     servicesToSetup.map((serviceName) => async () => {
       log.info(`... checking service "${serviceName}" ...`);

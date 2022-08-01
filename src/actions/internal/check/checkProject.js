@@ -10,7 +10,11 @@ import { checkCertificate } from '../certificate/checkCertificate.js';
 
 const log = getLog('checkProject');
 
-export async function checkProject({ pwd, params: [serviceName] = [] }) {
+export async function checkProject({
+  pwd,
+  params: [serviceName] = [],
+  options: { skipInstall = false } = {},
+}) {
   const { repo, localPath, projectPath, isNode } = await getInternalService({ serviceName, pwd });
   const path = isNode ? resolve(projectPath, 'package.json') : projectPath;
   if (await exists(path)) {
@@ -34,7 +38,7 @@ export async function checkProject({ pwd, params: [serviceName] = [] }) {
   await createFolder(projectPath);
   await executeSpawn({ command: `git clone ${repo} ${localPath}`, pwd, log });
   log.info(`Cloned repository ${repo} to ${localPath} for service ${serviceName}`);
-  if (isNode) {
+  if (isNode && !skipInstall) {
     await install({ pwd, params: [serviceName] });
   }
   if (!(await exists(path))) {

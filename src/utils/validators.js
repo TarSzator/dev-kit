@@ -63,3 +63,9 @@ export function isArrayOf(val, validator) {
   }
   return val.findIndex((item) => !validator(item)) === -1;
 }
+
+const TRUTHY = ['true', '1'];
+
+export function isTruthy(val) {
+  return TRUTHY.includes(String(val).toLowerCase());
+}

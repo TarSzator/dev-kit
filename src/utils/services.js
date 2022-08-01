@@ -12,9 +12,14 @@ export async function getAllServices({ pwd }) {
   );
 }
 
-export async function getInternalServiceNames({ pwd }) {
+export async function getInternalServices({ pwd }) {
   const allServices = await getAllServices({ pwd });
-  return allServices.filter(({ isInternal }) => !!isInternal).map(({ name }) => name);
+  return allServices.filter(({ isInternal }) => !!isInternal);
+}
+
+export async function getInternalServiceNames({ pwd }) {
+  const internalServices = await getInternalServices({ pwd });
+  return internalServices.map(({ name }) => name);
 }
 
 export async function getNotInternalServiceNames({ pwd }) {

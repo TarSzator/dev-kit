@@ -1,11 +1,16 @@
 import { getCertPath } from '../tools/certPaths.js';
 import { executeSpawn } from '../../../utils/execute.js';
 import { getLog } from '../../../utils/log.js';
+import { checkCommand } from '../check/index.js';
 
 const log = getLog('registerCertificate');
 
 export async function registerCertificate({ pwd }) {
   const { certPath } = getCertPath({ pwd });
+  if (await checkCommand({ pwd, commandBin: 'security' })) {
+    return false;
+  }
   const command = `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ${certPath}`;
   await executeSpawn({ command, pwd, log });
+  return true;
 }
