@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.10.4][] - 2022-08-02
+
 1. Fixes using sudo for all check commands
 
 ## [0.10.3][] - 2022-08-02
@@ -170,7 +172,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.3...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.4...HEAD
+[0.10.4]: https://github.com/TarSzator/dev-kit/compare/v0.10.3...v0.10.4
 [0.10.3]: https://github.com/TarSzator/dev-kit/compare/v0.10.2...v0.10.3
 [0.10.2]: https://github.com/TarSzator/dev-kit/compare/v0.10.1...v0.10.2
 [0.10.1]: https://github.com/TarSzator/dev-kit/compare/v0.10.0...v0.10.1

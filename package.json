@@ -1,6 +1,6 @@
 {
   "name": "@rene.simon/dev-kit",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "Tool to easily run local docker-based dev environments",
   "type": "module",
   "main": "./build/index.js",
