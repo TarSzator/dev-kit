@@ -6,7 +6,7 @@ const log = getLog('unregisterCertificate');
 
 export async function unregisterCertificate({ pwd }) {
   const { certPath } = getCertPath({ pwd });
-  if (!(await checkCommand({ pwd, commandBin: 'security' }))) {
+  if (!(await checkCommand({ pwd, commandBin: 'security', sudo: true }))) {
     return false;
   }
   const command = `sudo security remove-trusted-cert -d ${certPath}`;

@@ -6,7 +6,7 @@ const log = getLog('registerCertificate');
 
 export async function registerCertificate({ pwd }) {
   const { certPath } = getCertPath({ pwd });
-  if (!(await checkCommand({ pwd, commandBin: 'security' }))) {
+  if (!(await checkCommand({ pwd, commandBin: 'security', sudo: true }))) {
     return false;
   }
   const command = `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ${certPath}`;

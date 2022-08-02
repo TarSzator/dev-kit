@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes using sudo for all check commands
+
 ## [0.10.3][] - 2022-08-02
 
 1. Fixes cert registration checks

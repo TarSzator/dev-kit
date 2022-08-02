@@ -17,8 +17,10 @@ const getShell = createSingletonMap({
   },
 });
 
-export async function checkCommand({ pwd, commandBin }) {
-  const command = `sudo  which ${commandBin} > /dev/null && echo 'true' || echo 'false'`;
+export async function checkCommand({ pwd, commandBin, sudo = false } = {}) {
+  const command = `${
+    sudo ? 'sudo ' : ''
+  }which ${commandBin} > /dev/null && echo 'true' || echo 'false'`;
   const checkResult = await execute({ command, pwd, shellOverwrite: '/bin/sh' });
   return isTruthy(checkResult);
 }
