@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.10.1][] - 2022-08-02
+
 1. Dynamically determine shell
 
 ## [0.10.0][] - 2022-08-01
@@ -158,7 +160,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.1...HEAD
+[0.10.1]: https://github.com/TarSzator/dev-kit/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/TarSzator/dev-kit/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/TarSzator/dev-kit/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/TarSzator/dev-kit/compare/v0.8.0...v0.8.1
