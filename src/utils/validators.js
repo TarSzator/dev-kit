@@ -67,5 +67,5 @@ export function isArrayOf(val, validator) {
 const TRUTHY = ['true', '1'];
 
 export function isTruthy(val) {
-  return TRUTHY.includes(String(val).toLowerCase());
+  return TRUTHY.includes(String(val).trim().toLowerCase());
 }

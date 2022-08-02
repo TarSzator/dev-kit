@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fix truthy check
+
 ## [0.10.1][] - 2022-08-02
 
 1. Dynamically determine shell
