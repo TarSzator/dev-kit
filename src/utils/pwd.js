@@ -6,7 +6,7 @@ import { EnvironmentError } from './errors/index.js';
 
 const NEEDED_FILES = ['.env', 'docker-compose.yml'];
 
-export const getPwd = createSingleton(determinePwd);
+export const getPwd = createSingleton({ construct: determinePwd });
 
 async function determinePwd() {
   const cwd = process.cwd();

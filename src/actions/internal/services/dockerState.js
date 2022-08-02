@@ -14,7 +14,7 @@ export async function getServiceState({ serviceName, reset = false }) {
   return states.get(serviceName) || {};
 }
 
-export const getDockerState = createSingleton(retrieveDockerState);
+export const getDockerState = createSingleton({ construct: retrieveDockerState });
 
 export function resetState() {
   getDockerState.reset();

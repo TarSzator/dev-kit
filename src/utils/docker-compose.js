@@ -10,7 +10,7 @@ export function getDockerComposePath({ path }) {
   return resolve(path, 'docker-compose.yml');
 }
 
-export const getDockerServices = createSingleton(retrieveDockerServices);
+export const getDockerServices = createSingleton({ construct: retrieveDockerServices });
 
 async function retrieveDockerServices() {
   const pwd = await getPwd();

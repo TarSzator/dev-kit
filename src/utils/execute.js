@@ -1,16 +1,41 @@
 import { exec, spawn, spawnSync } from 'child_process';
 import { InvalidInputError, ShellError, UnknownError } from './errors/index.js';
-import { isPlainObject } from './validators.js';
+import { isPlainObject, isTruthy } from './validators.js';
+import { createSingletonMap } from './singleton.js';
 
 const NON_ERROR_CODES = [130];
 
-export async function execute({ command, pwd, environmentExtension = {} }) {
+const getShell = createSingletonMap({
+  construct: async (pwd) => {
+    if (await checkCommand({ pwd, commandBin: 'zsh' })) {
+      return '/bin/zsh';
+    }
+    if (await checkCommand({ pwd, commandBin: 'bash' })) {
+      return '/bin/bash';
+    }
+    return '/bin/sh';
+  },
+});
+
+export async function checkCommand({ pwd, commandBin }) {
+  const command = `sudo  which ${commandBin} > /dev/null && echo 'true' || echo 'false'`;
+  const checkResult = await execute({ command, pwd, shellOverwrite: '/bin/sh' });
+  return isTruthy(checkResult);
+}
+
+export async function execute({
+  command,
+  pwd,
+  environmentExtension = {},
+  shellOverwrite = undefined,
+} = {}) {
   if (!isPlainObject(environmentExtension)) {
     throw new InvalidInputError(
       1624951090,
       `environmentExtension must be a plain object when provided`
     );
   }
+  const shell = shellOverwrite || (await getShell(pwd));
   return new Promise((resolve, reject) => {
     try {
       const env = { ...process.env, ...environmentExtension };
@@ -20,7 +45,7 @@ export async function execute({ command, pwd, environmentExtension = {} }) {
           cwd: pwd,
           env,
           encoding: 'utf8',
-          shell: '/bin/zsh',
+          shell,
         },
         (err, stdout, stderr) => {
           if (err) {

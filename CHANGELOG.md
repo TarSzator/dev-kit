@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Dynamically determine shell
+
 ## [0.10.0][] - 2022-08-01
 
 1. Fix issue with folders on setup

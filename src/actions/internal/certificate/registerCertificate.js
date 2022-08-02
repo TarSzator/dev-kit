@@ -1,7 +1,6 @@
 import { getCertPath } from '../tools/certPaths.js';
-import { executeSpawn } from '../../../utils/execute.js';
+import { checkCommand, executeSpawn } from '../../../utils/execute.js';
 import { getLog } from '../../../utils/log.js';
-import { checkCommand } from '../check/index.js';
 
 const log = getLog('registerCertificate');
 
