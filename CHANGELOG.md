@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes cert registration checks
+
 ## [0.10.2][] - 2022-08-02
 
 1. Fix truthy check
