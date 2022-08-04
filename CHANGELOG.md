@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.10.5][] - 2022-08-04
+
 1. Fixes bug with run command without env variables
 
 ## [0.10.4][] - 2022-08-02
@@ -174,7 +176,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.4...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.5...HEAD
+[0.10.5]: https://github.com/TarSzator/dev-kit/compare/v0.10.4...v0.10.5
 [0.10.4]: https://github.com/TarSzator/dev-kit/compare/v0.10.3...v0.10.4
 [0.10.3]: https://github.com/TarSzator/dev-kit/compare/v0.10.2...v0.10.3
 [0.10.2]: https://github.com/TarSzator/dev-kit/compare/v0.10.1...v0.10.2
