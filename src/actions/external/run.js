@@ -17,7 +17,7 @@ export async function run({ pwd, params: [serviceName, runCommand] = [], options
     runner: async (s) => runService({ pwd, params: [s] }),
   });
   const envOptions = getDockerEnvOption(env);
-  const command = `docker-compose run --rm ${envOptions} ${name} ${runCommand}`;
+  const command = `docker-compose run --rm ${envOptions}${name} ${runCommand}`;
   await executeSpawn({
     pwd,
     command,
@@ -47,8 +47,9 @@ function getDockerEnvOption(env) {
     return m;
   }, {});
   log.info('Add env vars to service run', envVars);
-  return Object.entries(envVars).reduce((m, [k, v]) => {
+  const options = Object.entries(envVars).reduce((m, [k, v]) => {
     const o = `-e ${k}=${v}`;
     return m ? `${m} ${o}` : o;
   }, '');
+  return options ? `${options} ` : '';
 }

@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixes bug with run command without env variables
+
 ## [0.10.4][] - 2022-08-02
 
 1. Fixes using sudo for all check commands
