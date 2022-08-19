@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.11.1][] - 2022-08-19
+
 1. Improving linking to be more use-case specific
 
 ## [0.11.0][] - 2022-08-19
@@ -184,7 +186,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.11.1...HEAD
+[0.11.1]: https://github.com/TarSzator/dev-kit/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/TarSzator/dev-kit/compare/v0.10.5...v0.11.0
 [0.10.5]: https://github.com/TarSzator/dev-kit/compare/v0.10.4...v0.10.5
 [0.10.4]: https://github.com/TarSzator/dev-kit/compare/v0.10.3...v0.10.4
