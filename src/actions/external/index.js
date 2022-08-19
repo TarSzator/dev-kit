@@ -55,7 +55,9 @@ export default {
     paramsDesc: '<source> <target>',
     optionsDesc: {
       '--skipRestart <boolean>': 'Skips the restart of the target after linking',
-      '--forceProdInstall <boolean>': 'Executes install on source like a production build',
+      '--forceOmittedInstall <boolean>':
+        'Executes install on source while omitting peer and optional dependencies',
+      '--forceDevOmit <boolean>': 'Also omitting dev dependencies on force omitted install',
     },
   },
   pull: {

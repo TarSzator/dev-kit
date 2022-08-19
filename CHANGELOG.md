@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Improving linking to be more use-case specific
+
 ## [0.11.0][] - 2022-08-19
 
 1. Adding options to help file

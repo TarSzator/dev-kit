@@ -17,13 +17,19 @@ const log = getLog('link');
 export async function link({
   pwd,
   params: [sourceServiceName, targetServiceName] = [],
-  options: { skipRestart = false, forceProdInstall = false },
+  options: { skipRestart = false, forceOmittedInstall = false, forceDevOmit = false },
 } = {}) {
   if (!isNonEmptyString(sourceServiceName)) {
     throw new InvalidInputError(1618341067, 'No source service name provided');
   }
   if (!isNonEmptyString(targetServiceName)) {
     throw new InvalidInputError(1618341103, 'No target service name provided');
+  }
+  if (isTruthy(forceDevOmit) && !isTruthy(forceOmittedInstall)) {
+    throw new InvalidInputError(
+      1660894101,
+      'If forceDevOmit is set, forceOmittedInstall must be set as well'
+    );
   }
   const { projectPath: sourceProjectPath, localPathKey: sourceLocalPathKey } =
     await getValidProjectPath({
@@ -79,11 +85,11 @@ export async function link({
   log.info(command);
   await execute({ command, pwd });
   log.info(`... linked ${sourceServiceName} into ${targetServiceName} ...`);
-  if (isTruthy(forceProdInstall)) {
+  if (isTruthy(forceOmittedInstall)) {
     await install({
       pwd,
       params: [sourceServiceName],
-      options: { omitPeer: true, omitDev: true, omitOptional: true },
+      options: { omitPeer: true, omitDev: isTruthy(forceDevOmit), omitOptional: true },
     });
   }
   if (!isTruthy(skipRestart)) {
