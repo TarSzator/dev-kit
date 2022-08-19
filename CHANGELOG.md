@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.11.0][] - 2022-08-19
+
 1. Adding options to help file
 2. Adding options to install action
 3. Adding options to link action
@@ -180,7 +182,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.10.5...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/TarSzator/dev-kit/compare/v0.10.5...v0.11.0
 [0.10.5]: https://github.com/TarSzator/dev-kit/compare/v0.10.4...v0.10.5
 [0.10.4]: https://github.com/TarSzator/dev-kit/compare/v0.10.3...v0.10.4
 [0.10.3]: https://github.com/TarSzator/dev-kit/compare/v0.10.2...v0.10.3
