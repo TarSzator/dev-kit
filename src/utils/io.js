@@ -39,14 +39,24 @@ export function printHelp(actions) {
       `Control script\n\n` +
       `${chalk.green('Actions:')}`
   );
-  printTable(
-    [...Object.entries(actions), ['help', { description: 'Shows this usage instructions.' }]]
-      .sort(([actionA], [actionB]) => actionA.localeCompare(actionB))
-      .map(([action, { description, paramsDesc }]) => [
-        `${action}${paramsDesc ? ` ${paramsDesc}` : ''}  `,
-        description,
-      ])
+  const sortedExtendedActions = [
+    ...Object.entries(actions),
+    ['help', { description: 'Shows this usage instructions.' }],
+  ].sort(([actionA], [actionB]) => actionA.localeCompare(actionB));
+  const helpTableSet = sortedExtendedActions.reduce(
+    (s, [action, { description, paramsDesc, optionsDesc }]) => {
+      s.add([`${action}${paramsDesc ? ` ${paramsDesc}` : ''}  `, description]);
+      if (optionsDesc) {
+        s.add(['', 'Options:']);
+        Object.entries(optionsDesc).forEach(([option, optionDesc]) => {
+          s.add(['', `${option} ${optionDesc}`]);
+        });
+      }
+      return s;
+    },
+    new Set()
   );
+  printTable([...helpTableSet]);
 }
 
 export function printTable(table, { padding = 2 } = {}) {

@@ -39,6 +39,11 @@ export default {
     exec: install,
     description: `Run 'npm install' in container so binaries are compiled for the right environment`,
     paramsDesc: '<service>',
+    optionsDesc: {
+      '--omitPeer <boolean>': 'Executes install while omitting peerDependencies',
+      '--omitDev <boolean>': 'Executes install while omitting devDependencies',
+      '--omitOptional <boolean>': 'Executes install while omitting optionalDependencies',
+    },
   },
   downAll: {
     exec: downAll,
@@ -48,6 +53,10 @@ export default {
     exec: link,
     description: `Links a node module to a project. Replaces npm link for docker`,
     paramsDesc: '<source> <target>',
+    optionsDesc: {
+      '--skipRestart <boolean>': 'Skips the restart of the target after linking',
+      '--forceProdInstall <boolean>': 'Executes install on source like a production build',
+    },
   },
   pull: {
     exec: pull,
@@ -109,6 +118,9 @@ export default {
     exec: restart,
     description: `Restarts the service and tails the log`,
     paramsDesc: '<service>',
+    optionsDesc: {
+      '--skipTail <boolean>': 'Skips the tailing of log after the restart',
+    },
   },
   open: {
     exec: open,
@@ -143,5 +155,9 @@ export default {
     exec: run,
     description: 'Runs a service with a specific command',
     paramsDesc: '<service> <runCommand>',
+    optionsDesc: {
+      '--env <envVarString>':
+        '[Multiple allowed] (e.g.: --env NODE_ENV=production) Adds an environment variable to to the docker instance',
+    },
   },
 };

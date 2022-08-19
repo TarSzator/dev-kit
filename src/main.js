@@ -34,7 +34,7 @@ export async function processAction() {
     if (error instanceof InvalidInputError) {
       const { message, id } = error;
       log.error(`Invalid input: ${message} [${id}]`);
-      printHelp(actions);
+      log.notice('Execute "help" action to get information how the execute the action');
     } else {
       log.error('Action execution failed!', error);
     }

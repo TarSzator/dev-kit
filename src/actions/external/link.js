@@ -3,16 +3,22 @@ import { getInternalNodeService } from '../../utils/services.js';
 import { getLog } from '../../utils/log.js';
 import { execute } from '../../utils/execute.js';
 import { InvalidInputError, EnvironmentError } from '../../utils/errors/index.js';
-import { isNonEmptyString } from '../../utils/validators.js';
+import { isNonEmptyString, isTruthy } from '../../utils/validators.js';
 import { exists, getFileStats, readFile, removeFile } from '../../utils/fs.js';
 import { updateService } from '../internal/tools/dockerCompose.js';
+import { restart } from './restart.js';
+import { install } from './install.js';
 
 const log = getLog('link');
 
 // [RS] npm link does not work with build via containers due to docker not following symlinks outside context
 // [RS] (also on a side note: npm link does not work with prefix option)
 
-export async function link({ pwd, params: [sourceServiceName, targetServiceName] = [] }) {
+export async function link({
+  pwd,
+  params: [sourceServiceName, targetServiceName] = [],
+  options: { skipRestart = false, forceProdInstall = false },
+} = {}) {
   if (!isNonEmptyString(sourceServiceName)) {
     throw new InvalidInputError(1618341067, 'No source service name provided');
   }
@@ -72,7 +78,18 @@ export async function link({ pwd, params: [sourceServiceName, targetServiceName]
   const command = `ln -s ${relative(dirname(nmFolder), sourceProjectPath)} ${nmFolder}`;
   log.info(command);
   await execute({ command, pwd });
-  log.info(`... linked ${sourceServiceName} into ${targetServiceName}.`);
+  log.info(`... linked ${sourceServiceName} into ${targetServiceName} ...`);
+  if (isTruthy(forceProdInstall)) {
+    await install({
+      pwd,
+      params: [sourceServiceName],
+      options: { omitPeer: true, omitDev: true, omitOptional: true },
+    });
+  }
+  if (!isTruthy(skipRestart)) {
+    await restart({ pwd, params: [targetServiceName], options: { skipTail: true } });
+  }
+  log.info('... linking done.');
 }
 
 async function getValidProjectPath({ serviceName, pwd, isKey }) {

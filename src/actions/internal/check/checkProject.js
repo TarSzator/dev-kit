@@ -7,6 +7,7 @@ import { EnvironmentError, SkippedError } from '../../../utils/errors/index.js';
 import { executeSpawn } from '../../../utils/execute.js';
 import { install } from '../../external/install.js';
 import { checkCertificate } from '../certificate/checkCertificate.js';
+import { isTruthy } from '../../../utils/validators.js';
 
 const log = getLog('checkProject');
 
@@ -38,7 +39,7 @@ export async function checkProject({
   await createFolder(projectPath);
   await executeSpawn({ command: `git clone ${repo} ${localPath}`, pwd, log });
   log.info(`Cloned repository ${repo} to ${localPath} for service ${serviceName}`);
-  if (isNode && !skipInstall) {
+  if (isNode && !isTruthy(skipInstall)) {
     await install({ pwd, params: [serviceName] });
   }
   if (!(await exists(path))) {

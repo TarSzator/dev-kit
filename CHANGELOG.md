@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+1. Adding options to help file
+2. Adding options to install action
+3. Adding options to link action
+
 ## [0.10.5][] - 2022-08-04
 
 1. Fixes bug with run command without env variables
