@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.12.0][] - 2022-08-30
+
 1. Adds `verbose` option to `buildImage` action
 
 ## [0.11.1][] - 2022-08-19
@@ -188,7 +190,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.11.1...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/TarSzator/dev-kit/compare/v0.11.1...v0.12.0
 [0.11.1]: https://github.com/TarSzator/dev-kit/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/TarSzator/dev-kit/compare/v0.10.5...v0.11.0
 [0.10.5]: https://github.com/TarSzator/dev-kit/compare/v0.10.4...v0.10.5
