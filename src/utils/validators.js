@@ -39,7 +39,7 @@ export function isFunction(val) {
   return _.isFunction(val);
 }
 
-export function hasProperty(obj, propertyName) {
+export function hasOwnProperty(obj, propertyName) {
   return Object.hasOwnProperty.call(obj, propertyName);
 }
 

@@ -1,5 +1,5 @@
 import { LABELS } from '../../consts/index.js';
-import { hasProperty, isEmpty, isNonEmptyString } from '../../utils/validators.js';
+import { hasOwnProperty, isEmpty, isNonEmptyString } from '../../utils/validators.js';
 import { parseCsv } from '../../utils/csv.js';
 import { getInvalidValues } from '../../utils/array.js';
 import { getLog } from '../../utils/log.js';
@@ -84,7 +84,7 @@ function getMissingMandatoryLabels({ labels }) {
     return [...MANDATORY_LABELS];
   }
   return MANDATORY_LABELS.filter(({ KEY, CSV, ENUM }) => {
-    if (!hasProperty(labels, KEY)) {
+    if (!hasOwnProperty(labels, KEY)) {
       return true;
     }
     const value = labels[KEY];

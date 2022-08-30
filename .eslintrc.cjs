@@ -1,11 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const prettierOptions = JSON.parse(fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'));
+const prettierOptions = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8')
+);
 
 module.exports = {
-  parser: 'babel-eslint',
-  extends: ['airbnb-base', 'prettier'],
+  parser: '@babel/eslint-parser',
+  extends: [
+    'airbnb-base',
+    'prettier',
+  ],
   plugins: ['prettier'],
   env: {
     jest: true,
@@ -14,8 +19,8 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error', prettierOptions],
+    'import/extensions': [2, 'always'], // To support  node native ESM
     'import/prefer-default-export': 0,
     'no-use-before-define': 0,
-    'import/extensions': 0,
   },
 };

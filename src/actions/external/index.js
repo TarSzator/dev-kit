@@ -147,6 +147,10 @@ export default {
     exec: buildImage,
     description: `Builds the docker image of the given service`,
     paramsDesc: '<service>',
+    optionsDesc: {
+      '--noCache': 'Disable the caching of the build steps',
+      '--verbose': 'Verbose image build log',
+    },
   },
   openIaC: {
     exec: openIaC,
