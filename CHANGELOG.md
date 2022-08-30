@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Adds `verbose` option to `buildImage` action
+
 ## [0.11.1][] - 2022-08-19
 
 1. Improving linking to be more use-case specific
