@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fix `link` to make options optional
+
 ## [0.12.0][] - 2022-08-30
 
 1. Adds `verbose` option to `buildImage` action

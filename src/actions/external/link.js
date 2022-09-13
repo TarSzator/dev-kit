@@ -17,7 +17,7 @@ const log = getLog('link');
 export async function link({
   pwd,
   params: [sourceServiceName, targetServiceName] = [],
-  options: { skipRestart = false, forceOmittedInstall = false, forceDevOmit = false },
+  options: { skipRestart = false, forceOmittedInstall = false, forceDevOmit = false } = {},
 } = {}) {
   if (!isNonEmptyString(sourceServiceName)) {
     throw new InvalidInputError(1618341067, 'No source service name provided');
