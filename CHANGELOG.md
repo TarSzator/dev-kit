@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.12.1][] - 2022-09-13
+
 1. Fix `link` to make options optional
 
 ## [0.12.0][] - 2022-08-30
@@ -192,7 +194,8 @@
 1. Start development
 
 
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.12.1...HEAD
+[0.12.1]: https://github.com/TarSzator/dev-kit/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/TarSzator/dev-kit/compare/v0.11.1...v0.12.0
 [0.11.1]: https://github.com/TarSzator/dev-kit/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/TarSzator/dev-kit/compare/v0.10.5...v0.11.0
