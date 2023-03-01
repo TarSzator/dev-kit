@@ -26,14 +26,14 @@ async function retrieveDockerState() {
   if (!lines.length) {
     return new Map();
   }
-  const { containerNameIndex, statusIndex, serviceLines } = processPsLines(lines);
+  const { serviceNameIndex, statusIndex, serviceLines } = processPsLines(lines);
   if (!serviceLines.length) {
     return new Map();
   }
   const services = await getAllServices({ pwd });
   const stateByContainerName = serviceLines.reduce((m, line) => {
     const elements = splitPsLine(line);
-    const containerName = elements[containerNameIndex];
+    const containerName = elements[serviceNameIndex];
     const state = elements[statusIndex];
     m.set(containerName, state);
     return m;
@@ -97,8 +97,8 @@ function processPsLines(psLines) {
   }
   const [header] = psLines;
   const headerParts = splitPsLine(header).map((s) => s.toUpperCase());
-  const containerNameIndex = headerParts.indexOf('NAME');
-  if (containerNameIndex === -1) {
+  const serviceNameIndex = determineServiceNameIndex(headerParts);
+  if (serviceNameIndex === -1) {
     throw new EnvironmentError(
       1626858423,
       `Could not determine container name column in "docker-compose ps" response. Please create an issue to inform the developer.`,
@@ -117,10 +117,18 @@ function processPsLines(psLines) {
   }
   const serviceLines = psLines.slice(1);
   return {
-    containerNameIndex,
+    serviceNameIndex,
     statusIndex,
     serviceLines,
   };
+}
+
+function determineServiceNameIndex(headerParts) {
+  const index = headerParts.indexOf('SERVICE');
+  if (index !== -1) {
+    return index;
+  }
+  return headerParts.indexOf('NAME');
 }
 
 function splitPsLine(line) {

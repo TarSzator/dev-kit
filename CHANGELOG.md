@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Fixed new service column name issue
+2. Fixed change in docker compose var usage
+
 ## [0.12.1][] - 2022-09-13
 
 1. Fix `link` to make options optional

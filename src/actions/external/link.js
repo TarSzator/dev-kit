@@ -119,8 +119,8 @@ async function getValidProjectPath({ serviceName, pwd, isKey }) {
 function getServiceConfigProcessor({ targetServiceName, targetLocalPathKey, sourceLocalPathKey }) {
   return async ({ serviceConfig: sc }) => {
     let changed = false;
-    const sourceLocalPathVar = `$${sourceLocalPathKey}`;
-    const targetLocalPathVar = `$${targetLocalPathKey}`;
+    const sourceLocalPathVar = `\${${sourceLocalPathKey}}`;
+    const targetLocalPathVar = `\${${targetLocalPathKey}}`;
     const { working_dir: workingDir } = sc;
     const serviceConfig = copyConfig(sc);
     if (workingDir !== targetLocalPathVar) {
@@ -162,7 +162,7 @@ async function determineModuleName({ sourceProjectPath }) {
 function getDevKitServiceConfigProcessor({ sourceLocalPathKey }) {
   return async ({ serviceConfig: sc }) => {
     let changed = false;
-    const sourceLocalPathVar = `$${sourceLocalPathKey}`;
+    const sourceLocalPathVar = `\${${sourceLocalPathKey}}`;
     const serviceConfig = copyConfig(sc);
     if (injectVolume('dev-kit', sourceLocalPathVar, serviceConfig.volumes)) {
       changed = true;
