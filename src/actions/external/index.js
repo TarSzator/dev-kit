@@ -25,6 +25,7 @@ import {
   openIaC,
 } from './export.js';
 import { run } from './run.js';
+import { updateMfaProfile } from './updateMfaProfile.js';
 
 export default {
   setup: {
@@ -155,6 +156,11 @@ export default {
   openIaC: {
     exec: openIaC,
     description: 'Starts and login to the IaC container',
+    paramsDesc: '[<service>] [<accountAlias>]',
+  },
+  updateMfaProfile: {
+    exec: updateMfaProfile,
+    description: 'Updates the local AWS MFA profile credentials',
     paramsDesc: '[<service>] [<accountAlias>]',
   },
   run: {

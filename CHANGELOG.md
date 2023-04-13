@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Added `updateMfaProfile` action
+
 ## [0.12.2][] - 2023-03-01
 
 1. Fixed new service column name issue
@@ -105,7 +107,7 @@
 ## [0.6.1][] - 2021-07-21
 
 1. Fixes to support new "docker-compose ps" response to evaluate service health
-1. Handle absolute link path to determine dev kit root path 
+1. Handle absolute link path to determine dev kit root path
 
 ## [0.6.0][] - 2021-07-09
 
@@ -198,8 +200,7 @@
 
 1. Start development
 
-
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.12.2...HEAD
+[unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.12.2...HEAD
 [0.12.2]: https://github.com/TarSzator/dev-kit/compare/v0.12.1...v0.12.2
 [0.12.1]: https://github.com/TarSzator/dev-kit/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/TarSzator/dev-kit/compare/v0.11.1...v0.12.0
