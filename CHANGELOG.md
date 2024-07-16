@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Updated dependency package versions
+
 ## [0.13.1][] - 2024-07-16
 
 1. Changed from `docker-compose` to `docker compose`
