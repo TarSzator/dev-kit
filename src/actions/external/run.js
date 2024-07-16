@@ -17,7 +17,7 @@ export async function run({ pwd, params: [serviceName, runCommand] = [], options
     runner: async (s) => runService({ pwd, params: [s] }),
   });
   const envOptions = getDockerEnvOption(env);
-  const command = `docker-compose run --rm ${envOptions}${name} ${runCommand}`;
+  const command = `docker compose run --rm ${envOptions}${name} ${runCommand}`;
   await executeSpawn({
     pwd,
     command,

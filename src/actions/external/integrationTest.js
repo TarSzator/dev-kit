@@ -12,7 +12,7 @@ export async function integrationTest({ pwd, params: [serviceName, file] = [] })
   const { name, projectPath } = await getInternalNodeService({ serviceName, pwd });
   log.info(`Run integration tests for ${name} ...`);
   await up({ pwd, params: [serviceName] });
-  const command = `docker-compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} run test:integration${
+  const command = `docker compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} run test:integration${
     !file ? '' : ` -- ${determineAbsoluteFilePath(projectPath, file)}`
   }`;
   await executeSpawn({

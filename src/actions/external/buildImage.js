@@ -13,7 +13,7 @@ export async function buildImage({ pwd, params: [serviceName] = [], options }) {
   if (!isEmpty(options)) {
     log.notice(`... use following options ...\n${JSON.stringify(options, null, '  ')}`);
   }
-  let command = `docker-compose build`;
+  let command = `docker compose build`;
   if (hasOwnProperty(options, 'noCache')) {
     command += ` --no-cache`;
   }

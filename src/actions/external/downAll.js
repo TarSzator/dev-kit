@@ -7,7 +7,7 @@ export async function downAll({ pwd }) {
   log.info(`Down all ...`);
   await executeSpawn({
     pwd,
-    command: `docker-compose down`,
+    command: `docker compose down`,
     log,
   });
   log.info(`... all down.`);

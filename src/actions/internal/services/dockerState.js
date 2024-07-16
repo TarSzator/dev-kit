@@ -101,7 +101,7 @@ function processPsLines(psLines) {
   if (serviceNameIndex === -1) {
     throw new EnvironmentError(
       1626858423,
-      `Could not determine container name column in "docker-compose ps" response. Please create an issue to inform the developer.`,
+      `Could not determine container name column in "docker compose ps" response. Please create an issue to inform the developer.`,
       { header }
     );
   }
@@ -111,7 +111,7 @@ function processPsLines(psLines) {
   if (statusIndex === -1) {
     throw new EnvironmentError(
       1626858514,
-      `Could not determine status column in "docker-compose ps" response. Please create an issue to inform the developer.`,
+      `Could not determine status column in "docker compose ps" response. Please create an issue to inform the developer.`,
       { header }
     );
   }

@@ -26,7 +26,7 @@ export async function install({
   });
   await executeSpawn({
     pwd,
-    command: `docker-compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} install${installOptionsString}${packagesList}`,
+    command: `docker compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} install${installOptionsString}${packagesList}`,
     log,
   });
   log.info(`... installing node_modules for ${serviceName} done.`);

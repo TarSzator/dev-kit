@@ -13,7 +13,7 @@ export async function hardUpdate({ pwd, params: [serviceName] = [], options = {}
     .filter(([, value]) => value !== false)
     .map(([key, value]) => `--${key}${value !== true ? ` ${value}` : ''}`)
     .join(' ');
-  const command = `docker-compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} run hardUpdate${
+  const command = `docker compose run --rm -v ${projectPath}:${projectPath} dev-kit npm --prefix ${projectPath} run hardUpdate${
     optionString ? ` -- ${optionString}` : ''
   }`;
   await executeSpawn({

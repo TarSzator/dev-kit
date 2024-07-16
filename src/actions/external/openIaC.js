@@ -15,7 +15,7 @@ export async function openIaC({ pwd, params }) {
   } = await fetchMfaCredentials({ pwd, params, internalParams: { keepServiceRunning: true } });
   log.info(`Login to "${serviceName}" with account "${accountAlias}" ...`);
   const command =
-    `docker-compose exec ` +
+    `docker compose exec ` +
     `-e AWS_ACCOUNT_ALIAS=${accountAlias} ` +
     `-e AWS_ACCESS_KEY_ID=${loginId} ` +
     `-e AWS_SECRET_ACCESS_KEY=${loginSecret} ` +

@@ -20,7 +20,7 @@ export async function terminate({ pwd, params, options }) {
   await purgeCertificate({ pwd });
   log.info(`... certificate purged ...`);
   await executeSpawn({
-    command: 'docker-compose down --rmi all -v',
+    command: 'docker compose down --rmi all -v',
     pwd,
     log,
   });
