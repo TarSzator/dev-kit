@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+1. Fixed container status determination process
+
 ## [0.13.2][] - 2024-07-16
 
 1. Updated dependency package versions

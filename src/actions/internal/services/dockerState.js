@@ -40,7 +40,7 @@ async function retrieveDockerState() {
   }, new Map());
   return services.reduce((m, service) => {
     const { name, hasHealthcheck, containerName } = service;
-    const stateValue = stateByContainerName.get(containerName);
+    const stateValue = stateByContainerName.get(containerName) || stateByContainerName.get(name);
     const isCreated = !!stateValue;
     const isUp = determineUpState(stateValue);
     const isHealthy = getHealthState({ isUp, hasHealthcheck, state: stateValue });
@@ -124,11 +124,11 @@ function processPsLines(psLines) {
 }
 
 function determineServiceNameIndex(headerParts) {
-  const index = headerParts.indexOf('SERVICE');
+  const index = headerParts.indexOf('NAME');
   if (index !== -1) {
     return index;
   }
-  return headerParts.indexOf('NAME');
+  return headerParts.indexOf('SERVICE');
 }
 
 function splitPsLine(line) {
