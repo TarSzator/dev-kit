@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { constantCase } from 'change-case';
 import { LABELS, TYPES } from '../consts/index.js';
-import { isNonEmptyString } from '../utils/validators.js';
+import { isNonEmptyString, isPositiveInteger } from '../utils/validators.js';
 import { InvalidConfigError } from '../utils/errors/index.js';
 import { parseCsv } from '../utils/csv.js';
 import { getInvalidValues } from '../utils/array.js';
@@ -19,6 +19,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
       [LABEL_KEYS.TYPES]: typesConfig,
       [LABEL_KEYS.DEPENDENCIES]: dependenciesConfig,
       [LABEL_KEYS.OPEN_URL]: openUrl,
+      [LABEL_KEYS.HEALTH_CHECK_TIMEOUT]: healthCheckTimeout,
     } = {},
     container_name: containerNameConfig,
     healthcheck,
@@ -69,6 +70,12 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
     }
     projectPath = resolve(pwd, localPath);
   }
+  if (healthCheckTimeout !== undefined && !isPositiveInteger(healthCheckTimeout)) {
+    throw new InvalidConfigError(
+      1734881536,
+      `If set ${LABEL_KEYS.HEALTH_CHECK_TIMEOUT} must be a positive integer`
+    );
+  }
   return {
     ...service,
     containerName: getContainerName(serviceName, containerNameConfig),
@@ -83,6 +90,7 @@ export function createService(serviceName, pwd, dockerComposeServiceConfig, serv
     isLinkSource,
     isLinkTarget,
     hasHealthcheck,
+    healthCheckTimeout: healthCheckTimeout ?? 30,
     dependencies,
     openUrl: replaceEnvVariables(openUrl),
     localPathKey: LOCAL_PATH_KEY,

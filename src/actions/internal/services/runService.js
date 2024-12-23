@@ -8,7 +8,7 @@ import { healthcheckService } from './healthcheckService.js';
 const log = getLog('runService');
 
 export async function runService({ pwd, params: [serviceName, skipHealthcheck = false] = [] }) {
-  const { name, hasHealthcheck } = await getService({ serviceName, pwd });
+  const { name, hasHealthcheck, healthCheckTimeout } = await getService({ serviceName, pwd });
   const { isCreated, isUp, isHealthy } = await getServiceState({ serviceName });
   if (isHealthy) {
     log.info(`${name} is already running`);
@@ -25,6 +25,6 @@ export async function runService({ pwd, params: [serviceName, skipHealthcheck = 
   const command = `docker compose up -d ${name}`;
   await executeSpawn({ command, pwd, log });
   if (hasHealthcheck && !skipHealthcheck) {
-    await healthcheckService({ pwd, params: [name] });
+    await healthcheckService({ pwd, params: [name, healthCheckTimeout] });
   }
 }

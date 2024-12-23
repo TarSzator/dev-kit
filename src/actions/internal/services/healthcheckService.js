@@ -5,22 +5,20 @@ import { EnvironmentError } from '../../../utils/errors/index.js';
 
 const log = getLog('healthcheckService');
 
-const MAX_RUN = 30;
-
-export async function healthcheckService({ params: [serviceName] = [] }) {
+export async function healthcheckService({ params: [serviceName, maxRuns] = [] }) {
   log.info(`Waiting for "${serviceName}" to become ready ...`);
-  await healthcheck({ serviceName });
+  await healthcheck({ serviceName, maxRuns });
   log.info(`... "${serviceName}" is healthy.`);
 }
 
-async function healthcheck({ serviceName, run = 1 }) {
+async function healthcheck({ serviceName, maxRuns, run = 1 }) {
   const { isHealthy } = await getServiceState({ serviceName, reset: true });
   if (isHealthy) {
     return null;
   }
-  if (run > MAX_RUN) {
+  if (run > maxRuns) {
     throw new EnvironmentError(1618519158, `"${serviceName}" did not became healthy`);
   }
   await wait(1000);
-  return healthcheck({ serviceName, run: run + 1 });
+  return healthcheck({ serviceName, maxRuns, run: run + 1 });
 }

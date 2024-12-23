@@ -26,21 +26,23 @@ async function retrieveDockerState() {
   if (!lines.length) {
     return new Map();
   }
-  const { serviceNameIndex, statusIndex, serviceLines } = processPsLines(lines);
+  const { containerNameIndex, serviceIndex, statusIndex, serviceLines } = processPsLines(lines);
   if (!serviceLines.length) {
     return new Map();
   }
   const services = await getAllServices({ pwd });
-  const stateByContainerName = serviceLines.reduce((m, line) => {
+  const stateByKey = serviceLines.reduce((m, line) => {
     const elements = splitPsLine(line);
-    const containerName = elements[serviceNameIndex];
+    const containerName = elements[containerNameIndex];
+    const service = elements[serviceIndex];
     const state = elements[statusIndex];
     m.set(containerName, state);
+    m.set(service, state);
     return m;
   }, new Map());
   return services.reduce((m, service) => {
     const { name, hasHealthcheck, containerName } = service;
-    const stateValue = stateByContainerName.get(containerName) || stateByContainerName.get(name);
+    const stateValue = stateByKey.get(containerName) || stateByKey.get(name);
     const isCreated = !!stateValue;
     const isUp = determineUpState(stateValue);
     const isHealthy = getHealthState({ isUp, hasHealthcheck, state: stateValue });
@@ -97,8 +99,16 @@ function processPsLines(psLines) {
   }
   const [header] = psLines;
   const headerParts = splitPsLine(header).map((s) => s.toUpperCase());
-  const serviceNameIndex = determineServiceNameIndex(headerParts);
-  if (serviceNameIndex === -1) {
+  const serviceIndex = headerParts.indexOf('SERVICE');
+  if (serviceIndex === -1) {
+    throw new EnvironmentError(
+      1626858423,
+      `Could not determine service name column in "docker compose ps" response. Please create an issue to inform the developer.`,
+      { header }
+    );
+  }
+  const containerNameIndex = headerParts.indexOf('NAME');
+  if (containerNameIndex === -1) {
     throw new EnvironmentError(
       1626858423,
       `Could not determine container name column in "docker compose ps" response. Please create an issue to inform the developer.`,
@@ -117,18 +127,11 @@ function processPsLines(psLines) {
   }
   const serviceLines = psLines.slice(1);
   return {
-    serviceNameIndex,
+    containerNameIndex,
+    serviceIndex,
     statusIndex,
     serviceLines,
   };
-}
-
-function determineServiceNameIndex(headerParts) {
-  const index = headerParts.indexOf('NAME');
-  if (index !== -1) {
-    return index;
-  }
-  return headerParts.indexOf('SERVICE');
 }
 
 function splitPsLine(line) {
