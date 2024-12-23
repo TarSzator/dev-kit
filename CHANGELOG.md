@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Fixed issue with status determination process
+2. Made to-health timeout configurable on service level
+
 ## [0.13.3][] - 2024-12-13
 
 1. Fixed container status determination process
