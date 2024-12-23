@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.14.0][] - 2024-12-23
+
 1. Fixed issue with status determination process
 2. Made to-health timeout configurable on service level
 
@@ -264,7 +266,8 @@
 [0.0.3]: https://github.com/TarSzator/dev-kit/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/TarSzator/dev-kit/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/TarSzator/dev-kit/tree/v0.0.1
-[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.13.3...HEAD
+[Unreleased]: https://github.com/TarSzator/dev-kit/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/TarSzator/dev-kit/compare/v0.13.3...v0.14.0
 [0.13.3]: https://github.com/TarSzator/dev-kit/compare/v0.13.2...v0.13.3
 [0.13.2]: https://github.com/TarSzator/dev-kit/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/TarSzator/dev-kit/compare/v0.13.0...v0.13.1
