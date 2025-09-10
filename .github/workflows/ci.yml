@@ -14,10 +14,10 @@ jobs:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache node modules
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -40,10 +40,10 @@ jobs:
     needs: [install]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache node modules
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -60,10 +60,10 @@ jobs:
     needs: [install]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache node modules
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -79,10 +79,10 @@ jobs:
     needs: [install]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache node modules
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -96,7 +96,7 @@ jobs:
       - name: Cache build result
         if: startsWith( github.ref, 'refs/tags/')
         id: build-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-working-directory
         with:
@@ -114,7 +114,7 @@ jobs:
     steps:
       - name: Load cached build result
         id: build-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-working-directory
         with:
