@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+1. Run a release as an easy fix for the version mixup
+2. Dependency updates
+
 ## [0.14.0][] - 2024-12-23
 
 1. Fixed issue with status determination process
